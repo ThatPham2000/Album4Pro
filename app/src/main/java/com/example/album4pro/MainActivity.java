@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.album4pro.fragments.MyFragmentAdapter;
 import com.example.album4pro.fragments.ZoomOutPageTransformer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Set sự kiện khi chọn trong thanh menu
-        menuBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        menuBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
