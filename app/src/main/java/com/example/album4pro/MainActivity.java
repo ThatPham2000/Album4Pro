@@ -12,6 +12,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.Toast;
 
 import com.example.album4pro.fragments.MyFragmentAdapter;
+import com.example.album4pro.fragments.ZoomOutPageTransformer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         // Khởi tạo adapter
         MyFragmentAdapter myFragmentAdapter = new MyFragmentAdapter(this);
         menuViewPager2.setAdapter(myFragmentAdapter);
+
+        // Set hiệu ứng chuyển trang Zoom Out Page
+        menuViewPager2.setPageTransformer(new ZoomOutPageTransformer());
 
         // Set sự kiện khi LƯỚT trên trang
         menuViewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
