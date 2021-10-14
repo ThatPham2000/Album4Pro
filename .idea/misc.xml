@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/123/AndroidStudioProjects/Album4Pro/app/src/main/res/drawable/ic_album.xml" value="0.2703125" />
         <entry key="..\:/Users/123/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/123/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/123/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_resource.xml" value="0.25416666666666665" />
       </map>
     </option>
