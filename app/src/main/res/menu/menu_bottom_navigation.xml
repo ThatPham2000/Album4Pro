@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_library"
+        android:icon="@drawable/ic_library"
+        android:title="@string/menu_library_title"/>
+
+    <item android:id="@+id/menu_albums"
+        android:icon="@drawable/ic_album"
+        android:title="@string/menu_albums_title"/>
+
+    <item android:id="@+id/menu_private"
+        android:icon="@drawable/ic_private"
+        android:title="@string/menu_private_title"/>
+
+    <item android:id="@+id/menu_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/menu_search_title"/>
+
+    <item android:id="@+id/menu_setting"
+        android:icon="@drawable/ic_setting"
+        android:title="@string/menu_setting_title"/>
+</menu>

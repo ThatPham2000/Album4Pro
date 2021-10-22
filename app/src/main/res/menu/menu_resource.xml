@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_camera"
+        android:icon="@drawable/ic_camera"
+        android:title="Camera"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_slideshow"
+        android:title="Trình chiếu"
+        app:showAsAction="never"
+        />
+
+    <item android:id="@+id/action_sort"
+        android:title="Lọc"
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/action_sort_image"
+                android:title="Hình ảnh"/>
+            <item android:id="@+id/action_sort_video"
+                android:title="Video"/>
+        </menu>
+    </item>
+
+    <item android:id="@+id/action_load_url"
+        android:title="Load ảnh từ URL"
+        app:showAsAction="never"
+        />
+
+    <item android:id="@+id/action_selection"
+        android:title="Chọn nhiều mục"
+        app:showAsAction="never"
+        />
+</menu>
