@@ -6,7 +6,14 @@
         android:id="@+id/action_camera"
         android:icon="@drawable/ic_camera"
         android:title="Camera"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom">
+        <menu>
+            <item android:id="@+id/action_camera_photo"
+                android:title="Chụp ảnh"/>
+            <item android:id="@+id/action_camera_video"
+                android:title="Quay phim"/>
+        </menu>
+    </item>
 
     <item android:id="@+id/action_slideshow"
         android:title="Trình chiếu"
