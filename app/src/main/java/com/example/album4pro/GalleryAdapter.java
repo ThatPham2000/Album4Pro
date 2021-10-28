@@ -30,6 +30,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
         this.photoListener = photoListener;
     }
 
+    public void setListPhoto(List<String> listPhoto) {
+        this.listPhoto = listPhoto;
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -2,8 +2,10 @@ package com.example.album4pro;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,15 +13,21 @@ import android.view.MenuItem;
 import android.widget.HorizontalScrollView;
 import android.widget.Toast;
 
+import com.example.album4pro.fragments.LibraryFragment;
 import com.example.album4pro.fragments.MyFragmentAdapter;
 import com.example.album4pro.fragments.ZoomOutPageTransformer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager2 menuViewPager2;
     private BottomNavigationView menuBottomNavigationView;
+
+    public GalleryAdapter galleryAdapter;
+    public Context libraryContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,13 +119,23 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_sort_image:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
-                Toast.makeText(this, "Show sort image", Toast.LENGTH_SHORT).show();
+
+                if(galleryAdapter != null){
+                    List<String> list = ImagesGallery.listPhoto(libraryContext);
+                    galleryAdapter.setListPhoto(list);
+                    galleryAdapter.notifyDataSetChanged();
+                }
                 return true;
 
             case R.id.action_sort_video:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
-                Toast.makeText(this, "Show sort video", Toast.LENGTH_SHORT).show();
+
+                if(galleryAdapter != null){
+                    List<String> list = ImagesGallery.listVideo(libraryContext);
+                    galleryAdapter.setListPhoto(list);
+                    galleryAdapter.notifyDataSetChanged();
+                }
                 return true;
 
             case R.id.action_load_url:

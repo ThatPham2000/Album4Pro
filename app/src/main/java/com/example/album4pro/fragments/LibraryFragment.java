@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.album4pro.GalleryAdapter;
 import com.example.album4pro.ImagesGallery;
+import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
@@ -29,6 +30,7 @@ public class LibraryFragment extends Fragment {
     private GalleryAdapter galleryAdapter;
     private List<String> listPhoto;
     private Context context = null;
+    private MainActivity mainActivity;
 
     // TODO: Rename parameter arguments, choose names that match
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +63,8 @@ public class LibraryFragment extends Fragment {
         }
         try {
             context = getActivity(); // use this reference to invoke main callbacks
+            mainActivity = (MainActivity) getActivity();
+            mainActivity.libraryContext = this.context;
         }
         catch (IllegalStateException e) {
             throw new IllegalStateException("MainActivity must implement callbacks");
@@ -118,5 +122,6 @@ public class LibraryFragment extends Fragment {
         });
 
         recyclerView.setAdapter(galleryAdapter);
+        mainActivity.galleryAdapter = this.galleryAdapter;
     }
 }
