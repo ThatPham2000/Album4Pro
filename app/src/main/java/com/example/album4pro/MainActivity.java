@@ -153,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
-//                Toast.makeText(this, "Show Default", Toast.LENGTH_SHORT).show();
                 return super.onOptionsItemSelected(item);
 
         }
