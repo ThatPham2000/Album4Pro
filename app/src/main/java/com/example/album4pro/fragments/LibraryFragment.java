@@ -3,24 +3,20 @@ package com.example.album4pro.fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
-import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
-import com.example.album4pro.DetailPhoto;
-import com.example.album4pro.GalleryAdapter;
+import com.example.album4pro.gallery.Configuration;
+import com.example.album4pro.gallery.DetailPhoto;
+import com.example.album4pro.gallery.GalleryAdapter;
 import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
@@ -130,6 +126,6 @@ public class LibraryFragment extends Fragment {
         });
 
         recyclerView.setAdapter(galleryAdapter);
-        mainActivity.galleryAdapter = this.galleryAdapter;
+        Configuration.getInstance().setGalleryAdapter(this.galleryAdapter);
     }
 }

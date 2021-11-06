@@ -2,7 +2,6 @@ package com.example.album4pro;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
@@ -10,12 +9,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.HorizontalScrollView;
 import android.widget.Toast;
 
-import com.example.album4pro.fragments.LibraryFragment;
 import com.example.album4pro.fragments.MyFragmentAdapter;
 import com.example.album4pro.fragments.ZoomOutPageTransformer;
+import com.example.album4pro.gallery.Configuration;
+import com.example.album4pro.gallery.GalleryAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -25,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager2 menuViewPager2;
     private BottomNavigationView menuBottomNavigationView;
-
-    public GalleryAdapter galleryAdapter;
     public Context libraryContext;
 
     @Override
@@ -120,10 +117,10 @@ public class MainActivity extends AppCompatActivity {
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
 
-                if(galleryAdapter != null){
+                if(Configuration.getInstance().getGalleryAdapter() != null){
                     List<String> list = ImagesGallery.listPhoto(libraryContext);
-                    galleryAdapter.setListPhoto(list);
-                    galleryAdapter.notifyDataSetChanged();
+                    Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
+                    Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
                 }
                 return true;
 
@@ -131,10 +128,10 @@ public class MainActivity extends AppCompatActivity {
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
 
-                if(galleryAdapter != null){
+                if(Configuration.getInstance().getGalleryAdapter() != null){
                     List<String> list = ImagesGallery.listVideo(libraryContext);
-                    galleryAdapter.setListPhoto(list);
-                    galleryAdapter.notifyDataSetChanged();
+                    Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
+                    Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
                 }
                 return true;
 

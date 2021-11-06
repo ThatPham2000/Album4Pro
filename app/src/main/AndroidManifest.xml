@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Album4Pro">
         <activity
-            android:name=".DetailPhoto"
+            android:name=".gallery.DetailPhoto"
             android:exported="true" />
         <activity
             android:name=".SplashActivity"
