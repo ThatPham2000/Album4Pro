@@ -2,18 +2,24 @@ package com.example.album4pro.fragments;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
+import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
+import com.example.album4pro.DetailPhoto;
 import com.example.album4pro.GalleryAdapter;
 import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.MainActivity;
@@ -102,7 +108,7 @@ public class LibraryFragment extends Fragment {
 
         TedPermission.create()
                 .setPermissionListener(permissionlistener)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setDeniedMessage("Nếu bạn từ chối quyền, bạn không thể sử dụng dịch vụ này\n\nVui lòng bật quyền tại [Setting]> [Permission]")
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .check();
     }
@@ -117,7 +123,9 @@ public class LibraryFragment extends Fragment {
             @Override
             public void onPhotoClick(String path) {
                 // TODO ST
-                Toast.makeText(context, path, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, DetailPhoto.class);
+                intent.putExtra("path", path);
+                context.startActivity(intent);
             }
         });
 
