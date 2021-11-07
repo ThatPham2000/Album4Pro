@@ -1,5 +1,8 @@
 package com.example.album4pro.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.album4pro.R;
+import com.example.album4pro.privates.CreatePasswordActivity;
+import com.example.album4pro.privates.EnterPasswordActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +22,9 @@ import com.example.album4pro.R;
  * create an instance of this fragment.
  */
 public class PrivateFragment extends Fragment {
+
+    String password;
+    SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,6 +64,20 @@ public class PrivateFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        sharedPreferences = getActivity().getSharedPreferences("PASSPREF", Context.MODE_PRIVATE);
+        password = sharedPreferences.getString("password_tag", "");
+        if(password.equals("")){
+            // there is no password
+            Toast.makeText(getContext(), "Heloo", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), CreatePasswordActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getContext(), "Heloo1", Toast.LENGTH_SHORT).show();
+            // there is a password
+            Intent intent = new Intent(getActivity(), EnterPasswordActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     @Override
