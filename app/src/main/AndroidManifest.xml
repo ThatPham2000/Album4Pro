@@ -20,6 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Album4Pro">
         <activity
+            android:name=".privates.CreatePasswordActivity"
+            android:exported="true" />
+        <activity
+            android:name=".privates.EnterPasswordActivity"
+            android:exported="true" />
+        <activity
             android:name=".gallery.DetailPhoto"
             android:exported="true" />
         <activity
