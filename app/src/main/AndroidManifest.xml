@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Album4Pro">
         <activity
+            android:name=".privates.ResetPasswordActivity"
+            android:exported="true" />
+        <activity
             android:name=".privates.CreatePasswordActivity"
             android:exported="true" />
         <activity
