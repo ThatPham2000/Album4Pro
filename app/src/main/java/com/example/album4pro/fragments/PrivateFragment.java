@@ -68,11 +68,9 @@ public class PrivateFragment extends Fragment {
         password = sharedPreferences.getString("password_tag", "");
         if(password.equals("")){
             // there is no password
-            Toast.makeText(getContext(), "Heloo", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getContext(), CreatePasswordActivity.class);
             startActivity(intent);
         } else {
-            Toast.makeText(getContext(), "Heloo1", Toast.LENGTH_SHORT).show();
             // there is a password
             Intent intent = new Intent(getActivity(), EnterPasswordActivity.class);
             startActivity(intent);
