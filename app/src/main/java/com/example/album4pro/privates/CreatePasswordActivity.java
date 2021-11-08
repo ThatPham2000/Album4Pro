@@ -45,9 +45,7 @@ public class CreatePasswordActivity extends AppCompatActivity {
                         editor.putString("password_tag", secondpass);
                         editor.commit();
 
-                        // Enter the app
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
+                        // Enter the app, finish activity hiện tại
                         finish();
                     } else {
                         // there is no match on the passwords
