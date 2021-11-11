@@ -26,7 +26,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         // Password have been saved before
-        String password = sharedPreferences.getString("password_tag", "");
+        String password_Prefs = sharedPreferences.getString("password_tag", "");
 
         AnhXa();
 
@@ -42,7 +42,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     // there is no password
                     Toast.makeText(ResetPasswordActivity.this, "No password entered!", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(!oldPass.equals(password)){
+                    if(!oldPass.equals(password_Prefs)){
                         Toast.makeText(ResetPasswordActivity.this, "Wrong password!", Toast.LENGTH_SHORT).show();
                     } else {
                         // old password is correct
@@ -76,14 +76,18 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ResetPasswordActivity.this, EnterPasswordActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private  void AnhXa(){
         edtOldPass = (EditText) findViewById(R.id.editTextNumberPasswordCurrent);
         edtNewPass = (EditText) findViewById(R.id.editTextTextPasswordNew);
         edtReNewPass = (EditText) findViewById(R.id.editTextNumberPasswordCofirmNew);
         btnCofirmReset = (Button) findViewById(R.id.buttonConfirmReset);
         btnCancleReset = (Button) findViewById(R.id.buttonCancelReset);
-    }
-
-    public void ShowHidePass(View view) {
     }
 }
