@@ -1,6 +1,7 @@
 package com.example.album4pro.privates;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -24,6 +25,8 @@ public class EnterPasswordActivity extends AppCompatActivity {
     Button btnYesDia, btnNoDia;
     ImageView imgShow;
 
+    ViewPager2 passViewPager;
+
     SharedPreferences sharedPreferences;
 
     @Override
@@ -33,19 +36,20 @@ public class EnterPasswordActivity extends AppCompatActivity {
 
         // load password
         sharedPreferences = getSharedPreferences("PASSPREF", MODE_PRIVATE);
-        String pass = sharedPreferences.getString("password_tag", "");
+        String password_Prefs = sharedPreferences.getString("password_tag", "");
 
         edtPass = (EditText) findViewById(R.id.editTextPassword);
         btnEnter = (Button) findViewById(R.id.buttonEnter);
         btnReset = (Button) findViewById(R.id.buttonReset);
         imgShow = (ImageView) findViewById(R.id.imageViewHideShowEnter);
+        passViewPager = (ViewPager2) findViewById(R.id.view_pager_2);
 
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String enteredPass = edtPass.getText().toString();
 
-                if(pass.equals(enteredPass)){
+                if(password_Prefs.equals(enteredPass)){
                     // Enter the app, Finish Activity hiện tại
                     finish();
                 } else {
@@ -60,8 +64,18 @@ public class EnterPasswordActivity extends AppCompatActivity {
                 ShowDialogResetPass();
             }
         });
-
     }
+
+    // Xử lí nút back, khi nhấn khởi tạo lại Main
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent = new Intent(EnterPasswordActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
     private void ShowDialogResetPass(){
         Dialog dialog = new Dialog(EnterPasswordActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // Do not show Title of Dialog

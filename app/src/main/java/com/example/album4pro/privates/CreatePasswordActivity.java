@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ public class CreatePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_password);
 
+        Log.d("AAA", "onCreate: Activity");
+
         SharedPreferences sharedPreferences = getSharedPreferences("PASSPREF", MODE_PRIVATE);
 
         edtNewPass = (EditText) findViewById(R.id.editTextNumberPasswordFirst);
@@ -32,17 +35,17 @@ public class CreatePasswordActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String firtpass = edtNewPass.getText().toString().trim();
-                String secondpass = edtRePass.getText().toString().trim();
+                String first_pass = edtNewPass.getText().toString().trim();
+                String second_pass = edtRePass.getText().toString().trim();
 
-                if(firtpass.equals("") || secondpass.equals("")){
+                if(first_pass.equals("") || second_pass.equals("")){
                     // there is no password
                     Toast.makeText(CreatePasswordActivity.this, "No password entered!", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(firtpass.equals(secondpass)){
+                    if(first_pass.equals(second_pass)){
                         // Save password
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("password_tag", secondpass);
+                        editor.putString("password_tag", second_pass);
                         editor.commit();
 
                         // Enter the app, finish activity hiện tại
@@ -54,5 +57,12 @@ public class CreatePasswordActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(CreatePasswordActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
