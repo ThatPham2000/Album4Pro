@@ -23,4 +23,8 @@ public class Configuration {
     public void setGalleryAdapter(GalleryAdapter galleryAdapter) {
         this.galleryAdapter = galleryAdapter;
     }
+
+
+
+    // Test commit
 }
