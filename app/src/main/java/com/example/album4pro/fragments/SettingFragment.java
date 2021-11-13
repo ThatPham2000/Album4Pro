@@ -1,5 +1,8 @@
 package com.example.album4pro.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,9 +10,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
+import com.example.album4pro.setting.PolicyActivity;
+import com.example.album4pro.setting.AboutUsActivity;
+import com.example.album4pro.setting.HelpActivity;
+
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,7 +82,9 @@ public class SettingFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-ListView myListView =
+        // Chuyen qua man hinh Policy
+        Intent intent = new Intent(getActivity(), PolicyActivity.class);
+        startActivity(intent);
     }
 
     @Override
