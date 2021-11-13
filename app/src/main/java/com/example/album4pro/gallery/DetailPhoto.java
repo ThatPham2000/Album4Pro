@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.app.AlertDialog;
+import android.app.WallpaperColors;
+import android.app.WallpaperManager;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ContentValues;
@@ -12,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -151,7 +154,16 @@ public class DetailPhoto extends AppCompatActivity {
                                     break;
                                 }
                             case R.id.menu_image_set_background:
-                                break;
+                                WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+                                try{
+                                    Bitmap bitmap = BitmapFactory.decodeFile(pathImage);
+                                    wallpaperManager.setBitmap(bitmap);
+                                    Toast.makeText(DetailPhoto.this, "Đã thay đổi hình nền", Toast.LENGTH_SHORT).show();
+                                    break;
+                                } catch (Exception e){
+                                    Log.e("SET_BACKGROUND", e.toString());
+                                    break;
+                                }
                             case R.id.menu_image_rename:
                                 break;
                             case R.id.menu_image_add_album:
