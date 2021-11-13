@@ -30,6 +30,7 @@ import com.example.album4pro.setting.HelpActivity;
  * create an instance of this fragment.
  */
 public class SettingFragment extends Fragment {
+    Context context;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,6 +70,8 @@ public class SettingFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        context = getActivity();
     }
 
     @Override
@@ -85,20 +88,16 @@ public class SettingFragment extends Fragment {
         super.onResume();
 
         // ListView Screen
-        Intent intent = new Intent(getActivity(), SettingActivity.class);
-        startActivity(intent);
-
-//        // Policy Screen
-//        Intent intent = new Intent(getActivity(), PolicyActivity.class);
-//        startActivity(intent);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
+        startActivity(new Intent(context, SettingActivity.class));
 
     }
+
+
+
+
+
+
+
 
 
 }

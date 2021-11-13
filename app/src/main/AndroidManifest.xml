@@ -20,24 +20,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Album4Pro">
         <activity
+            android:name=".setting.SelectThemeActivity"
+            android:exported="true" />
+        <activity
             android:name=".setting.SettingActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".setting.LanguageActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".setting.SettingActivity" />
         <activity
             android:name=".setting.HelpActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".setting.SettingActivity" />
         <activity
             android:name=".setting.PolicyActivity"
             android:exported="true"
-            android:parentActivityName=".setting.SettingActivity"
-            />
+            android:parentActivityName=".setting.SettingActivity" />
         <activity
             android:name=".setting.AboutUsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".setting.SettingActivity" />
         <activity
             android:name=".gallery.DetailPhoto"
             android:exported="true" />
