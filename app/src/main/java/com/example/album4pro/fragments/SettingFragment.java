@@ -82,7 +82,10 @@ public class SettingFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        // Chuyen qua man hinh Policy
+        // ListView Screen
+
+
+        // Policy Screen
         Intent intent = new Intent(getActivity(), PolicyActivity.class);
         startActivity(intent);
     }

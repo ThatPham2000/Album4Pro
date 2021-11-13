@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Album4Pro">
         <activity
+            android:name=".setting.SettingActivity"
+            android:exported="true" />
+        <activity
             android:name=".setting.LanguageActivity"
             android:exported="true" />
         <activity
