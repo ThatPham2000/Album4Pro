@@ -15,6 +15,8 @@ import android.widget.ListView;
 
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
+
+import com.example.album4pro.setting.SettingActivity;
 import com.example.album4pro.setting.PolicyActivity;
 import com.example.album4pro.setting.AboutUsActivity;
 import com.example.album4pro.setting.HelpActivity;
@@ -83,11 +85,12 @@ public class SettingFragment extends Fragment {
         super.onResume();
 
         // ListView Screen
-
-
-        // Policy Screen
-        Intent intent = new Intent(getActivity(), PolicyActivity.class);
+        Intent intent = new Intent(getActivity(), SettingActivity.class);
         startActivity(intent);
+
+//        // Policy Screen
+//        Intent intent = new Intent(getActivity(), PolicyActivity.class);
+//        startActivity(intent);
     }
 
     @Override
