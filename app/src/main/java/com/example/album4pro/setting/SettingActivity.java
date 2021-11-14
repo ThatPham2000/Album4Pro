@@ -61,7 +61,7 @@ public class SettingActivity extends AppCompatActivity {
 //        });
 
         //////////////////////////////////////////////////////////////////////////////////
-
+        // Test
         Switch darkModeSwitch = findViewById(R.id.darkModeSwitch);
 
         SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
