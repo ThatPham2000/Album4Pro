@@ -5,15 +5,17 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.Toast;
 
-import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class SettingActivity extends AppCompatActivity {
     Context context;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,24 +35,67 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // DarkMode
-        Switch darkMode = findViewById(R.id.darkMode);
+//        Switch darkModeSwitch = findViewById(R.id.darkModeSwitch);
+//
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            setTheme(R.style.Theme_Dark);
+//        } else {
+//            setTheme(R.style.Theme_Light);
+//        }
+//
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            darkModeSwitch.setChecked(true);
+//        }
+//
+//        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if (b) {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                    reset();
+//                } else {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                    reset();
+//                }
+//            }
+//        });
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.DarkTheme);
+        //////////////////////////////////////////////////////////////////////////////////
+
+        Switch darkModeSwitch = findViewById(R.id.darkModeSwitch);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+        darkModeSwitch.setChecked(sharedPreferences.getBoolean("value", false));
+
+
+        if (darkModeSwitch.isChecked()) {
+            Toast.makeText(this, "DARK", Toast.LENGTH_SHORT).show();
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            Toast.makeText(this, "LIGHT", Toast.LENGTH_SHORT).show();
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            darkMode.setChecked(true);
+            setTheme(R.style.Theme_Dark);
+        } else {
+            setTheme(R.style.Theme_Light);
         }
 
-        darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("value", true);
+                    editor.apply();
                     reset();
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("value", false);
+                    editor.apply();
                     reset();
                 }
             }
@@ -57,6 +103,9 @@ public class SettingActivity extends AppCompatActivity {
 
 
         //////////////////////////////////////////////////////////////////////////////////
+
+        // Context
+        context = this;
 
         // ListView
         mySetting = findViewById(R.id.mySetting);
@@ -69,31 +118,40 @@ public class SettingActivity extends AppCompatActivity {
         arrayList.add("Language");
 
         // Connect Data to ListView
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
+        arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayList);
         mySetting.setAdapter(arrayAdapter);
-
-        // Context
-        context = this;
 
         // Set Onclick For ListView
         mySetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (arrayList.get(i).equals("Policy")) {
-                    startActivity(new Intent(context, PolicyActivity.class));
-                } else if (arrayList.get(i).equals("About Us")) {
-                    startActivity(new Intent(context, AboutUsActivity.class));
-                } else if (arrayList.get(i).equals("Help")) {
-                    startActivity(new Intent(context, HelpActivity.class));
-                } else if (arrayList.get(i).equals("Language")) {
-                    startActivity(new Intent(context, LanguageActivity.class));
+                switch (arrayList.get(i)) {
+                    case "Policy":
+                        startActivity(new Intent(context, PolicyActivity.class));
+                        break;
+                    case "About Us":
+                        startActivity(new Intent(context, AboutUsActivity.class));
+                        break;
+                    case "Help":
+                        startActivity(new Intent(context, HelpActivity.class));
+                        break;
+                    case "Language":
+                        startActivity(new Intent(context, LanguageActivity.class));
+                        break;
                 }
             }
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+
  private void reset() {
-     startActivity(new Intent(context, SettingActivity.class));
+//     startActivity(new Intent(context, SettingActivity.class));
      finish();
  }
 

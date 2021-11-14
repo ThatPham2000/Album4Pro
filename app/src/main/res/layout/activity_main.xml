@@ -22,7 +22,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             app:menu="@menu/menu_bottom_navigation"
-            android:background="#FFF5F5F5"/>
+            android:background="#FFF5F5F5"
+            />
+
     </RelativeLayout>
 
 </LinearLayout>
