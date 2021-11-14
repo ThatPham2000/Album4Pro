@@ -57,16 +57,18 @@ public class SettingActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("value", true);
                     editor.apply();
-                    finish();
+                    reset();
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("value", false);
                     editor.apply();
-                    finish();
+                    reset();
                 }
             }
         });
+
+        //////////////////////////////////////////////////////////////////////////////////
 
 
         //////////////////////////////////////////////////////////////////////////////////
@@ -116,8 +118,12 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
+    private void reset() {
+        finish();
 
-
+        // Override Animation Of Finish Function
+        overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_in);
+    }
 
 
 }

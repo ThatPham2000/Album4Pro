@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="app_theme">#FF18A0FB</color>
+    <color name="navigationBottomColor">#FF6200EE</color>
 </resources>
