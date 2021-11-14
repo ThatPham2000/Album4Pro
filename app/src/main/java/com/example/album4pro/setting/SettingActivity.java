@@ -35,33 +35,6 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // DarkMode
-//        Switch darkModeSwitch = findViewById(R.id.darkModeSwitch);
-//
-//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-//            setTheme(R.style.Theme_Dark);
-//        } else {
-//            setTheme(R.style.Theme_Light);
-//        }
-//
-//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-//            darkModeSwitch.setChecked(true);
-//        }
-//
-//        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if (b) {
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                    reset();
-//                } else {
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                    reset();
-//                }
-//            }
-//        });
-
-        //////////////////////////////////////////////////////////////////////////////////
-        // Test
         Switch darkModeSwitch = findViewById(R.id.darkModeSwitch);
 
         SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
@@ -75,11 +48,11 @@ public class SettingActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
-        // Add OnCheck Listener
-        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        // Add OnClick Listener
+        darkModeSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
+            public void onClick(View view) {
+                if(((CompoundButton) view).isChecked()){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("value", true);
@@ -92,8 +65,6 @@ public class SettingActivity extends AppCompatActivity {
                     editor.apply();
                     finish();
                 }
-
-                Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show();
             }
         });
 
