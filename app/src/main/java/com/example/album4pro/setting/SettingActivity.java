@@ -68,20 +68,14 @@ public class SettingActivity extends AppCompatActivity {
         darkModeSwitch.setChecked(sharedPreferences.getBoolean("value", false));
 
 
+        // Check when don't have clicked
         if (darkModeSwitch.isChecked()) {
-            Toast.makeText(this, "DARK", Toast.LENGTH_SHORT).show();
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
-            Toast.makeText(this, "LIGHT", Toast.LENGTH_SHORT).show();
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.Theme_Dark);
-        } else {
-            setTheme(R.style.Theme_Light);
-        }
-
+        // Add OnCheck Listener
         darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -90,14 +84,16 @@ public class SettingActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("value", true);
                     editor.apply();
-                    reset();
+                    finish();
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("value", false);
                     editor.apply();
-                    reset();
+                    finish();
                 }
+
+                Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -149,11 +145,6 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
-
- private void reset() {
-//     startActivity(new Intent(context, SettingActivity.class));
-     finish();
- }
 
 
 
