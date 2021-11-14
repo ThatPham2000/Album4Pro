@@ -23,6 +23,7 @@ import com.example.album4pro.fragments.MyFragmentAdapter;
 import com.example.album4pro.fragments.ZoomOutPageTransformer;
 import com.example.album4pro.gallery.Configuration;
 import com.example.album4pro.gallery.GalleryAdapter;
+import com.example.album4pro.setting.PolicyActivity;
 import com.example.album4pro.setting.SettingActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         menuViewPager2 = (ViewPager2) findViewById(R.id.view_pager_2);

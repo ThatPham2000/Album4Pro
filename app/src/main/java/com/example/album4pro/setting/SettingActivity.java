@@ -3,9 +3,12 @@ package com.example.album4pro.setting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,14 +28,16 @@ public class SettingActivity extends AppCompatActivity {
     ArrayList<String> arrayList;
     ArrayAdapter<String> arrayAdapter;
     Context context;
+    Dialog myThemeDialog;
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        myThemeDialog = new Dialog(this);
 
         // DarkMode
         Switch darkModeSwitch = findViewById(R.id.darkModeSwitch);
@@ -81,6 +86,7 @@ public class SettingActivity extends AppCompatActivity {
 
         // Data
         arrayList = new ArrayList<String>();
+        arrayList.add("Select Theme");
         arrayList.add("Policy");
         arrayList.add("About Us");
         arrayList.add("Help");
@@ -95,6 +101,11 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (arrayList.get(i)) {
+                    case "Select Theme":
+                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+                            showPopup(view);
+                        }
+                        break;
                     case "Policy":
                         startActivity(new Intent(context, PolicyActivity.class));
                         break;
@@ -123,6 +134,18 @@ public class SettingActivity extends AppCompatActivity {
 
         // Override Animation Of Finish Function
         overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_in);
+    }
+
+    public void showPopup(View view) {
+        myThemeDialog.setContentView(R.layout.theme_selection);
+
+        // Delete Background
+        myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+
+        // Set Animation
+        myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
+
+        myThemeDialog.show();
     }
 
 

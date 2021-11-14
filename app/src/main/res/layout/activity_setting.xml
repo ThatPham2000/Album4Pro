@@ -19,7 +19,7 @@
     <Switch
         android:id="@+id/darkModeSwitch"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"

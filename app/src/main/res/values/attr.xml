@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="dark_theme">
         <attr name="navigationBottomColor" format="color"/>
+
     </declare-styleable>
 </resources>
