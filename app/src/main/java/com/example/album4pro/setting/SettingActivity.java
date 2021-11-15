@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,10 +17,16 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.album4pro.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SettingActivity extends AppCompatActivity {
     ListView mySetting;
@@ -27,6 +34,17 @@ public class SettingActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     Context context;
     Dialog myThemeDialog;
+    HashMap<TextView, Boolean> listThemeButton;
+    TextView smokeButton;
+    TextView blueButton;
+    TextView brownButton;
+    TextView purpleButton;
+    TextView yellowButton;
+    TextView greenButton;
+    TextView orangeButton;
+    TextView navyButton;
+    TextView pinkButton;
+    SharedPreferences sharedPreferences;
 
 
 
@@ -36,18 +54,44 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         myThemeDialog = new Dialog(this);
+        myThemeDialog.setContentView(R.layout.theme_selection);
+        sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+        listThemeButton = new HashMap<TextView, Boolean>();
+
+
+        // Create HashMap Theme Button
+        smokeButton = myThemeDialog.findViewById(R.id.smoke);
+        blueButton = myThemeDialog.findViewById(R.id.blue);
+        brownButton = myThemeDialog.findViewById(R.id.brown);
+        purpleButton = myThemeDialog.findViewById(R.id.purple);
+        yellowButton = myThemeDialog.findViewById(R.id.yellow);
+        greenButton = myThemeDialog.findViewById(R.id.green);
+        orangeButton = myThemeDialog.findViewById(R.id.orange);
+        navyButton = myThemeDialog.findViewById(R.id.navy);
+        pinkButton = myThemeDialog.findViewById(R.id.pink);
+
+
+        listThemeButton.put(smokeButton, false);
+        listThemeButton.put(blueButton, false);
+        listThemeButton.put(brownButton, false);
+        listThemeButton.put(purpleButton, false);
+        listThemeButton.put(yellowButton, false);
+        listThemeButton.put(greenButton, false);
+        listThemeButton.put(orangeButton, false);
+        listThemeButton.put(navyButton, false);
+        listThemeButton.put(pinkButton, false);
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // DarkMode
         Switch darkModeSwitch = findViewById(R.id.darkModeSwitch);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
-        darkModeSwitch.setChecked(sharedPreferences.getBoolean("value", false));
-
+        darkModeSwitch.setChecked(sharedPreferences.getBoolean("darkmode", false));
 
         // Check when don't have clicked
         if (darkModeSwitch.isChecked()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
@@ -59,13 +103,13 @@ public class SettingActivity extends AppCompatActivity {
                 if(((CompoundButton) view).isChecked()){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("value", true);
+                    editor.putBoolean("darkmode", true);
                     editor.apply();
                     reset();
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("value", false);
+                    editor.putBoolean("darkmode", false);
                     editor.apply();
                     reset();
                 }
@@ -101,9 +145,9 @@ public class SettingActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (arrayList.get(i)) {
                     case "Select Theme":
-//                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
                             showPopup(view);
-//                        }
+                        }
                         break;
                     case "Policy":
                         startActivity(new Intent(context, PolicyActivity.class));
@@ -136,156 +180,178 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void showPopup(View view) {
-        myThemeDialog.setContentView(R.layout.theme_selection);
-
         // Delete Background
         myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 
         // Set Animation
         myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
 
+        // Show Popup
         myThemeDialog.show();
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-       /////////////////////////////////////////////////////////////////////////////////////////////
-        TextView smokeButton = myThemeDialog.findViewById(R.id.smoke);
-        TextView blueButton = myThemeDialog.findViewById(R.id.blue);
-        TextView brownButton = myThemeDialog.findViewById(R.id.brown);
-        TextView purpleButton = myThemeDialog.findViewById(R.id.purple);
-        TextView yellowButton = myThemeDialog.findViewById(R.id.yellow);
-        TextView greenButton = myThemeDialog.findViewById(R.id.green);
-        TextView orangeButton = myThemeDialog.findViewById(R.id.orange);
-        TextView navyButton = myThemeDialog.findViewById(R.id.navy);
-        TextView pinkButton = myThemeDialog.findViewById(R.id.pink);
+        // Check Button Theme have been saved before
+        for (TextView btn:listThemeButton.keySet()) {
+            if (listThemeButton.get(btn) == true) {
+                if (btn == brownButton || btn == navyButton) btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_light, 0, 0, 0);
+                else btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+            }
+        }
 
-//        // Show Check
-//        smokeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
-//        // Delete Check
-//        smokeButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-
-        // Create List Theme Button
-        ArrayList<TextView> listThemeButton = new ArrayList<TextView>();
-        listThemeButton.add(smokeButton);
-        listThemeButton.add(blueButton);
-        listThemeButton.add(brownButton);
-        listThemeButton.add(purpleButton);
-        listThemeButton.add(yellowButton);
-        listThemeButton.add(greenButton);
-        listThemeButton.add(orangeButton);
-        listThemeButton.add(navyButton);
-        listThemeButton.add(pinkButton);
-
-
-        // Set Click Listener For Theme Button
+        // Smoke Button
         smokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 smokeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+                listThemeButton.put(smokeButton, true);
 
                 // Clear Check On Another Buttons
-                for (TextView btn:listThemeButton) {
-                    if (btn != smokeButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                for (TextView btn:listThemeButton.keySet()) {
+                    if (btn != smokeButton) {
+                        btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        listThemeButton.put(btn, false);
+                    }
                 }
             }
         });
 
+        // Blue Button
         blueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 blueButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+                listThemeButton.put(blueButton, true);
 
                 // Clear Check On Another Buttons
-                for (TextView btn:listThemeButton) {
-                    if (btn != blueButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                for (TextView btn:listThemeButton.keySet()) {
+                    if (btn != blueButton) {
+                        btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        listThemeButton.put(btn, false);
+                    }
                 }
             }
         });
 
+        // Brown Button
         brownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 brownButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_light, 0, 0, 0);
+                listThemeButton.put(brownButton, true);
 
                 // Clear Check On Another Buttons
-                for (TextView btn:listThemeButton) {
-                    if (btn != brownButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                for (TextView btn:listThemeButton.keySet()) {
+                    if (btn != brownButton) {
+                        btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        listThemeButton.put(btn, false);
+                    }
                 }
             }
         });
 
+        // Purple Button
         purpleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 purpleButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+                listThemeButton.put(purpleButton, true);
 
                 // Clear Check On Another Buttons
-                for (TextView btn:listThemeButton) {
-                    if (btn != purpleButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                for (TextView btn:listThemeButton.keySet()) {
+                    if (btn != purpleButton) {
+                        btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        listThemeButton.put(btn, false);
+                    }
                 }
             }
         });
 
+        // Yellow Button
         yellowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 yellowButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+                listThemeButton.put(yellowButton, true);
 
                 // Clear Check On Another Buttons
-                for (TextView btn:listThemeButton) {
-                    if (btn != yellowButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                for (TextView btn:listThemeButton.keySet()) {
+                    if (btn != yellowButton) {
+                        btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        listThemeButton.put(btn, false);
+                    }
                 }
             }
         });
 
+        // Green Button
         greenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 greenButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+                listThemeButton.put(greenButton, true);
 
                 // Clear Check On Another Buttons
-                for (TextView btn:listThemeButton) {
-                    if (btn != greenButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                for (TextView btn:listThemeButton.keySet()) {
+                    if (btn != greenButton) {
+                        btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        listThemeButton.put(btn, false);
+                    }
                 }
             }
         });
 
+        // Orange Button
         orangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 orangeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+                listThemeButton.put(orangeButton, true);
 
                 // Clear Check On Another Buttons
-                for (TextView btn:listThemeButton) {
-                    if (btn != orangeButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                for (TextView btn:listThemeButton.keySet()) {
+                    if (btn != orangeButton) {
+                        btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        listThemeButton.put(btn, false);
+                    }
                 }
             }
         });
 
+        // Navy Button
         navyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 navyButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_light, 0, 0, 0);
+                listThemeButton.put(navyButton, true);
 
                 // Clear Check On Another Buttons
-                for (TextView btn:listThemeButton) {
-                    if (btn != navyButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                for (TextView btn:listThemeButton.keySet()) {
+                    if (btn != navyButton) {
+                        btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        listThemeButton.put(btn, false);
+                    }
                 }
             }
         });
 
+        // Pink Button
         pinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pinkButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+                listThemeButton.put(pinkButton, true);
 
                 // Clear Check On Another Buttons
-                for (TextView btn:listThemeButton) {
-                    if (btn != pinkButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                for (TextView btn:listThemeButton.keySet()) {
+                    if (btn != pinkButton) {
+                        btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        listThemeButton.put(btn, false);
+                    }
                 }
             }
         });
     }
-
 
 }
