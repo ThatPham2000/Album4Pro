@@ -33,9 +33,7 @@
             android:id="@+id/smoke"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:gravity="center"
+            style="@style/ThemeButton"
             android:background="@drawable/circle_smoke"
             />
 
@@ -44,9 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:gravity="center"
+            style="@style/ThemeButton"
             android:background="@drawable/circle_blue" />
 
         <TextView
@@ -54,9 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:gravity="center"
+            style="@style/ThemeButton"
             android:background="@drawable/circle_brown" />
     </LinearLayout>
 
@@ -71,9 +65,7 @@
             android:id="@+id/purple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:gravity="center"
+            style="@style/ThemeButton"
             android:background="@drawable/circle_purple" />
 
         <TextView
@@ -81,9 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:gravity="center"
+            style="@style/ThemeButton"
             android:background="@drawable/circle_yellow" />
 
         <TextView
@@ -91,9 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:gravity="center"
+            style="@style/ThemeButton"
             android:background="@drawable/circle_green" />
     </LinearLayout>
 
@@ -108,9 +96,7 @@
             android:id="@+id/orange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:gravity="center"
+            style="@style/ThemeButton"
             android:background="@drawable/circle_orange" />
 
         <TextView
@@ -118,9 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:gravity="center"
+            style="@style/ThemeButton"
             android:background="@drawable/circle_navy" />
 
         <TextView
@@ -128,9 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:gravity="center"
+            style="@style/ThemeButton"
             android:background="@drawable/circle_pink" />
     </LinearLayout>
 

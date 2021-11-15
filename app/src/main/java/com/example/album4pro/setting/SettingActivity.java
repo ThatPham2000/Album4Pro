@@ -53,13 +53,17 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //---------------------------------------- INITIAL VALUE -----------------------------------------------
         myThemeDialog = new Dialog(this);
         myThemeDialog.setContentView(R.layout.theme_selection);
         sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
         listThemeButton = new HashMap<TextView, Boolean>();
+        context = this;
 
 
-        // Create HashMap Theme Button
+        //----------------------------------- CREATE HASHMAP THEME BUTTON ------------------------------------
+
         smokeButton = myThemeDialog.findViewById(R.id.smoke);
         blueButton = myThemeDialog.findViewById(R.id.blue);
         brownButton = myThemeDialog.findViewById(R.id.brown);
@@ -82,11 +86,12 @@ public class SettingActivity extends AppCompatActivity {
         listThemeButton.put(pinkButton, false);
 
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //------------------------------------------- DARK MODE -------------------------------------------------
 
         // DarkMode
         Switch darkModeSwitch = findViewById(R.id.darkModeSwitch);
 
+        // Get State Of Dark Mode Switch From SharedPreferences
         darkModeSwitch.setChecked(sharedPreferences.getBoolean("darkmode", false));
 
         // Check when don't have clicked
@@ -116,13 +121,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        //////////////////////////////////////////////////////////////////////////////////
-
-
-        //////////////////////////////////////////////////////////////////////////////////
-
-        // Context
-        context = this;
+        //---------------------------------------------- List View -------------------------------------------------
 
         // ListView
         mySetting = findViewById(R.id.mySetting);
@@ -180,6 +179,8 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void showPopup(View view) {
+        //---------------------------------------------- SHOW POPUP -------------------------------------------------
+
         // Delete Background
         myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 
@@ -189,7 +190,7 @@ public class SettingActivity extends AppCompatActivity {
         // Show Popup
         myThemeDialog.show();
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //--------------------------------------------- THEME BUTTON ------------------------------------------------
 
 
         // Check Button Theme have been saved before
