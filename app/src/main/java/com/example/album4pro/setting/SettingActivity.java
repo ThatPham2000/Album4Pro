@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.album4pro.R;
@@ -49,6 +50,7 @@ public class SettingActivity extends AppCompatActivity {
         // Check when don't have clicked
         if (darkModeSwitch.isChecked()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
@@ -102,9 +104,9 @@ public class SettingActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (arrayList.get(i)) {
                     case "Select Theme":
-                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+//                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
                             showPopup(view);
-                        }
+//                        }
                         break;
                     case "Policy":
                         startActivity(new Intent(context, PolicyActivity.class));
@@ -146,6 +148,80 @@ public class SettingActivity extends AppCompatActivity {
         myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
 
         myThemeDialog.show();
+
+        // Set Click Listener For Theme Button
+        TextView smokeButton = myThemeDialog.findViewById(R.id.smoke);
+        TextView blueButton = myThemeDialog.findViewById(R.id.blue);
+        TextView brownButton = myThemeDialog.findViewById(R.id.brown);
+        TextView purpleButton = myThemeDialog.findViewById(R.id.purple);
+        TextView yellowButton = myThemeDialog.findViewById(R.id.yellow);
+        TextView greenButton = myThemeDialog.findViewById(R.id.green);
+        TextView orangeButton = myThemeDialog.findViewById(R.id.orange);
+        TextView navyButton = myThemeDialog.findViewById(R.id.navy);
+        TextView pinkButton = myThemeDialog.findViewById(R.id.pink);
+
+        smokeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme(R.style.SmokeTheme);
+            }
+        });
+
+        blueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme(R.style.Theme_Album4Pro);
+            }
+        });
+
+        brownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme(R.style.BrownTheme);
+            }
+        });
+
+        purpleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme(R.style.PurpleTheme);
+            }
+        });
+
+        yellowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme(R.style.YellowTheme);
+            }
+        });
+
+        greenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme(R.style.GreenTheme);
+            }
+        });
+
+        orangeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme(R.style.OrangeTheme);
+            }
+        });
+
+        navyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme(R.style.NavyTheme);
+            }
+        });
+
+        pinkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme(R.style.PinkTheme);
+            }
+        });
     }
 
 
