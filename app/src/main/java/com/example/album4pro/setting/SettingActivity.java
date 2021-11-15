@@ -35,6 +35,7 @@ public class SettingActivity extends AppCompatActivity {
     Context context;
     Dialog myThemeDialog;
     HashMap<TextView, Boolean> listThemeButton;
+    Switch darkModeSwitch;
     TextView smokeButton;
     TextView blueButton;
     TextView brownButton;
@@ -85,132 +86,7 @@ public class SettingActivity extends AppCompatActivity {
         listThemeButton.put(navyButton, sharedPreferences.getBoolean("navy", false));
         listThemeButton.put(pinkButton, sharedPreferences.getBoolean("pink", false));
 
-
-        //------------------------------------------- DARK MODE -------------------------------------------------
-
-        // DarkMode
-        Switch darkModeSwitch = findViewById(R.id.darkModeSwitch);
-
-        // Get State Of Dark Mode Switch From SharedPreferences
-        darkModeSwitch.setChecked(sharedPreferences.getBoolean("darkmode", false));
-
-        // Check when don't have clicked
-        if (darkModeSwitch.isChecked()) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
-        // Add OnClick Listener
-        darkModeSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(((CompoundButton) view).isChecked()){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("darkmode", true);
-                    editor.apply();
-                    reset();
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("darkmode", false);
-                    editor.apply();
-                    reset();
-                }
-            }
-        });
-
-        //---------------------------------------------- List View -------------------------------------------------
-
-        // ListView
-        mySetting = findViewById(R.id.mySetting);
-
-        // Data
-        arrayList = new ArrayList<String>();
-        arrayList.add("Select Theme");
-        arrayList.add("Policy");
-        arrayList.add("About Us");
-        arrayList.add("Help");
-        arrayList.add("Language");
-
-        // Connect Data to ListView
-        arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayList);
-        mySetting.setAdapter(arrayAdapter);
-
-        // Set Onclick For ListView
-        mySetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (arrayList.get(i)) {
-                    case "Select Theme":
-                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
-                            showPopup(view);
-                        }
-                        break;
-                    case "Policy":
-                        startActivity(new Intent(context, PolicyActivity.class));
-                        break;
-                    case "About Us":
-                        startActivity(new Intent(context, AboutUsActivity.class));
-                        break;
-                    case "Help":
-                        startActivity(new Intent(context, HelpActivity.class));
-                        break;
-                    case "Language":
-                        startActivity(new Intent(context, LanguageActivity.class));
-                        break;
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        // Save HashMap Theme Button
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("smoke", listThemeButton.get(smokeButton));
-        editor.putBoolean("blue", listThemeButton.get(blueButton));
-        editor.putBoolean("brown", listThemeButton.get(brownButton));
-        editor.putBoolean("purple", listThemeButton.get(purpleButton));
-        editor.putBoolean("yellow", listThemeButton.get(yellowButton));
-        editor.putBoolean("green", listThemeButton.get(greenButton));
-        editor.putBoolean("orange", listThemeButton.get(orangeButton));
-        editor.putBoolean("navy", listThemeButton.get(navyButton));
-        editor.putBoolean("pink", listThemeButton.get(pinkButton));
-        editor.apply();
-    }
-
-    private void reset() {
-        finish();
-
-        // Override Animation Of Finish Function
-        overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_in);
-    }
-
-    public void showPopup(View view) {
-        //---------------------------------------------- SHOW POPUP -------------------------------------------------
-
-        // Delete Background
-        myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-
-        // Set Animation
-        myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
-
-        // Show Popup
-        myThemeDialog.show();
-
         //--------------------------------------------- THEME BUTTON ------------------------------------------------
-
-
         // Check Button Theme have been saved before
         for (TextView btn:listThemeButton.keySet()) {
             if (listThemeButton.get(btn) == true) {
@@ -371,6 +247,127 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        //------------------------------------------- DARK MODE -------------------------------------------------
+
+        // DarkMode
+        darkModeSwitch = findViewById(R.id.darkModeSwitch);
+
+        // Get State Of Dark Mode Switch From SharedPreferences
+        darkModeSwitch.setChecked(sharedPreferences.getBoolean("darkmode", false));
+
+        // Check when don't have clicked
+        if (darkModeSwitch.isChecked()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        // Add OnClick Listener
+        darkModeSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(((CompoundButton) view).isChecked()){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    reset();
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    reset();
+                }
+            }
+        });
+
+        //---------------------------------------------- List View -------------------------------------------------
+
+        // ListView
+        mySetting = findViewById(R.id.mySetting);
+
+        // Data
+        arrayList = new ArrayList<String>();
+        arrayList.add("Select Theme");
+        arrayList.add("Policy");
+        arrayList.add("About Us");
+        arrayList.add("Help");
+        arrayList.add("Language");
+
+        // Connect Data to ListView
+        arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayList);
+        mySetting.setAdapter(arrayAdapter);
+
+        // Set Onclick For ListView
+        mySetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (arrayList.get(i)) {
+                    case "Select Theme":
+                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+                            showPopup(view);
+                        }
+                        break;
+                    case "Policy":
+                        startActivity(new Intent(context, PolicyActivity.class));
+                        break;
+                    case "About Us":
+                        startActivity(new Intent(context, AboutUsActivity.class));
+                        break;
+                    case "Help":
+                        startActivity(new Intent(context, HelpActivity.class));
+                        break;
+                    case "Language":
+                        startActivity(new Intent(context, LanguageActivity.class));
+                        break;
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // Save HashMap Theme Button
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("smoke", listThemeButton.get(smokeButton));
+        editor.putBoolean("blue", listThemeButton.get(blueButton));
+        editor.putBoolean("brown", listThemeButton.get(brownButton));
+        editor.putBoolean("purple", listThemeButton.get(purpleButton));
+        editor.putBoolean("yellow", listThemeButton.get(yellowButton));
+        editor.putBoolean("green", listThemeButton.get(greenButton));
+        editor.putBoolean("orange", listThemeButton.get(orangeButton));
+        editor.putBoolean("navy", listThemeButton.get(navyButton));
+        editor.putBoolean("pink", listThemeButton.get(pinkButton));
+
+        // Save State Of DarkMode Button
+        editor.putBoolean("darkmode", darkModeSwitch.isChecked());
+
+        editor.apply();
+    }
+
+    private void reset() {
+        finish();
+
+        // Override Animation Of Finish Function
+        overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_in);
+    }
+
+    public void showPopup(View view) {
+        //---------------------------------------------- SHOW POPUP -------------------------------------------------
+
+        // Delete Background
+        myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+
+        // Set Animation
+        myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
+
+        // Show Popup
+        myThemeDialog.show();
     }
 
 }
