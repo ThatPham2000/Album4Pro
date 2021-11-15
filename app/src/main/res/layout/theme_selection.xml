@@ -34,7 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/circle_smoke" />
+            android:padding="15dp"
+            android:gravity="center"
+            android:background="@drawable/circle_smoke"
+            />
 
         <TextView
             android:id="@+id/blue"
@@ -42,6 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
             android:layout_weight="1"
+            android:padding="15dp"
+            android:gravity="center"
             android:background="@drawable/circle_blue" />
 
         <TextView
@@ -50,6 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
             android:layout_weight="1"
+            android:padding="15dp"
+            android:gravity="center"
             android:background="@drawable/circle_brown" />
     </LinearLayout>
 
@@ -65,6 +72,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="15dp"
+            android:gravity="center"
             android:background="@drawable/circle_purple" />
 
         <TextView
@@ -73,6 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
             android:layout_weight="1"
+            android:padding="15dp"
+            android:gravity="center"
             android:background="@drawable/circle_yellow" />
 
         <TextView
@@ -81,6 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
             android:layout_weight="1"
+            android:padding="15dp"
+            android:gravity="center"
             android:background="@drawable/circle_green" />
     </LinearLayout>
 
@@ -96,6 +109,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="15dp"
+            android:gravity="center"
             android:background="@drawable/circle_orange" />
 
         <TextView
@@ -104,6 +119,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
             android:layout_weight="1"
+            android:padding="15dp"
+            android:gravity="center"
             android:background="@drawable/circle_navy" />
 
         <TextView
@@ -112,6 +129,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
             android:layout_weight="1"
+            android:padding="15dp"
+            android:gravity="center"
             android:background="@drawable/circle_pink" />
     </LinearLayout>
 

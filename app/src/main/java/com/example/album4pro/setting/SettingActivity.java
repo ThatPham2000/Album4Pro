@@ -7,10 +7,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.album4pro.R;
 
@@ -149,7 +146,9 @@ public class SettingActivity extends AppCompatActivity {
 
         myThemeDialog.show();
 
-        // Set Click Listener For Theme Button
+
+
+       /////////////////////////////////////////////////////////////////////////////////////////////
         TextView smokeButton = myThemeDialog.findViewById(R.id.smoke);
         TextView blueButton = myThemeDialog.findViewById(R.id.blue);
         TextView brownButton = myThemeDialog.findViewById(R.id.brown);
@@ -160,66 +159,130 @@ public class SettingActivity extends AppCompatActivity {
         TextView navyButton = myThemeDialog.findViewById(R.id.navy);
         TextView pinkButton = myThemeDialog.findViewById(R.id.pink);
 
+//        // Show Check
+//        smokeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+//        // Delete Check
+//        smokeButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
+        // Create List Theme Button
+        ArrayList<TextView> listThemeButton = new ArrayList<TextView>();
+        listThemeButton.add(smokeButton);
+        listThemeButton.add(blueButton);
+        listThemeButton.add(brownButton);
+        listThemeButton.add(purpleButton);
+        listThemeButton.add(yellowButton);
+        listThemeButton.add(greenButton);
+        listThemeButton.add(orangeButton);
+        listThemeButton.add(navyButton);
+        listThemeButton.add(pinkButton);
+
+
+        // Set Click Listener For Theme Button
         smokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTheme(R.style.SmokeTheme);
+                smokeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+
+                // Clear Check On Another Buttons
+                for (TextView btn:listThemeButton) {
+                    if (btn != smokeButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
             }
         });
 
         blueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTheme(R.style.Theme_Album4Pro);
+                blueButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+
+                // Clear Check On Another Buttons
+                for (TextView btn:listThemeButton) {
+                    if (btn != blueButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
             }
         });
 
         brownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTheme(R.style.BrownTheme);
+                brownButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_light, 0, 0, 0);
+
+                // Clear Check On Another Buttons
+                for (TextView btn:listThemeButton) {
+                    if (btn != brownButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
             }
         });
 
         purpleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTheme(R.style.PurpleTheme);
+                purpleButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+
+                // Clear Check On Another Buttons
+                for (TextView btn:listThemeButton) {
+                    if (btn != purpleButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
             }
         });
 
         yellowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTheme(R.style.YellowTheme);
+                yellowButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+
+                // Clear Check On Another Buttons
+                for (TextView btn:listThemeButton) {
+                    if (btn != yellowButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
             }
         });
 
         greenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTheme(R.style.GreenTheme);
+                greenButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+
+                // Clear Check On Another Buttons
+                for (TextView btn:listThemeButton) {
+                    if (btn != greenButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
             }
         });
 
         orangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTheme(R.style.OrangeTheme);
+                orangeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+
+                // Clear Check On Another Buttons
+                for (TextView btn:listThemeButton) {
+                    if (btn != orangeButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
             }
         });
 
         navyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTheme(R.style.NavyTheme);
+                navyButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_light, 0, 0, 0);
+
+                // Clear Check On Another Buttons
+                for (TextView btn:listThemeButton) {
+                    if (btn != navyButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
             }
         });
 
         pinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setTheme(R.style.PinkTheme);
+                pinkButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
+
+                // Clear Check On Another Buttons
+                for (TextView btn:listThemeButton) {
+                    if (btn != pinkButton) btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
             }
         });
     }
