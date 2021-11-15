@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         menuViewPager2 = (ViewPager2) findViewById(R.id.view_pager_2);
         menuBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
