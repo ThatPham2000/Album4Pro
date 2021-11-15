@@ -75,15 +75,15 @@ public class SettingActivity extends AppCompatActivity {
         pinkButton = myThemeDialog.findViewById(R.id.pink);
 
 
-        listThemeButton.put(smokeButton, false);
-        listThemeButton.put(blueButton, false);
-        listThemeButton.put(brownButton, false);
-        listThemeButton.put(purpleButton, false);
-        listThemeButton.put(yellowButton, false);
-        listThemeButton.put(greenButton, false);
-        listThemeButton.put(orangeButton, false);
-        listThemeButton.put(navyButton, false);
-        listThemeButton.put(pinkButton, false);
+        listThemeButton.put(smokeButton, sharedPreferences.getBoolean("smoke", false));
+        listThemeButton.put(blueButton, sharedPreferences.getBoolean("blue", false));
+        listThemeButton.put(brownButton, sharedPreferences.getBoolean("brown", false));
+        listThemeButton.put(purpleButton, sharedPreferences.getBoolean("purple", false));
+        listThemeButton.put(yellowButton, sharedPreferences.getBoolean("yellow", false));
+        listThemeButton.put(greenButton, sharedPreferences.getBoolean("green", false));
+        listThemeButton.put(orangeButton, sharedPreferences.getBoolean("orange", false));
+        listThemeButton.put(navyButton, sharedPreferences.getBoolean("navy", false));
+        listThemeButton.put(pinkButton, sharedPreferences.getBoolean("pink", false));
 
 
         //------------------------------------------- DARK MODE -------------------------------------------------
@@ -208,6 +208,11 @@ public class SettingActivity extends AppCompatActivity {
                 smokeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
                 listThemeButton.put(smokeButton, true);
 
+                // Save Value
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("smoke", true);
+                editor.apply();
+
                 // Clear Check On Another Buttons
                 for (TextView btn:listThemeButton.keySet()) {
                     if (btn != smokeButton) {
@@ -224,6 +229,11 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 blueButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
                 listThemeButton.put(blueButton, true);
+
+                // Save Value
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("blue", true);
+                editor.apply();
 
                 // Clear Check On Another Buttons
                 for (TextView btn:listThemeButton.keySet()) {
@@ -242,6 +252,11 @@ public class SettingActivity extends AppCompatActivity {
                 brownButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_light, 0, 0, 0);
                 listThemeButton.put(brownButton, true);
 
+                // Save Value
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("brown", true);
+                editor.apply();
+
                 // Clear Check On Another Buttons
                 for (TextView btn:listThemeButton.keySet()) {
                     if (btn != brownButton) {
@@ -258,6 +273,11 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 purpleButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
                 listThemeButton.put(purpleButton, true);
+
+                // Save Value
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("purple", true);
+                editor.apply();
 
                 // Clear Check On Another Buttons
                 for (TextView btn:listThemeButton.keySet()) {
@@ -276,6 +296,11 @@ public class SettingActivity extends AppCompatActivity {
                 yellowButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
                 listThemeButton.put(yellowButton, true);
 
+                // Save Value
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("yellow", true);
+                editor.apply();
+
                 // Clear Check On Another Buttons
                 for (TextView btn:listThemeButton.keySet()) {
                     if (btn != yellowButton) {
@@ -292,6 +317,11 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 greenButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
                 listThemeButton.put(greenButton, true);
+
+                // Save Value
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("green", true);
+                editor.apply();
 
                 // Clear Check On Another Buttons
                 for (TextView btn:listThemeButton.keySet()) {
@@ -310,6 +340,11 @@ public class SettingActivity extends AppCompatActivity {
                 orangeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
                 listThemeButton.put(orangeButton, true);
 
+                // Save Value
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("orange", true);
+                editor.apply();
+
                 // Clear Check On Another Buttons
                 for (TextView btn:listThemeButton.keySet()) {
                     if (btn != orangeButton) {
@@ -327,6 +362,11 @@ public class SettingActivity extends AppCompatActivity {
                 navyButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_light, 0, 0, 0);
                 listThemeButton.put(navyButton, true);
 
+                // Save Value
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("navy", true);
+                editor.apply();
+
                 // Clear Check On Another Buttons
                 for (TextView btn:listThemeButton.keySet()) {
                     if (btn != navyButton) {
@@ -343,6 +383,11 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 pinkButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_dark, 0, 0, 0);
                 listThemeButton.put(pinkButton, true);
+
+                // Save Value
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("pink", true);
+                editor.apply();
 
                 // Clear Check On Another Buttons
                 for (TextView btn:listThemeButton.keySet()) {
