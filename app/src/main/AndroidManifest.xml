@@ -18,7 +18,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Album4Pro">
+        android:theme="@style/DarkTheme">
         <activity
             android:name=".setting.SelectThemeActivity"
             android:exported="true" />

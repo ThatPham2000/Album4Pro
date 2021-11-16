@@ -17,14 +17,14 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Set Theme
-        SharedPreferences sharedPreferences;
-        sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
-        if (sharedPreferences.getBoolean("darkmode", false)) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+//        // Set Theme
+//        SharedPreferences sharedPreferences;
+//        sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+//        if (sharedPreferences.getBoolean("darkmode", false)) {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//        } else {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        }
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
