@@ -52,13 +52,26 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set Theme Before SetContentView, Default Is Light Theme
+        sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+        if (sharedPreferences.getBoolean("smoke", false)) setTheme(R.style.SmokeTheme);
+        if (sharedPreferences.getBoolean("blue", true)) setTheme(R.style.Theme_Album4Pro);
+        if (sharedPreferences.getBoolean("brown", false)) setTheme(R.style.BrownTheme);
+        if (sharedPreferences.getBoolean("purple", false)) setTheme(R.style.PurpleTheme);
+        if (sharedPreferences.getBoolean("yellow", false)) setTheme(R.style.YellowTheme);
+        if (sharedPreferences.getBoolean("green", false)) setTheme(R.style.GreenTheme);
+        if (sharedPreferences.getBoolean("orange", false)) setTheme(R.style.OrangeTheme);
+        if (sharedPreferences.getBoolean("navy", false)) setTheme(R.style.NavyTheme);
+        if (sharedPreferences.getBoolean("pink", false)) setTheme(R.style.PinkTheme);
+
+
         setContentView(R.layout.activity_setting);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //---------------------------------------- INITIAL VALUE -----------------------------------------------
         myThemeDialog = new Dialog(this);
         myThemeDialog.setContentView(R.layout.theme_selection);
-        sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
         listThemeButton = new HashMap<TextView, Boolean>();
         context = this;
 
