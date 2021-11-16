@@ -77,7 +77,7 @@ public class SettingActivity extends AppCompatActivity {
 
 
         listThemeButton.put(smokeButton, sharedPreferences.getBoolean("smoke", false));
-        listThemeButton.put(blueButton, sharedPreferences.getBoolean("blue", false));
+        listThemeButton.put(blueButton, sharedPreferences.getBoolean("blue", true));
         listThemeButton.put(brownButton, sharedPreferences.getBoolean("brown", false));
         listThemeButton.put(purpleButton, sharedPreferences.getBoolean("purple", false));
         listThemeButton.put(yellowButton, sharedPreferences.getBoolean("yellow", false));
