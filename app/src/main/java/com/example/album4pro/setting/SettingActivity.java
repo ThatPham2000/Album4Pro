@@ -52,6 +52,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.BrownTheme);
         setContentView(R.layout.activity_setting);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

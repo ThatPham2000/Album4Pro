@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.BrownTheme);
         setContentView(R.layout.activity_main);
 
         menuViewPager2 = (ViewPager2) findViewById(R.id.view_pager_2);
