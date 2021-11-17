@@ -79,8 +79,7 @@ public class SecurityQuestionActivity extends AppCompatActivity {
                 editor.putString("answer_tag", answer);
                 editor.commit();
 
-                Intent intent = new Intent(getApplicationContext(), CreatePasswordActivity.class);
-                startActivity(intent);
+                // Enter the app
                 finish();
             }
         });
@@ -88,9 +87,9 @@ public class SecurityQuestionActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), EnterPasswordActivity.class);
-        startActivity(intent);
-        finish();
+        //super.onBackPressed();
+        //Do not do anything
+        //Còn vướng chỗ nếu tắt luôn app mà chưa đặt câu hỏi
     }
 
     private void AddQuestion() {

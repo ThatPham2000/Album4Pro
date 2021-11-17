@@ -38,6 +38,9 @@ public class CreatePasswordActivity extends AppCompatActivity {
                 String first_pass = edtNewPass.getText().toString().trim();
                 String second_pass = edtRePass.getText().toString().trim();
 
+                Intent intent = getIntent();
+                Boolean checkout = intent.getBooleanExtra("check_out", false);
+
                 if(first_pass.equals("") || second_pass.equals("")){
                     // there is no password
                     Toast.makeText(CreatePasswordActivity.this, "No password entered!", Toast.LENGTH_SHORT).show();
@@ -47,14 +50,20 @@ public class CreatePasswordActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("password_tag", second_pass);
                         editor.commit();
-
-                        // Enter the app, finish activity hiện tại
-                        finish();
+                        if(checkout == true){
+                            // Enter the app
+                            finish();
+                        } else {
+                            // Nhảy tới Activity thiết lập câu hỏi bảo mật
+                            intent = new Intent(getApplicationContext(), SecurityQuestionActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     } else {
-                        // there is no match on the passwords
-                        Toast.makeText(CreatePasswordActivity.this, "Sorry! Passwords doesn't match!", Toast.LENGTH_SHORT).show();
-                    }
+                    // there is no match on the passwords
+                    Toast.makeText(CreatePasswordActivity.this, "Sorry! Passwords doesn't match!", Toast.LENGTH_SHORT).show();
                 }
+            }
             }
         });
     }

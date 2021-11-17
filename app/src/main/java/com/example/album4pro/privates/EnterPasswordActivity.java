@@ -75,7 +75,7 @@ public class EnterPasswordActivity extends AppCompatActivity {
         txtForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EnterPasswordActivity.this, SecurityQuestionActivity.class);
+                Intent intent = new Intent(EnterPasswordActivity.this, AnswerSecurityQuestionActivity.class);
                 startActivity(intent);
                 finish();
             }

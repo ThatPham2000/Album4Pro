@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Album4Pro">
         <activity
+            android:name=".privates.AnswerSecurityQuestionActivity"
+            android:exported="true" />
+        <activity
             android:name=".privates.SecurityQuestionActivity"
             android:exported="true" />
         <activity
