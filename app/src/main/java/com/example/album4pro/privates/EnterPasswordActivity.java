@@ -14,16 +14,20 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
+
+import org.w3c.dom.Text;
 
 public class EnterPasswordActivity extends AppCompatActivity {
     EditText edtPass;
     Button btnEnter, btnReset;
     Button btnYesDia, btnNoDia;
     ImageView imgShow;
+    TextView txtForgotPass;
 
     ViewPager2 passViewPager;
 
@@ -42,7 +46,9 @@ public class EnterPasswordActivity extends AppCompatActivity {
         btnEnter = (Button) findViewById(R.id.buttonEnter);
         btnReset = (Button) findViewById(R.id.buttonReset);
         imgShow = (ImageView) findViewById(R.id.imageViewHideShowEnter);
+        txtForgotPass = (TextView) findViewById(R.id.textViewForgotPass);
         passViewPager = (ViewPager2) findViewById(R.id.view_pager_2);
+
 
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +70,18 @@ public class EnterPasswordActivity extends AppCompatActivity {
                 ShowDialogResetPass();
             }
         });
+
+        // Xử dụng câu hỏi bảo mật để lấy lại mật khẩu
+        txtForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EnterPasswordActivity.this, SecurityQuestionActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
+
 
     // Xử lí nút back, khi nhấn khởi tạo lại Main
     @Override
@@ -102,7 +119,6 @@ public class EnterPasswordActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
         dialog.show();
     }
 
