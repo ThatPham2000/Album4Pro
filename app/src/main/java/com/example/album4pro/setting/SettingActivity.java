@@ -55,16 +55,18 @@ public class SettingActivity extends AppCompatActivity {
 
         // Set Theme Before SetContentView, Default Is Light Theme
         sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
-        if (sharedPreferences.getBoolean("smoke", false)) setTheme(R.style.SmokeTheme);
-        if (sharedPreferences.getBoolean("blue", true)) setTheme(R.style.Theme_Album4Pro);
-        if (sharedPreferences.getBoolean("brown", false)) setTheme(R.style.BrownTheme);
-        if (sharedPreferences.getBoolean("purple", false)) setTheme(R.style.PurpleTheme);
-        if (sharedPreferences.getBoolean("yellow", false)) setTheme(R.style.YellowTheme);
-        if (sharedPreferences.getBoolean("green", false)) setTheme(R.style.GreenTheme);
-        if (sharedPreferences.getBoolean("orange", false)) setTheme(R.style.OrangeTheme);
-        if (sharedPreferences.getBoolean("navy", false)) setTheme(R.style.NavyTheme);
-        if (sharedPreferences.getBoolean("pink", false)) setTheme(R.style.PinkTheme);
 
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            if (sharedPreferences.getBoolean("smoke", false)) setTheme(R.style.SmokeTheme);
+            if (sharedPreferences.getBoolean("blue", true)) setTheme(R.style.Theme_Album4Pro);
+            if (sharedPreferences.getBoolean("brown", false)) setTheme(R.style.BrownTheme);
+            if (sharedPreferences.getBoolean("purple", false)) setTheme(R.style.PurpleTheme);
+            if (sharedPreferences.getBoolean("yellow", false)) setTheme(R.style.YellowTheme);
+            if (sharedPreferences.getBoolean("green", false)) setTheme(R.style.GreenTheme);
+            if (sharedPreferences.getBoolean("orange", false)) setTheme(R.style.OrangeTheme);
+            if (sharedPreferences.getBoolean("navy", false)) setTheme(R.style.NavyTheme);
+            if (sharedPreferences.getBoolean("pink", false)) setTheme(R.style.PinkTheme);
+        }
 
         setContentView(R.layout.activity_setting);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -122,6 +124,8 @@ public class SettingActivity extends AppCompatActivity {
                         listThemeButton.put(btn, false);
                     }
                 }
+
+                reset();
             }
         });
 
@@ -139,6 +143,8 @@ public class SettingActivity extends AppCompatActivity {
                         listThemeButton.put(btn, false);
                     }
                 }
+
+                reset();
             }
         });
 
@@ -156,6 +162,8 @@ public class SettingActivity extends AppCompatActivity {
                         listThemeButton.put(btn, false);
                     }
                 }
+
+                reset();
             }
         });
 
@@ -173,6 +181,8 @@ public class SettingActivity extends AppCompatActivity {
                         listThemeButton.put(btn, false);
                     }
                 }
+
+                reset();
             }
         });
 
@@ -190,6 +200,8 @@ public class SettingActivity extends AppCompatActivity {
                         listThemeButton.put(btn, false);
                     }
                 }
+
+                reset();
             }
         });
 
@@ -207,6 +219,8 @@ public class SettingActivity extends AppCompatActivity {
                         listThemeButton.put(btn, false);
                     }
                 }
+
+                reset();
             }
         });
 
@@ -224,6 +238,8 @@ public class SettingActivity extends AppCompatActivity {
                         listThemeButton.put(btn, false);
                     }
                 }
+
+                reset();
             }
         });
 
@@ -241,6 +257,8 @@ public class SettingActivity extends AppCompatActivity {
                         listThemeButton.put(btn, false);
                     }
                 }
+
+                reset();
             }
         });
 
@@ -258,23 +276,20 @@ public class SettingActivity extends AppCompatActivity {
                         listThemeButton.put(btn, false);
                     }
                 }
+
+                reset();
             }
         });
 
 
         //------------------------------------------- DARK MODE -------------------------------------------------
 
-        // DarkMode
+        // DarkMode Switch
         darkModeSwitch = findViewById(R.id.darkModeSwitch);
 
-        // Get State Of Dark Mode Switch From SharedPreferences
-        darkModeSwitch.setChecked(sharedPreferences.getBoolean("darkmode", false));
-
-        // Check when don't have clicked
-        if (darkModeSwitch.isChecked()) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        // If DarkMode On, Set Check On Switch
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            darkModeSwitch.setChecked(true);
         }
 
         // Add OnClick Listener
