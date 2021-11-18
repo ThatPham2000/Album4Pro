@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.album4pro.R;
 
@@ -70,26 +71,35 @@ public class SecurityQuestionActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(question.equals("")){
-                    question = edtQuestion.getText().toString().trim();
-                }
-                answer = edtAnswer.getText().toString().trim();
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("question_tag", question);
-                editor.putString("answer_tag", answer);
-                editor.commit();
+                String temp_question = edtQuestion.getText().toString().trim();
+                String temp_answer = edtAnswer.getText().toString().trim();
+                if(question.equals("") && temp_question.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Bạn chưa nhập câu hỏi", Toast.LENGTH_SHORT).show();
+                } else {
+                    if(temp_answer.equals("")){
+                        Toast.makeText(getApplicationContext(), "Bạn chưa nhập câu trả lời", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if(question.equals("")){
+                            question = edtQuestion.getText().toString().trim();
+                        }
+                        answer = edtAnswer.getText().toString().trim();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("question_tag", question);
+                        editor.putString("answer_tag", answer);
+                        editor.commit();
 
-                // Enter the app
-                finish();
+                        // Enter the app
+                        finish();
+                    }
+                }
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        //Do not do anything
-        //Còn vướng chỗ nếu tắt luôn app mà chưa đặt câu hỏi
+        // Do not do anything
+        return;
     }
 
     private void AddQuestion() {

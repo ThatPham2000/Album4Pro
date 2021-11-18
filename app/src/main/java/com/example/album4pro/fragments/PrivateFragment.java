@@ -15,6 +15,7 @@ import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
 import com.example.album4pro.privates.CreatePasswordActivity;
 import com.example.album4pro.privates.EnterPasswordActivity;
+import com.example.album4pro.privates.SecurityQuestionActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +26,7 @@ public class PrivateFragment extends Fragment {
     private MainActivity mMainActivity;
     private boolean PASSWORD_ENTERED = false;
 
-    String password_Prefs;
+    String password_Prefs, answer_Prefs;
     SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -84,14 +85,21 @@ public class PrivateFragment extends Fragment {
         if (PASSWORD_ENTERED == false){
             sharedPreferences = getActivity().getSharedPreferences("PASSPREF", Context.MODE_PRIVATE);
             password_Prefs = sharedPreferences.getString("password_tag", "");
-            if(password_Prefs.equals("")){
-                // there is no password
-                Intent intent = new Intent(getActivity(), CreatePasswordActivity.class);
+            answer_Prefs = sharedPreferences.getString("answer_tag", "");
+            if(answer_Prefs.equals("") && !password_Prefs.equals("")){
+                // Đã có mật khẩu nhưng chưa chọn câu hỏi bảo mật
+                Intent intent = new Intent(getActivity(), SecurityQuestionActivity.class);
                 startActivity(intent);
             } else {
-                // there is a password
-                Intent intent = new Intent(getActivity(), EnterPasswordActivity.class);
-                startActivity(intent);
+                if(password_Prefs.equals("")){
+                    // there is no password
+                    Intent intent = new Intent(getActivity(), CreatePasswordActivity.class);
+                    startActivity(intent);
+                } else {
+                    // there is a password
+                    Intent intent = new Intent(getActivity(), EnterPasswordActivity.class);
+                    startActivity(intent);
+                }
             }
         }
         // Sau khi nhập mật khẩu
