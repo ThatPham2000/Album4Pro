@@ -2,22 +2,36 @@ package com.example.album4pro;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.album4pro.fragments.MyFragmentAdapter;
 import com.example.album4pro.fragments.ZoomOutPageTransformer;
 import com.example.album4pro.gallery.Configuration;
 import com.example.album4pro.gallery.GalleryAdapter;
+import com.example.album4pro.setting.PolicyActivity;
+import com.example.album4pro.setting.SettingActivity;
+import com.example.album4pro.privates.CreatePasswordActivity;
+import com.example.album4pro.privates.EnterPasswordActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +43,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set Theme Before SetContentView, Default Is Light Theme
+        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            if (sharedPreferences.getBoolean("smoke", false)) setTheme(R.style.SmokeTheme);
+            if (sharedPreferences.getBoolean("blue", true)) setTheme(R.style.Theme_Album4Pro);
+            if (sharedPreferences.getBoolean("brown", false)) setTheme(R.style.BrownTheme);
+            if (sharedPreferences.getBoolean("purple", false)) setTheme(R.style.PurpleTheme);
+            if (sharedPreferences.getBoolean("yellow", false)) setTheme(R.style.YellowTheme);
+            if (sharedPreferences.getBoolean("green", false)) setTheme(R.style.GreenTheme);
+            if (sharedPreferences.getBoolean("orange", false)) setTheme(R.style.OrangeTheme);
+            if (sharedPreferences.getBoolean("navy", false)) setTheme(R.style.NavyTheme);
+            if (sharedPreferences.getBoolean("pink", false)) setTheme(R.style.PinkTheme);
+        }
+
         setContentView(R.layout.activity_main);
 
         menuViewPager2 = (ViewPager2) findViewById(R.id.view_pager_2);
@@ -151,12 +181,6 @@ public class MainActivity extends AppCompatActivity {
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
-
-
-
-
-
 
         }
     }

@@ -9,4 +9,17 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="app_theme">#FF18A0FB</color>
+    <color name="navigationBottomColor">#FF6200EE</color>\
+
+    <color name="smoke_theme">#D1CACA</color>
+    <color name="brown_theme">#533535</color>
+    <color name="purple_theme">#94B3FD</color>
+    <color name="yellow_theme">#FFE699</color>
+    <color name="green_theme">#B4FE98</color>
+    <color name="orange_theme">#FF8243</color>
+    <color name="navy_theme">#091353</color>
+    <color name="pink_theme">#FF5DA2</color>
+
+
+
 </resources>
