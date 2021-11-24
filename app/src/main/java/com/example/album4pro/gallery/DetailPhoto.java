@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.app.AlertDialog;
+import android.app.WallpaperColors;
+import android.app.WallpaperManager;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ContentValues;
@@ -12,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -22,6 +25,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -46,11 +50,13 @@ public class DetailPhoto extends AppCompatActivity {
     private ImageView img;
     private ImageButton btnShare;
     private ImageButton btnEdit;
+    private ImageButton btnHide;
     private ImageButton btnDelete;
     private ImageButton btnMore;
     private Context mContext;
 
     private String pathImage = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +68,11 @@ public class DetailPhoto extends AppCompatActivity {
         pathImage = getIntent().getStringExtra("path");
         Glide.with(this).load(pathImage).into(img);
 
-        btnShare = findViewById(R.id.btn_share);
-        btnEdit = findViewById(R.id.btn_edit);
-        btnDelete = findViewById(R.id.btn_delete);
-        btnMore = findViewById(R.id.btn_more);
+        btnShare = (ImageButton) findViewById(R.id.btn_share);
+        btnEdit = (ImageButton) findViewById(R.id.btn_edit);
+        btnHide = (ImageButton) findViewById(R.id.btn_hide);
+        btnDelete = (ImageButton) findViewById(R.id.btn_delete);
+        btnMore = (ImageButton) findViewById(R.id.btn_more);
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +94,7 @@ public class DetailPhoto extends AppCompatActivity {
                     intent.setType("image/jpeg");
                     intent.putExtra(Intent.EXTRA_STREAM, uri);
                     startActivity(Intent.createChooser(intent, "Share"));
-                } catch (Exception e){
+                } catch (Exception e) {
                     Log.e("ERROR SHARE", e.toString());
                 }
             }
@@ -124,7 +131,7 @@ public class DetailPhoto extends AppCompatActivity {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
                             case R.id.menu_image_detail:
                                 // Handle
                                 try {
@@ -132,7 +139,7 @@ public class DetailPhoto extends AppCompatActivity {
                                     ExifInterface exifInterface = new ExifInterface(pathImage);
                                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
                                     String date = exifInterface.getAttribute(ExifInterface.TAG_DATETIME_ORIGINAL);
-                                    if(date == null){
+                                    if (date == null) {
                                         Date lastModDate = new Date(new File(pathImage).lastModified());
                                         date = "" + simpleDateFormat.format(lastModDate);
                                     }
@@ -151,8 +158,29 @@ public class DetailPhoto extends AppCompatActivity {
                                     break;
                                 }
                             case R.id.menu_image_set_background:
-                                break;
+                                WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+                                try {
+                                    Bitmap bitmap = BitmapFactory.decodeFile(pathImage);
+                                    wallpaperManager.setBitmap(bitmap);
+                                    Toast.makeText(DetailPhoto.this, "Đã thay đổi hình nền", Toast.LENGTH_SHORT).show();
+                                    break;
+                                } catch (Exception e) {
+                                    Log.e("SET_BACKGROUND", e.toString());
+                                    break;
+                                }
                             case R.id.menu_image_rename:
+//                                File file = new File(pathImage);
+//                                Uri uri = Uri.fromFile(file);
+//                                String extension = pathImage.substring(pathImage.lastIndexOf(".") + 1);
+//                                String newPath = file.getParent() + "/YeuEmNhieu." + extension;
+//
+//                                File newFile = new File(newPath);
+//                                Log.e("NEW PATH", uri.toString());
+//                                if (file.renameTo(newFile)) {
+//                                    Toast.makeText(DetailPhoto.this, "Đổi tên thành công!", Toast.LENGTH_SHORT).show();
+//                                } else {
+//                                    Toast.makeText(DetailPhoto.this, "Đổi tên thất bại!", Toast.LENGTH_SHORT).show();
+//                                }
                                 break;
                             case R.id.menu_image_add_album:
                                 break;
@@ -171,14 +199,14 @@ public class DetailPhoto extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 200){
+        if (requestCode == 200) {
             List<String> list = ImagesGallery.listPhoto(this);
             Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
             Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
         }
     }
 
-    protected void showDialog(String message){
+    protected void showDialog(String message) {
         // Khởi tạo AlertDialog từ đối tượng Builder. Tham số là context.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
