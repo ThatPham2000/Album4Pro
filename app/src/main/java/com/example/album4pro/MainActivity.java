@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +26,8 @@ import com.example.album4pro.gallery.Configuration;
 import com.example.album4pro.gallery.GalleryAdapter;
 import com.example.album4pro.setting.PolicyActivity;
 import com.example.album4pro.setting.SettingActivity;
+import com.example.album4pro.privates.CreatePasswordActivity;
+import com.example.album4pro.privates.EnterPasswordActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -36,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 menuViewPager2;
     private BottomNavigationView menuBottomNavigationView;
     public Context libraryContext;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
     @Override
@@ -182,14 +182,6 @@ public class MainActivity extends AppCompatActivity {
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
-
-
-
-
-
-
         }
     }
-
-
 }
