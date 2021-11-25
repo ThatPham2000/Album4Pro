@@ -1,5 +1,8 @@
 package com.example.album4pro.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
+import com.example.album4pro.privates.CreatePasswordActivity;
+import com.example.album4pro.privates.EnterPasswordActivity;
+import com.example.album4pro.privates.SecurityQuestionActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +23,11 @@ import com.example.album4pro.R;
  * create an instance of this fragment.
  */
 public class PrivateFragment extends Fragment {
+    private MainActivity mMainActivity;
+    private boolean PASSWORD_ENTERED = false;
+
+    String password_Prefs, answer_Prefs;
+    SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +72,46 @@ public class PrivateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_private, container, false);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Chưa nhập mật khẩu
+        if (PASSWORD_ENTERED == false){
+            sharedPreferences = getActivity().getSharedPreferences("PASSPREF", Context.MODE_PRIVATE);
+            password_Prefs = sharedPreferences.getString("password_tag", "");
+            answer_Prefs = sharedPreferences.getString("answer_tag", "");
+            if(answer_Prefs.equals("") && !password_Prefs.equals("")){
+                // Đã có mật khẩu nhưng chưa chọn câu hỏi bảo mật
+                Intent intent = new Intent(getActivity(), SecurityQuestionActivity.class);
+                startActivity(intent);
+            } else {
+                if(password_Prefs.equals("")){
+                    // there is no password
+                    Intent intent = new Intent(getActivity(), CreatePasswordActivity.class);
+                    startActivity(intent);
+                } else {
+                    // there is a password
+                    Intent intent = new Intent(getActivity(), EnterPasswordActivity.class);
+                    startActivity(intent);
+                }
+            }
+        }
+        // Sau khi nhập mật khẩu
+        PASSWORD_ENTERED = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // Đã nhập mật khẩu, khi Fragment bị stop bởi 1 Activity khác chiếm giữ, sẽ không phải nhập lại mật khẩu lần nữa
+        PASSWORD_ENTERED = true;
+    }
+
 }

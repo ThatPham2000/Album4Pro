@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:gravity="center"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".privates.SecurityQuestionActivity">
+
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/icon_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:textStyle="bold"
+        android:textSize="28sp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nhập câu trả lời bảo mật">
+    </TextView>
+
+    <TextView
+        android:layout_marginBottom="5dp"
+        android:id="@+id/textviewQuestion"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:text="Câu hỏi đã lưu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/shape_custom_stroke"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:id="@+id/editTextAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Nhập câu trả lời" />
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_custom_button"
+        android:id="@+id/buttonConfirmQuestionA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xác nhận" />
+</LinearLayout>
