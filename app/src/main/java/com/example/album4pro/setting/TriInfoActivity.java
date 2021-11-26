@@ -3,17 +3,13 @@ package com.example.album4pro.setting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.CompoundButton;
-import android.widget.Switch;
-import android.widget.TextView;
 
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
 
-public class PolicyActivity extends AppCompatActivity {
+public class TriInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +30,6 @@ public class PolicyActivity extends AppCompatActivity {
             if (sharedPreferences.getBoolean("pink", false)) setTheme(R.style.PinkTheme);
         }
 
-        setContentView(R.layout.activity_policy);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
+        setContentView(R.layout.tri_information);
     }
-
-
 }
