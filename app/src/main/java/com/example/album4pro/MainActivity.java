@@ -3,12 +3,20 @@ package com.example.album4pro;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,9 +24,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.example.album4pro.fragments.MyFragmentAdapter;
 import com.example.album4pro.fragments.ZoomOutPageTransformer;
@@ -31,6 +41,7 @@ import com.example.album4pro.privates.EnterPasswordActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 menuViewPager2;
     private BottomNavigationView menuBottomNavigationView;
     public Context libraryContext;
+
+    private static final int REQUEST_ID_READ_WRITE_PERMISSION = 99;
+    private static final int REQUEST_ID_IMAGE_CAPTURE = 100;
+    private static final int REQUEST_ID_VIDEO_CAPTURE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,9 +147,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_camera:
-                // User chose the "Settings" item, show the app settings UI...
-                Toast.makeText(this, "Show Camera", Toast.LENGTH_SHORT).show();
+            case R.id.action_camera_photo:
+                // Hiển thị camera - photo
+                captureImage();
+                return true;
+
+            case R.id.action_camera_video:
+                //Hiển thị camera - video
+                askPermissionAndCaptureVideo();
                 return true;
 
             case R.id.action_slideshow:
@@ -182,6 +202,139 @@ public class MainActivity extends AppCompatActivity {
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
+        }
+    }
+
+
+    private void captureImage() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        this.startActivityForResult(intent, REQUEST_ID_IMAGE_CAPTURE);
+    }
+
+    private void askPermissionAndCaptureVideo() {
+
+        // With Android Level >= 23, you have to ask the user
+        // for permission to read/write data on the device.
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+
+            // Check if we have read/write permission
+            int readPermission = ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
+            int writePermission = ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if (writePermission != PackageManager.PERMISSION_GRANTED ||
+                    readPermission != PackageManager.PERMISSION_GRANTED) {
+                // If don't have permission so prompt the user.
+                this.requestPermissions(
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_ID_READ_WRITE_PERMISSION
+                );
+                return;
+            }
+        }
+        this.captureVideo();
+    }
+
+    private void captureVideo() {
+        try {
+            // Create an implicit intent, for video capture.
+            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+
+            // The external storage directory.
+            File dir = Environment.getExternalStorageDirectory();
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            // file:///storage/emulated/0/myvideo.mp4
+            String savePath = dir.getAbsolutePath() + "/myvideo.mp4";
+            File videoFile = new File(savePath);
+            Uri videoUri = Uri.fromFile(videoFile);
+
+            // Specify where to save video files.
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            // ================================================================================================
+            // To Fix Error (**)
+            // ================================================================================================
+
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+
+            // ================================================================================================
+            // You may get an Error (**) If your app targets API 24+
+            // "android.os.FileUriExposedException: file:///storage/emulated/0/xxx exposed beyond app through.."
+            //  Explanation: https://stackoverflow.com/questions/38200282
+            // ================================================================================================
+
+            // Start camera and wait for the results.
+            this.startActivityForResult(intent, REQUEST_ID_VIDEO_CAPTURE); // (**)
+
+        } catch(Exception e)  {
+            Toast.makeText(this, "Error capture video: " +e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+
+    // When you have the request results
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //
+        switch (requestCode) {
+            case REQUEST_ID_READ_WRITE_PERMISSION: {
+
+                // Note: If request is cancelled, the result arrays are empty.
+                // Permissions granted (read/write).
+                if (grantResults.length > 1
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(this, "Permission granted!", Toast.LENGTH_LONG).show();
+
+                    this.captureVideo();
+
+                }
+                // Cancelled or denied.
+                else {
+                    Toast.makeText(this, "Permission denied!", Toast.LENGTH_LONG).show();
+                }
+                break;
+            }
+        }
+    }
+
+    // When results returned
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_ID_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+                Bitmap bp = (Bitmap) data.getExtras().get("data");
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Action canceled", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Action Failed", Toast.LENGTH_LONG).show();
+            }
+        } else if (requestCode == REQUEST_ID_VIDEO_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+                Uri videoUri = data.getData();
+                Log.i("MyLog", "Video saved to: " + videoUri);
+                Toast.makeText(this, "Video saved to:\n" +
+                        videoUri, Toast.LENGTH_LONG).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Action Cancelled.",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Action Failed",
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
