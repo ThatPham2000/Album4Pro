@@ -19,7 +19,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
+import com.example.album4pro.privates.CreatePasswordActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -396,6 +398,13 @@ public class SettingActivity extends AppCompatActivity {
 
         // Show Popup
         myThemeDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(context, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
