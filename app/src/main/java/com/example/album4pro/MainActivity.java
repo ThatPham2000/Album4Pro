@@ -39,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 menuViewPager2;
     private BottomNavigationView menuBottomNavigationView;
     public Context libraryContext;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Set Theme Before SetContentView, Default Is Light Theme
-        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
             if (sharedPreferences.getBoolean("smoke", false)) setTheme(R.style.SmokeTheme);

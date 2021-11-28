@@ -5,19 +5,24 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+
+import java.util.Locale;
 
 
 public class SplashActivity extends AppCompatActivity {
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Set Theme Before SetContentView, Default Is Light Theme
-        SharedPreferences sharedPreferences;
         sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
 
         // Set Theme Dark Light Mode
@@ -49,5 +54,33 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
             }
         }, 3000);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //---------------------------------------- SET LANGUAGE ------------------------------------------------
+        // Set Language
+        if (sharedPreferences.getBoolean("vietnamese", false)) {
+            setLocale("vi");
+        } else {
+            setLocale("en");
+        }
+
+    }
+
+    private void setLocale(String language) {
+        // Initalize resources
+        Resources resources = getResources();
+        // Initialize metrics
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        // Initialize configuration
+        Configuration configuration = resources.getConfiguration();
+        // Initialize locale
+        configuration.setLocale(new Locale(language));
+        // Update configuration
+        resources.updateConfiguration(configuration, metrics);
+        // Notify configuration
+        onConfigurationChanged(configuration);
     }
 }
