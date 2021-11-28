@@ -20,7 +20,6 @@ import com.example.album4pro.R;
 import java.util.Locale;
 
 public class LanguageActivity extends AppCompatActivity {
-    TextView tvOutput;
     RadioGroup rgLanguage;
     RadioButton rbEnglish, rbVietnamese;
     SharedPreferences sharedPreferences;
@@ -50,7 +49,6 @@ public class LanguageActivity extends AppCompatActivity {
         rgLanguage = findViewById(R.id.rgLanguage);
         rbEnglish = findViewById(R.id.rbEnglish);
         rbVietnamese = findViewById(R.id.rbVietnamese);
-        tvOutput = findViewById(R.id.tvOutput);
 
         // Set Check For Radio Button, Default is English
         if (sharedPreferences.getBoolean("vietnamese", false)) {
@@ -88,20 +86,12 @@ public class LanguageActivity extends AppCompatActivity {
         // Update configuration
         resources.updateConfiguration(configuration, metrics);
         // Notify configuration
-        onConfigurationChanged(configuration);
-    }
-
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Set strings from resources
-        tvOutput.setText(R.string.dummy_text);
+        super.onConfigurationChanged(configuration);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
 
     }
 

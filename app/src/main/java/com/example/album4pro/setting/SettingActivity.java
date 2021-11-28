@@ -1,5 +1,6 @@
 package com.example.album4pro.setting;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -7,8 +8,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +33,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class SettingActivity extends AppCompatActivity {
     ListView mySetting;
@@ -355,6 +360,13 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        //---------------------------------------- SET LANGUAGE ------------------------------------------------
+        // Set Language
+        if (sharedPreferences.getBoolean("vietnamese", false)) {
+            setLocale("vi");
+        } else {
+            setLocale("en");
+        }
 
     }
 
@@ -407,4 +419,26 @@ public class SettingActivity extends AppCompatActivity {
         finish();
     }
 
+    private void setLocale(String language) {
+        // Initalize resources
+        Resources resources = getResources();
+        // Initialize metrics
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        // Initialize configuration
+        Configuration configuration = resources.getConfiguration();
+        // Initialize locale
+        configuration.setLocale(new Locale(language));
+        // Update configuration
+        resources.updateConfiguration(configuration, metrics);
+        // Notify configuration
+        onConfigurationChanged(configuration);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Set strings from resources
+        darkModeSwitch.setText(R.string.darkmode_text);
+    }
 }

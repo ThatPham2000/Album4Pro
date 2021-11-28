@@ -34,13 +34,4 @@
             android:padding="8dp"
             android:text="Vietnamese" />
     </RadioGroup>
-
-    <TextView
-        android:id="@+id/tvOutput"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="200dp"
-        android:text="@string/dummy_text"
-        android:textSize="30sp"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
