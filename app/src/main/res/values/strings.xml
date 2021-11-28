@@ -11,4 +11,6 @@
     <string name="forgot_the_password">
         <u>Forgot your Password</u>
     </string>
+    <string name="dummy_text">Hello</string>
+    <string name="darkmode_text">DarkMode</string>
 </resources>
