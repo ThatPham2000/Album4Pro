@@ -86,7 +86,16 @@ public class LanguageActivity extends AppCompatActivity {
         // Update configuration
         resources.updateConfiguration(configuration, metrics);
         // Notify configuration
-        super.onConfigurationChanged(configuration);
+        onConfigurationChanged(configuration);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Set strings from resources
+        rbEnglish.setText(R.string.english_text);
+        rbVietnamese.setText(R.string.vietnamese_text);
     }
 
     @Override

@@ -46,13 +46,21 @@
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/drawable/tuong_gradient_background.xml" value="0.290625" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/drawable/tuong_gradient_button.xml" value="0.290625" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_about_us.xml" value="0.264" />
+        <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_answer_security_question.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_create_password.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_detail_photo.xml" value="0.20277777777777778" />
+        <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_enter_password.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_language.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_policy.xml" value="0.25462962962962965" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_select_theme.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_setting.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_sy_info.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/dialog_change_password.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/fragment_albums.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/fragment_library.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/fragment_private.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/gallery_item.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/huong_information.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/sy_information.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/that_information.xml" value="0.27447916666666666" />

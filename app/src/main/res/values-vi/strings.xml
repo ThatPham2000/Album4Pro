@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Album4Pro</string>
+    <!--Navigation Menu-->
     <string name="menu_library_title">Thư viện</string>
     <string name="menu_albums_title">Albums</string>
     <string name="menu_private_title">Riêng tư</string>
     <string name="menu_search_title">Tìm kiếm</string>
     <string name="menu_setting_title">Cài đặt</string>
+    <!--Detail Menu-->
     <string name="menu_detail_title">Chi tiết</string>
     <string name="menu_set_as_wallpaper_title">Đặt làm hình nền</string>
     <string name="menu_rename_title">Đổi tên</string>
     <string name="menu_add_to_album_title">Thêm vào album</string>
+    <!--Side Menu-->
     <string name="menu_slide_show_title">Trình chiếu</string>
     <string name="menu_filter_title">Lọc</string>
     <string name="menu_load_image_title">Load ảnh từ URL</string>
@@ -21,6 +24,9 @@
     <string name="forgot_the_password">
         <u>Forgot your Password</u>
     </string>
-    <string name="dummy_text">Xin Chào</string>
+    <!--Dark Mode Switch-->
     <string name="darkmode_text">Chế Độ Tối</string>
+    <!--Language-->
+    <string name="english_text">Tiếng Anh</string>
+    <string name="vietnamese_text">Tiếng Việt</string>
 </resources>

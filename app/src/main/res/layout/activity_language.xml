@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="8dp"
-            android:text="English" />
+            android:text="@string/english_text" />
 
         <RadioButton
             android:id="@+id/rbVietnamese"
@@ -32,6 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="8dp"
-            android:text="Vietnamese" />
+            android:text="@string/vietnamese_text" />
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
