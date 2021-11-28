@@ -13,6 +13,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -36,12 +37,15 @@ import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
 import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.album4pro.BuildConfig;
 import com.example.album4pro.ImagesGallery;
+import com.example.album4pro.MainActivity;
+import com.example.album4pro.PrivateDatabase;
 import com.example.album4pro.R;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +60,8 @@ public class DetailPhoto extends AppCompatActivity {
     private Context mContext;
 
     private String pathImage = "";
+
+    public static String pathPrivate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,14 @@ public class DetailPhoto extends AppCompatActivity {
         btnHide = (ImageButton) findViewById(R.id.btn_hide);
         btnDelete = (ImageButton) findViewById(R.id.btn_delete);
         btnMore = (ImageButton) findViewById(R.id.btn_more);
+
+
+        btnHide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pathPrivate = pathImage;
+            }
+        });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override

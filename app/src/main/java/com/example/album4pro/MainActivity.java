@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,23 +18,35 @@ import android.widget.Toast;
 import com.example.album4pro.fragments.MyFragmentAdapter;
 import com.example.album4pro.fragments.ZoomOutPageTransformer;
 import com.example.album4pro.gallery.Configuration;
+import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.privates.CreatePasswordActivity;
 import com.example.album4pro.privates.EnterPasswordActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager2 menuViewPager2;
     private BottomNavigationView menuBottomNavigationView;
-    public Context libraryContext;
+    public Context libraryContext, privateContext;
+
+    private PrivateDatabase privateDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Tường viết
+        // Tạo database
+        privateDatabase = new PrivateDatabase(this, "private.sqlite", null, 1);
+        // tạo bảng
+        privateDatabase.QueryData("CREATE TABLE IF NOT EXISTS PrivateData(Id INTEGER PRIMARY KEY AUTOINCREMENT, Path VARCHAR(200))");
+
+
 
         menuViewPager2 = (ViewPager2) findViewById(R.id.view_pager_2);
         menuBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -94,6 +107,43 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+    }
+
+
+
+    // Tuong
+    public ArrayList<String> listPhotoPrivate(Context context){
+
+        ArrayList<String> arrListPrivate = new ArrayList<>();
+        // select data
+        Cursor dataCursor = privateDatabase.GetData("SELECT * FROM PrivateData");
+        while (dataCursor.moveToNext()){
+            String path_p = dataCursor.getString(1); // i là cột
+            //int id = dataCursor.getInt(0);
+
+            arrListPrivate.add(path_p);
+        }
+        return arrListPrivate;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String pathImage = DetailPhoto.pathPrivate;
+
+        Boolean check = false;
+        Cursor checkCursor = privateDatabase.GetData("SELECT * FROM PrivateData");
+        while (checkCursor.moveToNext()){
+            String path_p = checkCursor.getString(1); // i là cột
+            if(pathImage.equals(path_p)){
+               check = true;
+               break;
+            }
+        }
+        if(check == false && !pathImage.equals("")){
+            privateDatabase.QueryData("INSERT INTO PrivateData VALUES(null, '"+pathImage+"')");
+        }
     }
 
     @Override
