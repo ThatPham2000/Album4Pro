@@ -25,7 +25,7 @@
         <u>Forgot your Password</u>
     </string>
     <!--Dark Mode Switch-->
-    <string name="darkmode_text">Chế Độ Tối</string>
+    <string name="darkmode_text">Chế độ tối</string>
     <!--Language-->
     <string name="english_text">Tiếng Anh</string>
     <string name="vietnamese_text">Tiếng Việt</string>

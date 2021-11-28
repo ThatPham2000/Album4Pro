@@ -320,11 +320,13 @@ public class SettingActivity extends AppCompatActivity {
 
         // Data
         arrayList = new ArrayList<String>();
+
         arrayList.add("Select Theme");
-        arrayList.add("Policy");
         arrayList.add("About Us");
         arrayList.add("Help");
         arrayList.add("Language");
+        arrayList.add("Privacy Policy");
+
 
         // Connect Data to ListView
         arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayList);
