@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Tường viết
+        // Tường
         // Tạo database
         privateDatabase = new PrivateDatabase(this, "private.sqlite", null, 1);
         // tạo bảng
@@ -162,9 +162,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_slideshow:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-                Toast.makeText(this, "Show slide show", Toast.LENGTH_SHORT).show();
+                // User chose to slideshow Image
+                //Toast.makeText(this, "Show slide show 1111", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, SlideShow.class));
                 return true;
 
             case R.id.action_sort_image:
