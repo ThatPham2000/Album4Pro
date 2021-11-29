@@ -247,8 +247,8 @@ public class MainActivity extends AppCompatActivity {
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-            // file:///storage/emulated/0/myvideo.mp4
-            String savePath = dir.getAbsolutePath() + "/myvideo.mp4";
+            // file:///storage/emulated/0/video.mp4
+            String savePath = dir.getAbsolutePath() + "/video.mp4";
             File videoFile = new File(savePath);
             Uri videoUri = Uri.fromFile(videoFile);
 
@@ -334,6 +334,11 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Action Failed",
                         Toast.LENGTH_LONG).show();
+            }
+            if(Configuration.getInstance().getGalleryAdapter() != null){
+                List<String> list = ImagesGallery.listVideo(libraryContext);
+                Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
+                Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
             }
         }
     }
