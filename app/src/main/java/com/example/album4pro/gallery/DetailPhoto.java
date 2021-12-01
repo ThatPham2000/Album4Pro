@@ -34,6 +34,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
 import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.album4pro.BuildConfig;
@@ -175,6 +176,14 @@ public class DetailPhoto extends AppCompatActivity {
                                     e.printStackTrace();
                                     break;
                                 }
+                            case R.id.menu_image_rotate_left:
+                                Glide.with(DetailPhoto.this)
+                                        .load(pathImage)
+                                        .centerCrop()
+                                        .transform(new MyTransformation(mContext, 90))
+                                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                                        .into(img);
+                                break;
                             case R.id.menu_image_set_background:
                                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
                                 try {
