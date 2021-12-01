@@ -29,4 +29,6 @@
     <!--Language-->
     <string name="english_text">Tiếng Anh</string>
     <string name="vietnamese_text">Tiếng Việt</string>
+    <!--Select Theme-->
+    <string name="select_theme_title">Chủ Đề</string>
 </resources>

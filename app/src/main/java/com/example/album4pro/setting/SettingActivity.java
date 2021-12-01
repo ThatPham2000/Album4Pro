@@ -313,50 +313,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        //---------------------------------------------- List View -------------------------------------------------
 
-        // ListView
-        mySetting = findViewById(R.id.mySetting);
-
-        // Data
-        arrayList = new ArrayList<String>();
-
-        arrayList.add("Select Theme");
-        arrayList.add("About Us");
-        arrayList.add("Help");
-        arrayList.add("Language");
-        arrayList.add("Privacy Policy");
-
-
-        // Connect Data to ListView
-        arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayList);
-        mySetting.setAdapter(arrayAdapter);
-
-        // Set Onclick For ListView
-        mySetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (arrayList.get(i)) {
-                    case "Select Theme":
-                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
-                            showPopup(view);
-                        }
-                        break;
-                    case "Privacy Policy":
-                        startActivity(new Intent(context, PolicyActivity.class));
-                        break;
-                    case "About Us":
-                        startActivity(new Intent(context, AboutUsActivity.class));
-                        break;
-                    case "Help":
-                        startActivity(new Intent(context, HelpActivity.class));
-                        break;
-                    case "Language":
-                        startActivity(new Intent(context, LanguageActivity.class));
-                        break;
-                }
-            }
-        });
     }
 
     @Override
@@ -369,6 +326,62 @@ public class SettingActivity extends AppCompatActivity {
         } else {
             setLocale("en");
         }
+
+        //---------------------------------------------- List View -------------------------------------------------
+
+        // ListView
+        mySetting = findViewById(R.id.mySetting);
+
+        // Data
+        arrayList = new ArrayList<String>();
+
+        if (sharedPreferences.getBoolean("vietnamese", false)) {
+            arrayList.add("Chủ Đề");
+            arrayList.add("Về Chúng Tôi");
+            arrayList.add("Trợ Giúp");
+            arrayList.add("Ngôn Ngữ");
+            arrayList.add("Privacy Policy");
+        } else {
+            arrayList.add("Select Theme");
+            arrayList.add("About Us");
+            arrayList.add("Help");
+            arrayList.add("Language");
+            arrayList.add("Privacy Policy");
+        }
+
+        // Connect Data to ListView
+        arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayList);
+        mySetting.setAdapter(arrayAdapter);
+
+        // Set Onclick For ListView
+        mySetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (arrayList.get(i)) {
+                    case "Select Theme":
+                    case "Chủ Đề":
+                        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+                            showPopup(view);
+                        }
+                        break;
+                    case "Privacy Policy":
+                        startActivity(new Intent(context, PolicyActivity.class));
+                        break;
+                    case "About Us":
+                    case "Về Chúng Tôi":
+                        startActivity(new Intent(context, AboutUsActivity.class));
+                        break;
+                    case "Help":
+                    case "Trợ Giúp":
+                        startActivity(new Intent(context, HelpActivity.class));
+                        break;
+                    case "Language":
+                    case "Ngôn Ngữ":
+                        startActivity(new Intent(context, LanguageActivity.class));
+                        break;
+                }
+            }
+        });
 
     }
 
