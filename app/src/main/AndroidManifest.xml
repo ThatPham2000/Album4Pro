@@ -10,7 +10,7 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:node="replace" />
-    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Album4Pro">
+        <activity
+            android:name=".gallery.VideoViewActivity"
+            android:exported="true" />
         <activity
             android:name=".privates.AnswerSecurityQuestionActivity"
             android:exported="true" />

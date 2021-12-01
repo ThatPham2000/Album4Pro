@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(Configuration.getInstance().getGalleryAdapter() != null){
                     List<String> list = ImagesGallery.listPhoto(libraryContext);
+                    Configuration.getInstance().setVideo(false);
                     Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
                     Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
                 }
@@ -160,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(Configuration.getInstance().getGalleryAdapter() != null){
                     List<String> list = ImagesGallery.listVideo(libraryContext);
+                    Configuration.getInstance().setVideo(true);
                     Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
                     Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
                 }
