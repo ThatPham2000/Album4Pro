@@ -342,7 +342,7 @@ public class SettingActivity extends AppCompatActivity {
                             showPopup(view);
                         }
                         break;
-                    case "Policy":
+                    case "Privacy Policy":
                         startActivity(new Intent(context, PolicyActivity.class));
                         break;
                     case "About Us":
