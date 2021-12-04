@@ -5,6 +5,8 @@ public class Configuration {
 
     private static Configuration instance;
 
+    private Boolean isVideo = false;
+
     public static Configuration getInstance(){
         if(instance == null){
             instance = new Configuration();
@@ -24,7 +26,11 @@ public class Configuration {
         this.galleryAdapter = galleryAdapter;
     }
 
+    public Boolean getVideo() {
+        return isVideo;
+    }
 
-
-    // Test commit
+    public void setVideo(Boolean video) {
+        isVideo = video;
+    }
 }

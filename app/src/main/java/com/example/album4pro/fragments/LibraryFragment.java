@@ -20,6 +20,7 @@ import com.example.album4pro.gallery.GalleryAdapter;
 import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
+import com.example.album4pro.gallery.VideoViewActivity;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -119,9 +120,15 @@ public class LibraryFragment extends Fragment {
             @Override
             public void onPhotoClick(String path) {
                 // TODO ST
-                Intent intent = new Intent(context, DetailPhoto.class);
-                intent.putExtra("path", path);
-                context.startActivity(intent);
+                if (Configuration.getInstance().getVideo()){
+                    Intent intent = new Intent(context, VideoViewActivity.class);
+                    intent.putExtra("path", path);
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, DetailPhoto.class);
+                    intent.putExtra("path", path);
+                    context.startActivity(intent);
+                }
             }
         });
 

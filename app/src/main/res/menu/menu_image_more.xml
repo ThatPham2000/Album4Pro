@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_image_detail"
         android:title="Chi tiết" />
+    <item android:id="@+id/menu_image_rotate_left"
+        android:title="Xoay" />
     <item android:id="@+id/menu_image_set_background"
         android:title="Đặt làm hình nền"/>
     <item android:id="@+id/menu_image_rename"
