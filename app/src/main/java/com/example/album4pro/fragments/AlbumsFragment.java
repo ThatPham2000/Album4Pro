@@ -1,14 +1,34 @@
 package com.example.album4pro.fragments;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.example.album4pro.ImagesGallery;
+import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
+import com.example.album4pro.albums.AlbumAdapter;
+import com.example.album4pro.albums.AlbumItem;
+import com.example.album4pro.albums.AlbumPage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +36,18 @@ import com.example.album4pro.R;
  * create an instance of this fragment.
  */
 public class AlbumsFragment extends Fragment {
+
+    // Khởi tạo các tham số
+    private RecyclerView rcvAlbum;
+    private AlbumAdapter albumAdapter;
+    private Context context = null;
+    private List<String> listFolderName;
+    private List<String> listImageOnAlbum;
+    private String numberImageOnAlbum;
+    /*private int firstImageOnAlbum;*/
+
+    private List<AlbumItem> listAlbum =  new ArrayList<>();
+    private MainActivity main;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,12 +87,59 @@ public class AlbumsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        try{
+            context = getActivity();
+            main = (MainActivity) getActivity();
+        }
+        catch(IllegalStateException e){
+            throw new IllegalStateException("MainActivity must implement callbacks");
+        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_albums, container, false);
+        View view = inflater.inflate(R.layout.fragment_albums, container, false);
+
+        rcvAlbum = view.findViewById(R.id.rcv_album);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,RecyclerView.VERTICAL,false);
+        rcvAlbum.setLayoutManager(linearLayoutManager);
+
+        listFolderName = ImagesGallery.listFolderName(context);
+
+        /*listAlbum = AlbumPage.listPhotoAndVideo(context);*/
+
+        albumAdapter = new AlbumAdapter(context, new AlbumAdapter.AlbumListener() {
+            @Override
+            public void onAlbumClick(AlbumItem album) {
+                onClickGoToAlbumPage(album);
+            }
+        });
+        albumAdapter.setData(loadAlbums());
+        rcvAlbum.setAdapter(albumAdapter);
+
+        return view;
+    }
+    private List<AlbumItem> loadAlbums(){
+        for (String folderName : listFolderName){
+            listImageOnAlbum = ImagesGallery.listImageOnAlbum(context,folderName);
+            numberImageOnAlbum = ImagesGallery.numberImageOnAlbum(listImageOnAlbum);
+            /*firstImageOnAlbum = ImagesGallery.firstImageOnAlbum(listImageOnAlbum);*/
+
+            listAlbum.add(new AlbumItem(R.drawable.icon_album,folderName,numberImageOnAlbum));
+        }
+
+        return listAlbum;
+    }
+    private void onClickGoToAlbumPage(AlbumItem album){
+        Intent intent = new Intent(context, AlbumPage.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("folder name", album);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+
     }
 }
