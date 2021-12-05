@@ -109,6 +109,7 @@ public class LibraryFragment extends Fragment {
                 .check();
     }
 
+
     private void loadImages(){
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);

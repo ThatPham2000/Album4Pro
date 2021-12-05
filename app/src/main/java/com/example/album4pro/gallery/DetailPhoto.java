@@ -85,6 +85,7 @@ public class DetailPhoto extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 pathPrivate = pathImage;
+                onBackPressed();
             }
         });
 

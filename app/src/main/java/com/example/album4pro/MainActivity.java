@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
         // tạo bảng
         privateDatabase.QueryData("CREATE TABLE IF NOT EXISTS PrivateData(Id INTEGER PRIMARY KEY AUTOINCREMENT, Path VARCHAR(200))");
 
-
-
         menuViewPager2 = (ViewPager2) findViewById(R.id.view_pager_2);
         menuBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
@@ -110,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     // Tuong
     public ArrayList<String> listPhotoPrivate(Context context){
 
@@ -141,8 +137,19 @@ public class MainActivity extends AppCompatActivity {
                break;
             }
         }
+        // Chưa tồn tại trong Private
         if(check == false && !pathImage.equals("")){
+            // Thêm vào Private
             privateDatabase.QueryData("INSERT INTO PrivateData VALUES(null, '"+pathImage+"')");
+
+            // Xóa trong Library
+            // ImagesGallery.listPhoto(this).remove(pathImage);
+//            list_private = ImagesGallery.listPhoto(libraryContext);
+//            Toast.makeText(this, list_private.size() + "  0", Toast.LENGTH_SHORT).show();
+//            list_private.remove(pathImage);
+//            Toast.makeText(this, list_private.size() + "  1", Toast.LENGTH_SHORT).show();
+//            Configuration.getInstance().getGalleryAdapter().setListPhoto(list_private);
+//            Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
         }
     }
 
@@ -163,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_slideshow:
                 // User chose to slideshow Image
-                //Toast.makeText(this, "Show slide show 1111", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, SlideShow.class));
                 return true;
 
