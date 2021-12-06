@@ -40,6 +40,7 @@ import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.album4pro.BuildConfig;
 import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.R;
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +51,7 @@ import java.util.List;
 
 public class DetailPhoto extends AppCompatActivity {
 
-    private ImageView img;
+    private PhotoView img;
     private ImageButton btnShare;
     private ImageButton btnEdit;
     private ImageButton btnHide;
@@ -83,7 +84,7 @@ public class DetailPhoto extends AppCompatActivity {
 
         mContext = getApplicationContext();
 
-        img = findViewById(R.id.img_detail);
+        img = (PhotoView) findViewById(R.id.img_detail);
         pathImage = getIntent().getStringExtra("path");
         Glide.with(this).load(pathImage).into(img);
 
