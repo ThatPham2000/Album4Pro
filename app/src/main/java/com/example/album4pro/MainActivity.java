@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Tường
-        // Tạo database
+        // Tạo database Private
         privateDatabase = new PrivateDatabase(this, "private.sqlite", null, 1);
         // tạo bảng
         privateDatabase.QueryData("CREATE TABLE IF NOT EXISTS PrivateData(Id INTEGER PRIMARY KEY AUTOINCREMENT, Path VARCHAR(200))");
