@@ -111,8 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Tuong
-    // Trả ra listPhotoPrivate đã lưu trong Database
+    // Trả ra listPhotoPrivate đã lưu trong Database (Tuong)
     public ArrayList<String> listPhotoPrivate(Context context){
 
         ArrayList<String> arrListPrivate = new ArrayList<>();
@@ -125,60 +124,6 @@ public class MainActivity extends AppCompatActivity {
             arrListPrivate.add(path_p);
         }
         return arrListPrivate;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Log.d("AAA", "onResume: Main");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        String pathImage = DetailPhoto.pathPrivate;
-
-        Boolean check = false;
-        Cursor checkCursor = privateDatabase.GetData("SELECT * FROM PrivateData");
-        while (checkCursor.moveToNext()){
-            String path_p = checkCursor.getString(1); // i là cột
-            if(pathImage.equals(path_p)){
-                check = true;
-                break;
-            }
-        }
-        // Chưa tồn tại trong Private
-        if(check == false && !pathImage.equals("")){
-            // Thêm vào Private
-            privateDatabase.QueryData("INSERT INTO PrivateData VALUES(null, '"+pathImage+"')");
-
-            // Thông báo đã đưa vào Private
-            Toast.makeText(this, "Hình ảnh/video đã được di chuyển vào Thư mục bảo mật", Toast.LENGTH_SHORT).show();
-        }
-
-        Log.d("AAA", "onStart: Main");
-    }
-
-    // list photo đã trừ đi các photo trong Private
-    public ArrayList<String> minusPrivatePhoto(List<String> plist){
-        List<String> master_list = ImagesGallery.listPhoto(libraryContext);
-        ArrayList<String> list_result = new ArrayList<>();
-
-        boolean check = false;
-        for(int i = 0; i < master_list.size(); i++){
-            for(int j = 0; j < plist.size(); j++){
-                if(master_list.get(i).equals(plist.get(j))){
-                    check = true; // có phần tử giống nhau
-                }
-            }
-            if(check == false){
-                list_result.add(master_list.get(i));
-            }
-            check = false;
-        }
-        return list_result;
     }
 
     @Override
@@ -241,5 +186,60 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        insertAndRemovePrivate();
+    }
+
+    // Đưa/lấy hình ảnh/video vào/ra thư mục Private
+    private void insertAndRemovePrivate(){
+        String pathImage = DetailPhoto.pathPrivate;
+
+        Boolean check = false;
+        Cursor checkCursor = privateDatabase.GetData("SELECT * FROM PrivateData");
+        while (checkCursor.moveToNext()){
+            String path_p = checkCursor.getString(1); // i là cột
+            if(pathImage.equals(path_p)){
+                check = true;
+                break;
+            }
+        }
+        // Chưa tồn tại trong Private
+        if(check == false && !pathImage.equals("")){
+            // Thêm vào Private
+            privateDatabase.QueryData("INSERT INTO PrivateData VALUES(null, '"+pathImage+"')");
+
+            Toast.makeText(this, "Hình ảnh/video đã được di chuyển vào Thư mục bảo mật", Toast.LENGTH_SHORT).show();
+        } else {
+            // Đã tồn tại trong private --> đưa ra ngoài Library
+            privateDatabase.QueryData("DELETE FROM PrivateData WHERE Path = '"+ pathImage +"'");
+        }
+
+        Log.d("AAA", "onStart: Main");
+    }
+
+    // list photo đã trừ đi các photo trong Private
+    public ArrayList<String> minusPrivatePhoto(List<String> plist){
+        List<String> master_list = ImagesGallery.listPhoto(libraryContext);
+        ArrayList<String> list_result = new ArrayList<>();
+
+        boolean check = false;
+        for(int i = 0; i < master_list.size(); i++){
+            for(int j = 0; j < plist.size(); j++){
+                if(master_list.get(i).equals(plist.get(j))){
+                    check = true; // có phần tử giống nhau
+                }
+            }
+            if(check == false){
+                list_result.add(master_list.get(i));
+            }
+            check = false;
+        }
+        return list_result;
     }
 }
