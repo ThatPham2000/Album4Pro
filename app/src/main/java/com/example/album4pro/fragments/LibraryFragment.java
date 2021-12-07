@@ -92,6 +92,10 @@ public class LibraryFragment extends Fragment {
         super.onResume();
 
         // Ẩn Photo khi đưa vào Private
+        if(DetailPhoto.pressPrivate == true && DetailPhoto.tempcheckToast == true){
+            Toast.makeText(context, "Hình ảnh/video đã được chuyển vào Private", Toast.LENGTH_SHORT).show();
+            DetailPhoto.tempcheckToast = false;
+        }
         if(DetailPhoto.pressPrivate == true){
             loadImages();
             DetailPhoto.pressPrivate = false;

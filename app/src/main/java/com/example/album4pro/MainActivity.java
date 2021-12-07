@@ -210,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
             // Thêm vào Private
             privateDatabase.QueryData("INSERT INTO PrivateData VALUES(null, '"+pathImage+"')");
 
-            Toast.makeText(this, "Hình ảnh/video đã được di chuyển vào Thư mục bảo mật", Toast.LENGTH_SHORT).show();
         } else {
             // Đã tồn tại trong private --> đưa ra ngoài Library
             privateDatabase.QueryData("DELETE FROM PrivateData WHERE Path = '"+ pathImage +"'");

@@ -113,6 +113,10 @@ public class PrivateFragment extends Fragment {
         PASSWORD_ENTERED = true;
 
         // Load lại Private khi có sự thay đổi
+        if(DetailPhoto.pressinsidePrivate == true && DetailPhoto.tempcheckToast == true){
+            Toast.makeText(context, "Hình ảnh/video đã được hiển thị lại ở Library", Toast.LENGTH_SHORT).show();
+            DetailPhoto.tempcheckToast = false;
+        }
         if(DetailPhoto.pressinsidePrivate == true){
             LoadImage();
             DetailPhoto.pressinsidePrivate = false;

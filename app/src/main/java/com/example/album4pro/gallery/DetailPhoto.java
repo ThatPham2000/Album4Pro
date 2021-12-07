@@ -64,6 +64,7 @@ public class DetailPhoto extends AppCompatActivity {
     public static String pathPrivate = "";
     public static Boolean pressPrivate = false;
     public static Boolean pressinsidePrivate = false;
+    public static Boolean tempcheckToast = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class DetailPhoto extends AppCompatActivity {
                 pathPrivate = pathImage;
                 pressPrivate = true;
                 pressinsidePrivate = true;
+                tempcheckToast = true;
                 onBackPressed();
             }
         });
