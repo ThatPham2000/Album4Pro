@@ -1,5 +1,6 @@
 package com.example.album4pro;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     public Context libraryContext, privateContext;
 
     private PrivateDatabase privateDatabase;
+
+    List<String> list_private;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Tuong
+    // Trả ra listPhotoPrivate đã lưu trong Database
     public ArrayList<String> listPhotoPrivate(Context context){
 
         ArrayList<String> arrListPrivate = new ArrayList<>();
@@ -126,6 +130,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        Log.d("AAA", "onResume: Main");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         String pathImage = DetailPhoto.pathPrivate;
 
         Boolean check = false;
@@ -133,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
         while (checkCursor.moveToNext()){
             String path_p = checkCursor.getString(1); // i là cột
             if(pathImage.equals(path_p)){
-               check = true;
-               break;
+                check = true;
+                break;
             }
         }
         // Chưa tồn tại trong Private
@@ -142,15 +154,31 @@ public class MainActivity extends AppCompatActivity {
             // Thêm vào Private
             privateDatabase.QueryData("INSERT INTO PrivateData VALUES(null, '"+pathImage+"')");
 
-            // Xóa trong Library
-            // ImagesGallery.listPhoto(this).remove(pathImage);
-//            list_private = ImagesGallery.listPhoto(libraryContext);
-//            Toast.makeText(this, list_private.size() + "  0", Toast.LENGTH_SHORT).show();
-//            list_private.remove(pathImage);
-//            Toast.makeText(this, list_private.size() + "  1", Toast.LENGTH_SHORT).show();
-//            Configuration.getInstance().getGalleryAdapter().setListPhoto(list_private);
-//            Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
+            // Thông báo đã đưa vào Private
+            Toast.makeText(this, "Hình ảnh/video đã được di chuyển vào Thư mục bảo mật", Toast.LENGTH_SHORT).show();
         }
+
+        Log.d("AAA", "onStart: Main");
+    }
+
+    // list photo đã trừ đi các photo trong Private
+    public ArrayList<String> minusPrivatePhoto(List<String> plist){
+        List<String> master_list = ImagesGallery.listPhoto(libraryContext);
+        ArrayList<String> list_result = new ArrayList<>();
+
+        boolean check = false;
+        for(int i = 0; i < master_list.size(); i++){
+            for(int j = 0; j < plist.size(); j++){
+                if(master_list.get(i).equals(plist.get(j))){
+                    check = true; // có phần tử giống nhau
+                }
+            }
+            if(check == false){
+                list_result.add(master_list.get(i));
+            }
+            check = false;
+        }
+        return list_result;
     }
 
     @Override
