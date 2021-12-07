@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/popup"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingTop="20dp"
+    android:paddingRight="30dp"
+    android:paddingBottom="20dp">
+
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:text="@string/select_column_title"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+<!--    <RadioGroup-->
+<!--        android:id="@+id/rgColumnSelection"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+
+        <CheckBox
+            android:id="@+id/twoColumns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+            android:text="2 columns" />
+
+        <CheckBox
+            android:id="@+id/threeColumns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+            android:text="3 columns" />
+
+        <CheckBox
+            android:id="@+id/fourColumns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+            android:text="4 columns" />
+
+<!--    </RadioGroup>-->
+
+
+</LinearLayout>

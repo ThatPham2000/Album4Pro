@@ -30,4 +30,5 @@
     <string name="vietnamese_text">Vietnamese</string>
     <!--Select Theme-->
     <string name="select_theme_title">Select Theme</string>
+    <string name="select_column_title">Pictures Displayed Columns</string>
 </resources>

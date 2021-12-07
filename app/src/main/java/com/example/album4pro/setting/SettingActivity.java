@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -41,6 +42,7 @@ public class SettingActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     Context context;
     Dialog myThemeDialog;
+    Dialog myColumnDialog;
     HashMap<TextView, Boolean> listThemeButton;
     Switch darkModeSwitch;
     TextView smokeButton;
@@ -52,6 +54,9 @@ public class SettingActivity extends AppCompatActivity {
     TextView orangeButton;
     TextView navyButton;
     TextView pinkButton;
+    CheckBox twoColumns;
+    CheckBox threeColumns;
+    CheckBox fourColumns;
     SharedPreferences sharedPreferences;
 
 
@@ -79,13 +84,54 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //---------------------------------------- INITIAL VALUE -----------------------------------------------
+        myColumnDialog = new Dialog(this);
+        myColumnDialog.setContentView(R.layout.column_selection);
+
         myThemeDialog = new Dialog(this);
         myThemeDialog.setContentView(R.layout.theme_selection);
+
         listThemeButton = new HashMap<TextView, Boolean>();
         context = this;
 
+        //--------------------------------------------- COLUMN SELECTOR ----------------------------------------
+        twoColumns = findViewById(R.id.twoColumns);
+        threeColumns = findViewById(R.id.threeColumns);
+        fourColumns = findViewById(R.id.fourColumns);
 
-        //----------------------------------- CREATE HASHMAP THEME BUTTON ------------------------------------
+//        twoColumns.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked)
+//                {
+//                    threeColumns.setChecked(false);
+//                    fourColumns.setChecked(false);
+//                }
+//            }
+//        });
+//
+//        threeColumns.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked)
+//                {
+//                    twoColumns.setChecked(false);
+//                    fourColumns.setChecked(false);
+//                }
+//            }
+//        });
+//
+//        fourColumns.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked)
+//                {
+//                    twoColumns.setChecked(false);
+//                    threeColumns.setChecked(false);
+//                }
+//            }
+//        });
+
+        //----------------------------------- CREATE HASHMAP THEME BUTTON --------------------------------------
 
         smokeButton = myThemeDialog.findViewById(R.id.smoke);
         blueButton = myThemeDialog.findViewById(R.id.blue);
@@ -337,12 +383,14 @@ public class SettingActivity extends AppCompatActivity {
 
         if (sharedPreferences.getBoolean("vietnamese", false)) {
             arrayList.add("Chủ Đề");
+            arrayList.add("Pictures Displayed Columns");
             arrayList.add("Về Chúng Tôi");
             arrayList.add("Trợ Giúp");
             arrayList.add("Ngôn Ngữ");
             arrayList.add("Privacy Policy");
         } else {
             arrayList.add("Select Theme");
+            arrayList.add("Pictures Displayed Columns");
             arrayList.add("About Us");
             arrayList.add("Help");
             arrayList.add("Language");
@@ -361,8 +409,11 @@ public class SettingActivity extends AppCompatActivity {
                     case "Select Theme":
                     case "Chủ Đề":
                         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
-                            showPopup(view);
+                            showPopup("Theme");
                         }
+                        break;
+                    case "Pictures Displayed Columns":
+                        showPopup("Column");
                         break;
                     case "Privacy Policy":
                         startActivity(new Intent(context, PolicyActivity.class));
@@ -414,17 +465,27 @@ public class SettingActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_in);
     }
 
-    public void showPopup(View view) {
+    public void showPopup(String selector) {
         //---------------------------------------------- SHOW POPUP -------------------------------------------------
+        if (selector.equals("Theme")) {
+            // Delete Background
+            myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 
-        // Delete Background
-        myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            // Set Animation
+            myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
 
-        // Set Animation
-        myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
+            // Show Popup
+            myThemeDialog.show();
+        } else if (selector.equals("Column")) {
+            // Delete Background
+            myColumnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 
-        // Show Popup
-        myThemeDialog.show();
+            // Set Animation
+            myColumnDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
+
+            // Show Popup
+            myColumnDialog.show();
+        }
     }
 
     @Override
