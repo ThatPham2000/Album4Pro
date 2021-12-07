@@ -1,14 +1,19 @@
 package com.example.album4pro;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,13 +21,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
+import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.album4pro.fragments.MyFragmentAdapter;
 import com.example.album4pro.fragments.ZoomOutPageTransformer;
 import com.example.album4pro.gallery.Configuration;
+import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.GalleryAdapter;
 import com.example.album4pro.setting.PolicyActivity;
 import com.example.album4pro.setting.SettingActivity;
@@ -31,6 +41,7 @@ import com.example.album4pro.privates.EnterPasswordActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,9 +179,33 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_load_url:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-                Toast.makeText(this, "Show load ảnh từ url", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(this);
+
+                final EditText input = new EditText(MainActivity.this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(layoutParams);
+
+                myBuilder.setIcon(R.drawable.ic_launcher_foreground)
+                        .setTitle("URL Hình ảnh")
+                        .setMessage("Nhập URL của hình ảnh\n")
+                        .setView(input)
+                        .setPositiveButton("Close", null)
+                        .setNegativeButton("More", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Uri filePath = Uri.parse(input.getText().toString());
+                                Intent dsPhotoEditorIntent = new Intent(MainActivity.this, DsPhotoEditorActivity.class);
+                                dsPhotoEditorIntent.setData(filePath);
+
+                                dsPhotoEditorIntent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_OUTPUT_DIRECTORY, "PhotoEditorNha");
+
+                                int[] toolsToHide = {DsPhotoEditorActivity.TOOL_ORIENTATION, DsPhotoEditorActivity.TOOL_CROP};
+
+                                dsPhotoEditorIntent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_TOOLS_TO_HIDE, toolsToHide);
+
+                                startActivityForResult(dsPhotoEditorIntent, 200);
+                            }
+                        }).show();
                 return true;
 
             case R.id.action_selection:
@@ -184,6 +219,16 @@ public class MainActivity extends AppCompatActivity {
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 200) {
+            List<String> list = ImagesGallery.listPhoto(this);
+            Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
+            Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
         }
     }
 }
