@@ -24,8 +24,6 @@ public class CreatePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_password);
 
-        Log.d("AAA", "onCreate: Activity");
-
         SharedPreferences sharedPreferences = getSharedPreferences("PASSPREF", MODE_PRIVATE);
 
         edtNewPass = (EditText) findViewById(R.id.editTextNumberPasswordFirst);
