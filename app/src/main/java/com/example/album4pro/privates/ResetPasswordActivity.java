@@ -40,10 +40,10 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
                 if(oldPass.equals("") || newPass.equals("") ||renewPass.equals("")){
                     // there is no password
-                    Toast.makeText(ResetPasswordActivity.this, "No password entered!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResetPasswordActivity.this, "Chưa nhập mật khẩu!", Toast.LENGTH_SHORT).show();
                 } else {
                     if(!oldPass.equals(password_Prefs)){
-                        Toast.makeText(ResetPasswordActivity.this, "Wrong password!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ResetPasswordActivity.this, "Mật khẩu không chính xác!", Toast.LENGTH_SHORT).show();
                     } else {
                         // old password is correct
                         if(newPass.equals(renewPass)){
@@ -58,7 +58,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                             finish();
                         } else {
                             // there is no match on the passwords
-                            Toast.makeText(ResetPasswordActivity.this, "The new passwords doesn't match!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ResetPasswordActivity.this, "Mật khẩu bạn nhập không khớp!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }

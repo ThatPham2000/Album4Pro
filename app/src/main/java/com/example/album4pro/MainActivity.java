@@ -36,17 +36,13 @@ public class MainActivity extends AppCompatActivity {
 
     private PrivateDatabase privateDatabase;
 
-    List<String> list_private;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Tường
-        // Tạo database Private
+        // Tạo database Private (Tuong)
         privateDatabase = new PrivateDatabase(this, "private.sqlite", null, 1);
-        // tạo bảng
         privateDatabase.QueryData("CREATE TABLE IF NOT EXISTS PrivateData(Id INTEGER PRIMARY KEY AUTOINCREMENT, Path VARCHAR(200))");
 
         menuViewPager2 = (ViewPager2) findViewById(R.id.view_pager_2);
@@ -109,21 +105,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    // Trả ra listPhotoPrivate đã lưu trong Database (Tuong)
-    public ArrayList<String> listPhotoPrivate(Context context){
-
-        ArrayList<String> arrListPrivate = new ArrayList<>();
-        // select data
-        Cursor dataCursor = privateDatabase.GetData("SELECT * FROM PrivateData");
-        while (dataCursor.moveToNext()){
-            String path_p = dataCursor.getString(1); // i là cột
-            //int id = dataCursor.getInt(0);
-
-            arrListPrivate.add(path_p);
-        }
-        return arrListPrivate;
     }
 
     @Override
@@ -196,7 +177,22 @@ public class MainActivity extends AppCompatActivity {
         insertAndRemovePrivate();
     }
 
-    // Đưa/lấy hình ảnh/video vào/ra thư mục Private
+    // Trả ra listPhotoPrivate đã lưu trong Database (Tuong)
+    public ArrayList<String> listPhotoPrivate(Context context){
+
+        ArrayList<String> arrListPrivate = new ArrayList<>();
+        // select data
+        Cursor dataCursor = privateDatabase.GetData("SELECT * FROM PrivateData");
+        while (dataCursor.moveToNext()){
+            String path_p = dataCursor.getString(1); // i là cột
+            //int id = dataCursor.getInt(0);
+
+            arrListPrivate.add(path_p);
+        }
+        return arrListPrivate;
+    }
+
+    // Đưa/lấy hình ảnh/video vào/ra thư mục Private (Tuong)
     private void insertAndRemovePrivate(){
         String pathImage = DetailPhoto.pathPrivate;
 
@@ -219,11 +215,9 @@ public class MainActivity extends AppCompatActivity {
             // Đã tồn tại trong private --> đưa ra ngoài Library
             privateDatabase.QueryData("DELETE FROM PrivateData WHERE Path = '"+ pathImage +"'");
         }
-
-        Log.d("AAA", "onStart: Main");
     }
 
-    // list photo đã trừ đi các photo trong Private
+    // list photo đã trừ đi các photo trong Private (Tuong)
     public ArrayList<String> minusPrivatePhoto(List<String> plist){
         List<String> master_list = ImagesGallery.listPhoto(libraryContext);
         ArrayList<String> list_result = new ArrayList<>();

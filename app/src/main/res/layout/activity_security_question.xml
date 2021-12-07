@@ -34,6 +34,8 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
         android:background="@drawable/shape_custom_stroke"
         android:layout_marginTop="10dp"
         android:textSize="20sp"
@@ -46,6 +48,8 @@
         android:hint="Nhập câu hỏi" />
 
     <EditText
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
         android:background="@drawable/shape_custom_stroke"
         android:layout_marginTop="10dp"
         android:textSize="20sp"
