@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +95,36 @@ public class PrivateFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view_private);
 
+        // Load hình ảnh từ Database
+        LoadImage();
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Chưa nhập mật khẩu --> điều hướng màn hình
+        if (PASSWORD_ENTERED == false){
+            navigatingPrivateScreens();
+        }
+        // Sau khi nhập mật khẩu
+        PASSWORD_ENTERED = true;
+
+        // Load lại Private khi có sự thay đổi
+        if(DetailPhoto.pressinsidePrivate == true){
+            LoadImage();
+            DetailPhoto.pressinsidePrivate = false;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // Đã nhập mật khẩu, khi Fragment bị stop bởi 1 Activity khác chiếm giữ, sẽ không phải nhập lại mật khẩu lần nữa
+        PASSWORD_ENTERED = true;
     }
 
     private void LoadImage() {
@@ -117,42 +147,25 @@ public class PrivateFragment extends Fragment {
         Configuration.getInstance().setGalleryAdapter(this.galleryAdapter);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // Chưa nhập mật khẩu
-        if (PASSWORD_ENTERED == false){
-            sharedPreferences = getActivity().getSharedPreferences("PASSPREF", Context.MODE_PRIVATE);
-            password_Prefs = sharedPreferences.getString("password_tag", "");
-            answer_Prefs = sharedPreferences.getString("answer_tag", "");
-            if(answer_Prefs.equals("") && !password_Prefs.equals("")){
-                // Đã có mật khẩu nhưng chưa chọn câu hỏi bảo mật
-                Intent intent = new Intent(getActivity(), SecurityQuestionActivity.class);
+    private void navigatingPrivateScreens(){
+        sharedPreferences = getActivity().getSharedPreferences("PASSPREF", Context.MODE_PRIVATE);
+        password_Prefs = sharedPreferences.getString("password_tag", "");
+        answer_Prefs = sharedPreferences.getString("answer_tag", "");
+        if(answer_Prefs.equals("") && !password_Prefs.equals("")){
+            // Đã có mật khẩu nhưng chưa chọn câu hỏi bảo mật
+            Intent intent = new Intent(getActivity(), SecurityQuestionActivity.class);
+            startActivity(intent);
+        } else {
+            if(password_Prefs.equals("")){
+                // there is no password
+                Intent intent = new Intent(getActivity(), CreatePasswordActivity.class);
                 startActivity(intent);
             } else {
-                if(password_Prefs.equals("")){
-                    // there is no password
-                    Intent intent = new Intent(getActivity(), CreatePasswordActivity.class);
-                    startActivity(intent);
-                } else {
-                    // there is a password
-                    Intent intent = new Intent(getActivity(), EnterPasswordActivity.class);
-                    startActivity(intent);
-                }
+                // there is a password
+                Intent intent = new Intent(getActivity(), EnterPasswordActivity.class);
+                startActivity(intent);
             }
         }
-        LoadImage();
-        // Sau khi nhập mật khẩu
-        PASSWORD_ENTERED = true;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // Đã nhập mật khẩu, khi Fragment bị stop bởi 1 Activity khác chiếm giữ, sẽ không phải nhập lại mật khẩu lần nữa
-        PASSWORD_ENTERED = true;
     }
 
 }
