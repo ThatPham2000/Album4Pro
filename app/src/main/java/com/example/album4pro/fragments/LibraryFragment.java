@@ -120,7 +120,7 @@ public class LibraryFragment extends Fragment {
             @Override
             public void onPhotoClick(String path) {
                 // TODO ST
-                String[] imageExtensions = {"jpg", "png", "gif", "jpeg", "tiff"};
+                String[] imageExtensions = {"jpg", "png", "gif", "jpeg", "tiff", "webp"};
                 boolean isImage = false;
                 String extension = path.substring(path.lastIndexOf(".") + 1);
 
