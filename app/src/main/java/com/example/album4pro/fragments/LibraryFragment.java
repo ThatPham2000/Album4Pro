@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,8 @@ public class LibraryFragment extends Fragment {
         catch (IllegalStateException e) {
             throw new IllegalStateException("MainActivity must implement callbacks");
         }
+
+        Log.d("AAA", "onCreate: Library");
     }
 
     @Override
@@ -84,7 +87,29 @@ public class LibraryFragment extends Fragment {
 
         requestPermission();
 
+        Log.d("AAA", "onCreateView: Library");
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.d("AAA", "onResume: Library");
+
+        // Ẩn Photo khi đưa vào Private
+        if(DetailPhoto.pressPrivate == true){
+            loadImages();
+            DetailPhoto.pressPrivate = false;
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Log.d("AAA", "onStart: Library");
     }
 
     private void requestPermission(){
@@ -115,7 +140,8 @@ public class LibraryFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
-        listPhoto = ImagesGallery.listPhoto(context);
+        //listPhoto = ImagesGallery.listPhoto(context); // code cũ
+        listPhoto = mainActivity.minusPrivatePhoto(mainActivity.listPhotoPrivate(context)); // Chỉnh sửa để ẩn Private trong Library
 
         galleryAdapter = new GalleryAdapter(context, listPhoto, new GalleryAdapter.PhotoListener() {
             @Override
