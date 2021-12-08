@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_image_detail"
         android:title="@string/menu_detail_title" />
+    <item android:id="@+id/menu_image_rotate_left"
+        android:title="Xoay" />
     <item android:id="@+id/menu_image_set_background"
         android:title="@string/menu_set_as_wallpaper_title"/>
     <item android:id="@+id/menu_image_rename"

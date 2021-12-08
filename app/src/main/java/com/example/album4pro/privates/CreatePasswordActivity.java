@@ -24,8 +24,6 @@ public class CreatePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_password);
 
-        Log.d("AAA", "onCreate: Activity");
-
         SharedPreferences sharedPreferences = getSharedPreferences("PASSPREF", MODE_PRIVATE);
 
         edtNewPass = (EditText) findViewById(R.id.editTextNumberPasswordFirst);
@@ -43,7 +41,7 @@ public class CreatePasswordActivity extends AppCompatActivity {
 
                 if(first_pass.equals("") || second_pass.equals("")){
                     // there is no password
-                    Toast.makeText(CreatePasswordActivity.this, "No password entered!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreatePasswordActivity.this, "Bạn chưa nhập mật khẩu!", Toast.LENGTH_SHORT).show();
                 } else {
                     if(first_pass.equals(second_pass)){
                         // Save password
@@ -61,7 +59,7 @@ public class CreatePasswordActivity extends AppCompatActivity {
                         }
                     } else {
                     // there is no match on the passwords
-                    Toast.makeText(CreatePasswordActivity.this, "Sorry! Passwords doesn't match!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreatePasswordActivity.this, "Xin lỗi, mật khẩu bạn nhập không khớp!", Toast.LENGTH_SHORT).show();
                 }
             }
             }

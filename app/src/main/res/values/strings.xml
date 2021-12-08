@@ -21,7 +21,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="private_fragment">PRIVATE FRAGMENT</string>
     <string name="forgot_the_password">
-        <u>Forgot your Password</u>
+        <u>Quên mật khẩu</u>
     </string>
     <!--Dark Mode Switch-->
     <string name="darkmode_text">DarkMode</string>

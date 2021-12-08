@@ -47,7 +47,7 @@ public class AnswerSecurityQuestionActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Your answer is wrong!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Câu trả lời của bạn không đúng!!!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

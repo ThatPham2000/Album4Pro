@@ -14,6 +14,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,22 +35,27 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
 import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.album4pro.BuildConfig;
 import com.example.album4pro.ImagesGallery;
+import com.example.album4pro.MainActivity;
+import com.example.album4pro.PrivateDatabase;
 import com.example.album4pro.R;
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class DetailPhoto extends AppCompatActivity {
 
-    private ImageView img;
+    private PhotoView img;
     private ImageButton btnShare;
     private ImageButton btnEdit;
     private ImageButton btnHide;
@@ -58,6 +64,11 @@ public class DetailPhoto extends AppCompatActivity {
     private Context mContext;
 
     private String pathImage = "";
+
+    public static String pathPrivate = "";
+    public static Boolean pressPrivate = false;
+    public static Boolean pressinsidePrivate = false;
+    public static Boolean tempcheckToast = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +93,7 @@ public class DetailPhoto extends AppCompatActivity {
 
         mContext = getApplicationContext();
 
-        img = findViewById(R.id.img_detail);
+        img = (PhotoView) findViewById(R.id.img_detail);
         pathImage = getIntent().getStringExtra("path");
         Glide.with(this).load(pathImage).into(img);
 
@@ -91,6 +102,18 @@ public class DetailPhoto extends AppCompatActivity {
         btnHide = (ImageButton) findViewById(R.id.btn_hide);
         btnDelete = (ImageButton) findViewById(R.id.btn_delete);
         btnMore = (ImageButton) findViewById(R.id.btn_more);
+
+
+        btnHide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pathPrivate = pathImage;
+                pressPrivate = true;
+                pressinsidePrivate = true;
+                tempcheckToast = true;
+                onBackPressed();
+            }
+        });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +198,14 @@ public class DetailPhoto extends AppCompatActivity {
                                     e.printStackTrace();
                                     break;
                                 }
+                            case R.id.menu_image_rotate_left:
+                                Glide.with(DetailPhoto.this)
+                                        .load(pathImage)
+                                        .centerCrop()
+                                        .transform(new MyTransformation(mContext, 90))
+                                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                                        .into(img);
+                                break;
                             case R.id.menu_image_set_background:
                                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
                                 try {

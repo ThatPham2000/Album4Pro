@@ -7,10 +7,10 @@
     tools:context=".gallery.DetailPhoto"
     android:background="#ff000000">
 
-    <ImageView
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/img_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"/>
     <LinearLayout
         android:layout_width="match_parent"

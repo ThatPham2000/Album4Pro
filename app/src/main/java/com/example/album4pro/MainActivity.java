@@ -1,14 +1,21 @@
 package com.example.album4pro;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,13 +23,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
+import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.album4pro.fragments.MyFragmentAdapter;
 import com.example.album4pro.fragments.ZoomOutPageTransformer;
 import com.example.album4pro.gallery.Configuration;
+import com.example.album4pro.gallery.DetailPhoto;
+import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.GalleryAdapter;
 import com.example.album4pro.setting.PolicyActivity;
 import com.example.album4pro.setting.SettingActivity;
@@ -32,13 +45,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager2 menuViewPager2;
     private BottomNavigationView menuBottomNavigationView;
-    public Context libraryContext;
+    public Context libraryContext, privateContext;
+
+    private PrivateDatabase privateDatabase;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -61,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
+
+        // Tạo database Private (Tuong)
+        privateDatabase = new PrivateDatabase(this, "private.sqlite", null, 1);
+        privateDatabase.QueryData("CREATE TABLE IF NOT EXISTS PrivateData(Id INTEGER PRIMARY KEY AUTOINCREMENT, Path VARCHAR(200))");
 
         menuViewPager2 = (ViewPager2) findViewById(R.id.view_pager_2);
         menuBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -139,9 +160,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_slideshow:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-                Toast.makeText(this, "Show slide show", Toast.LENGTH_SHORT).show();
+                // User chose to slideshow Image
+                startActivity(new Intent(this, SlideShow.class));
                 return true;
 
             case R.id.action_sort_image:
@@ -150,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(Configuration.getInstance().getGalleryAdapter() != null){
                     List<String> list = ImagesGallery.listPhoto(libraryContext);
+                    Configuration.getInstance().setVideo(false);
                     Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
                     Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
                 }
@@ -161,15 +182,40 @@ public class MainActivity extends AppCompatActivity {
 
                 if(Configuration.getInstance().getGalleryAdapter() != null){
                     List<String> list = ImagesGallery.listVideo(libraryContext);
+                    Configuration.getInstance().setVideo(true);
                     Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
                     Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
                 }
                 return true;
 
             case R.id.action_load_url:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-                Toast.makeText(this, "Show load ảnh từ url", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(this);
+
+                final EditText input = new EditText(MainActivity.this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(layoutParams);
+
+                myBuilder.setIcon(R.drawable.ic_app)
+                        .setTitle("URL Hình ảnh")
+                        .setMessage("Nhập URL của hình ảnh\n")
+                        .setView(input)
+                        .setPositiveButton("Close", null)
+                        .setNegativeButton("More", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Uri filePath = Uri.parse(input.getText().toString());
+                                Intent dsPhotoEditorIntent = new Intent(MainActivity.this, DsPhotoEditorActivity.class);
+                                dsPhotoEditorIntent.setData(filePath);
+
+                                dsPhotoEditorIntent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_OUTPUT_DIRECTORY, "PhotoEditorNha");
+
+                                int[] toolsToHide = {DsPhotoEditorActivity.TOOL_ORIENTATION, DsPhotoEditorActivity.TOOL_CROP};
+
+                                dsPhotoEditorIntent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_TOOLS_TO_HIDE, toolsToHide);
+
+                                startActivityForResult(dsPhotoEditorIntent, 200);
+                            }
+                        }).show();
                 return true;
 
             case R.id.action_selection:
@@ -184,5 +230,82 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 200) {
+            List<String> list = ImagesGallery.listPhoto(this);
+            Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
+            Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
+        }
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        insertAndRemovePrivate();
+    }
+
+    // Trả ra listPhotoPrivate đã lưu trong Database (Tuong)
+    public ArrayList<String> listPhotoPrivate(Context context){
+
+        ArrayList<String> arrListPrivate = new ArrayList<>();
+        // select data
+        Cursor dataCursor = privateDatabase.GetData("SELECT * FROM PrivateData");
+        while (dataCursor.moveToNext()){
+            String path_p = dataCursor.getString(1); // i là cột
+            //int id = dataCursor.getInt(0);
+
+            arrListPrivate.add(path_p);
+        }
+        return arrListPrivate;
+    }
+
+    // Đưa/lấy hình ảnh/video vào/ra thư mục Private (Tuong)
+    private void insertAndRemovePrivate(){
+        String pathImage = DetailPhoto.pathPrivate;
+
+        Boolean check = false;
+        Cursor checkCursor = privateDatabase.GetData("SELECT * FROM PrivateData");
+        while (checkCursor.moveToNext()){
+            String path_p = checkCursor.getString(1); // i là cột
+            if(pathImage.equals(path_p)){
+                check = true;
+                break;
+            }
+        }
+        // Chưa tồn tại trong Private
+        if(check == false && !pathImage.equals("")){
+            // Thêm vào Private
+            privateDatabase.QueryData("INSERT INTO PrivateData VALUES(null, '"+pathImage+"')");
+
+        } else {
+            // Đã tồn tại trong private --> đưa ra ngoài Library
+            privateDatabase.QueryData("DELETE FROM PrivateData WHERE Path = '"+ pathImage +"'");
+        }
+    }
+
+    // list photo đã trừ đi các photo trong Private (Tuong)
+    public ArrayList<String> minusPrivatePhoto(List<String> plist){
+        List<String> master_list = ImagesGallery.listPhoto(libraryContext);
+        ArrayList<String> list_result = new ArrayList<>();
+
+        boolean check = false;
+        for(int i = 0; i < master_list.size(); i++){
+            for(int j = 0; j < plist.size(); j++){
+                if(master_list.get(i).equals(plist.get(j))){
+                    check = true; // có phần tử giống nhau
+                }
+            }
+            if(check == false){
+                list_result.add(master_list.get(i));
+            }
+            check = false;
+        }
+        return list_result;
     }
 }
