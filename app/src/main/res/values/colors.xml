@@ -20,6 +20,8 @@
     <color name="navy_theme">#091353</color>
     <color name="pink_theme">#FF5DA2</color>
 
+    <color name="dialog_title">#4CE753</color>
+
 
 
 </resources>

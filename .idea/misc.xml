@@ -17,6 +17,11 @@
         <entry key="..\:/Users/123/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_image_more.xml" value="0.1265625" />
         <entry key="..\:/Users/123/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_resource.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/123/AndroidStudioProjects/Album4Pro/app/src/main/res/xml/provider_path.xml" value="0.14010416666666667" />
+        <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/drawable-v24/bg_green_corner_title.xml" value="0.290625" />
+        <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/drawable/bg_green_color_title.xml" value="0.290625" />
+        <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/drawable/bg_green_corner_title.xml" value="0.2875" />
+        <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/drawable/bg_white_corner.xml" value="0.290625" />
+        <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/drawable/bg_white_corner_gray_border.xml" value="0.290625" />
         <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/drawable/circle_yellow.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/drawable/ic_album.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/drawable/ic_camera.xml" value="0.26614583333333336" />
@@ -34,7 +39,8 @@
         <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/layout/activity_select_theme.xml" value="0.25" />
         <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/layout/activity_setting.xml" value="0.25" />
         <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/layout/album_item.xml" value="0.264" />
-        <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/layout/fragment_albums.xml" value="0.15715579710144928" />
+        <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/layout/dialog_create_new_album.xml" value="0.264" />
+        <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/layout/fragment_albums.xml" value="0.2" />
         <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/layout/fragment_albums_frame.xml" value="0.15715579710144928" />
         <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/layout/fragment_library.xml" value="0.176" />
         <entry key="..\:/Users/ADMIN/Album4Pro/app/src/main/res/layout/fragment_private.xml" value="0.25" />
