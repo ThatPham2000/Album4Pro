@@ -5,15 +5,15 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
-import android.widget.CompoundButton;
-import android.widget.Switch;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
 
-public class PolicyActivity extends AppCompatActivity {
+public class TuongInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +34,19 @@ public class PolicyActivity extends AppCompatActivity {
             if (sharedPreferences.getBoolean("pink", false)) setTheme(R.style.PinkTheme);
         }
 
-        setContentView(R.layout.activity_policy);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.tuong_information);
 
-
+        Button tuongFollowButton = findViewById(R.id.tuongFollowButton);
+        tuongFollowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoUrl("https://www.facebook.com/nguyen.tuong.5667");
+            }
+        });
     }
 
-
+    private void gotoUrl(String s) {
+        Uri uri = Uri.parse(s);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
+    }
 }

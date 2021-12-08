@@ -27,6 +27,21 @@
             android:name=".SlideShow"
             android:exported="true" />
         <activity
+            android:name=".setting.HuongInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".setting.TriInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".setting.TuongInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".setting.ThatInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".setting.SyInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".privates.AnswerSecurityQuestionActivity"
             android:exported="true" />
         <activity
