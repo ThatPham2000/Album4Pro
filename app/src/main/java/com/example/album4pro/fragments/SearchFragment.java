@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ import com.gun0912.tedpermission.normal.TedPermission;
 import java.io.File;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -52,9 +55,12 @@ public class SearchFragment extends Fragment {
     private TextView tvDate;
     private Button btnSelectDate;
 
-    private int lastSelectedYear = 2021;
-    private int lastSelectedMonth = 11;
-    private int lastSelectedDayOfMonth = 8;
+    Calendar calendar = Calendar.getInstance();
+
+    private int lastSelectedYear =  calendar.get(Calendar.YEAR);;
+    private int lastSelectedMonth = calendar.get(Calendar.MONTH);
+    private int lastSelectedDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
     private Date date;
 
     // TODO: Rename parameter arguments, choose names that match
