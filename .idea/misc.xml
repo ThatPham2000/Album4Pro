@@ -11,14 +11,16 @@
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_about_us.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_create_password.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_detail_photo.xml" value="0.12183383991894631" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_language.xml" value="0.14990942028985507" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_main.xml" value="0.12183383991894631" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_policy.xml" value="0.12760416666666666" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_security_question.xml" value="0.14990942028985507" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_setting.xml" value="0.12183383991894631" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_splash.xml" value="0.12183383991894631" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/fragment_albums.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/fragment_library.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/fragment_private.xml" value="0.12760416666666666" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/fragment_search.xml" value="0.12760416666666666" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/fragment_search.xml" value="0.2" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/fragment_setting.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/gallery_item.xml" value="0.12183383991894631" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/theme_selection.xml" value="0.12183383991894631" />

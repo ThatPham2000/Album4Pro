@@ -2,10 +2,17 @@ package com.example.album4pro;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ImagesGallery {
     public static ArrayList<String> listPhotoAndVideo(Context context){
@@ -88,4 +95,76 @@ public class ImagesGallery {
 
         return listOfAllVideo;
     };
+
+    public static ArrayList<String> listPhotoFilter(Context context, String searchDate){
+        Uri uri;
+        Cursor cursor;
+        int column_index_data, column_index_folder_name;
+        ArrayList<String> listOfAllImage = new ArrayList<>();
+        String pathOfImage;
+
+        uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        String[] projection = {
+                MediaStore.MediaColumns.DATA,
+                MediaStore.Images.Media.BUCKET_DISPLAY_NAME
+        };
+        String orderBy = MediaStore.Video.Media.DATE_TAKEN;
+        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + " DESC");
+        column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+
+        // get folder name
+        //column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
+
+        while (cursor.moveToNext()){
+            pathOfImage = cursor.getString(column_index_data);
+
+            //Filter
+            String createdDate = "";
+
+            //Get date y/m/d
+            File file = new File(pathOfImage);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy:MM:dd");
+            if(file.exists()) //Extra check, Just to validate the given path
+            {
+                ExifInterface intf = null;
+                try {
+                    intf = new ExifInterface(pathOfImage);
+                    if(intf != null)
+                    {
+                        createdDate = intf.getAttribute(ExifInterface.TAG_DATETIME);
+                        //Date temp =
+                        if (createdDate != null) {
+                            createdDate = simpleDateFormat.format(stringToDate(createdDate));
+                        } else {
+                            Date lastModDate = new Date(file.lastModified());
+                            createdDate = simpleDateFormat.format(lastModDate);
+                        }
+                    }
+                } catch (IOException e) {
+
+                }
+                if(intf == null) {
+                    Date lastModDate = new Date(file.lastModified());
+                    createdDate = "" + simpleDateFormat.format(lastModDate);
+                }
+            }
+
+            //filter by comparing original day and search day
+            if (searchDate.equals(createdDate)) {
+                listOfAllImage.add(pathOfImage);
+            }
+        }
+
+        return listOfAllImage;
+    };
+
+    private static Date stringToDate(String aDate) {
+
+        if(aDate==null) return null;
+        ParsePosition pos = new ParsePosition(0);
+        SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+        Date stringDate = simpledateformat.parse(aDate, pos);
+        return stringDate;
+
+    }
 }
