@@ -43,7 +43,9 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +56,25 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ID_READ_WRITE_PERMISSION = 99;
     private static final int REQUEST_ID_IMAGE_CAPTURE = 100;
     private static final int REQUEST_ID_VIDEO_CAPTURE = 101;
+
+    // Name generator
+    final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
+    final java.util.Random rand = new java.util.Random();
+    final Set<String> identifiers = new HashSet<String>();
+
+    public String randomIdentifier() {
+        StringBuilder builder = new StringBuilder();
+        while(builder.toString().length() == 0) {
+            int length = rand.nextInt(5)+5;
+            for(int i = 0; i < length; i++) {
+                builder.append(lexicon.charAt(rand.nextInt(lexicon.length())));
+            }
+            if(identifiers.contains(builder.toString())) {
+                builder = new StringBuilder();
+            }
+        }
+        return builder.toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                 dir.mkdirs();
             }
             // file:///storage/emulated/0/video.mp4
-            String savePath = dir.getAbsolutePath() + "/video.mp4";
+            String savePath = dir.getAbsolutePath() + "/DCIM/Album4Pro/" + randomIdentifier();
             File videoFile = new File(savePath);
             Uri videoUri = Uri.fromFile(videoFile);
 
