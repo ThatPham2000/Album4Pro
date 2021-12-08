@@ -36,11 +36,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
+import com.dsphotoeditor.sdk.ui.photoview.PhotoView;
 import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.album4pro.BuildConfig;
 import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.R;
-import com.github.chrisbanes.photoview.PhotoView;
+/*import com.github.chrisbanes.photoview.PhotoView;*/
 
 import java.io.File;
 import java.io.IOException;

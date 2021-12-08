@@ -46,15 +46,16 @@ import com.example.album4pro.gallery.GalleryAdapter;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import gun0912.tedbottompicker.TedBottomPicker;
-import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
+
 
 public class AlbumPage extends AppCompatActivity {
+    private static final int SELECT_PICTURES = 10;
     private RecyclerView recyclerView;
     private GalleryAdapter galleryAdapter;
     private NewAlbumAdapter newAlbumAdapter;
@@ -62,6 +63,9 @@ public class AlbumPage extends AppCompatActivity {
     private List<String> listImageOnAlbum;
     private List<String> listFolderName;
     private String dialogAlbumName;
+
+    private String imagePath;
+    private List<String> imagePathList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +94,7 @@ public class AlbumPage extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add_album:
                 // User chose the "Settings" item, show the app settings UI...
-                Toast.makeText(this, "Show Camera", Toast.LENGTH_SHORT).show();
+                selectImagesFromGallery();
                 return true;
 
             default:
@@ -141,7 +145,7 @@ public class AlbumPage extends AppCompatActivity {
                     recyclerView.setAdapter(newAlbumAdapter);
 
                     selectImagesFromGallery();
-                    sendNewAlbum();
+
                     dialog.dismiss();
                 }
             });
@@ -169,21 +173,59 @@ public class AlbumPage extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+
     private void selectImagesFromGallery(){
-        TedBottomPicker.with(this)
-                .setPeekHeight(1600)
-                .showTitle(false)
-                .setCompleteButtonText("Thêm")
-                .setEmptySelectionText("Trống")
-                .showMultiImage(new TedBottomSheetDialogFragment.OnMultiImageSelectedListener() {
-                    @Override
-                    public void onImagesSelected(List<Uri> uriList) {
-                        // here is selected image uri list
-                        if (uriList != null && !uriList.isEmpty()){
-                            newAlbumAdapter.setNewAlbum(uriList);
-                        }
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"),SELECT_PICTURES);
+
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /*if (requestCode == SELECT_PICTURES){
+            if (resultCode == Activity.RESULT_OK){
+                if (data.getClipData() != null){
+                    int count = data.getClipData().getItemCount();
+                    for (int i = 0; i < count; i++){
+                        Uri uri = data.getClipData().getItemAt(i).getUri();
                     }
-                });
+                } else if (data.getData() != null){
+                    String imagePath = data.getData().getPath();
+                }
+            }
+        }*/
+        if (requestCode == SELECT_PICTURES && resultCode == RESULT_OK  && data != null) {
+            imagePathList = new ArrayList<>();
+            if (data.getClipData() != null) {
+                int count = data.getClipData().getItemCount();
+                for (int i=0; i<count; i++) {
+                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    getImageFilePath(imageUri);
+                }
+            }
+            else if (data.getData() != null) {
+                Uri imgUri = data.getData();
+                getImageFilePath(imgUri);
+            }
+        }
+    }
+    public void getImageFilePath(Uri uri) {
+
+        File file = new File(uri.getPath());
+        String[] filePath = file.getPath().split(":");
+        String image_id = filePath[filePath.length - 1];
+
+        Cursor cursor = getContentResolver().query(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Images.Media._ID + " = ? ", new String[]{image_id}, null);
+        if (cursor!=null) {
+            cursor.moveToFirst();
+            imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+            imagePathList.add(imagePath);
+            cursor.close();
+        }
     }
     /*private void sendAlbum(AlbumItem album){
      *//*AlbumsFragment albumsFragment = new AlbumsFragment();*//*

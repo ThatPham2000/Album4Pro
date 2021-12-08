@@ -88,7 +88,7 @@ public class LibraryFragment extends Fragment {
         return view;
     }
 
-    @Override
+    /*@Override
     public void onResume() {
         super.onResume();
 
@@ -102,7 +102,7 @@ public class LibraryFragment extends Fragment {
             DetailPhoto.pressPrivate = false;
         }
     }
-
+*/
     private void requestPermission(){
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -132,7 +132,7 @@ public class LibraryFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
         //listPhoto = ImagesGallery.listPhoto(context); // code cũ
-        listPhoto = mainActivity.minusPrivatePhoto(mainActivity.listPhotoPrivate(context)); // Chỉnh sửa để ẩn Private trong Library (Tuong)
+/*        listPhoto = mainActivity.minusPrivatePhoto(mainActivity.listPhotoPrivate(context)); // Chỉnh sửa để ẩn Private trong Library (Tuong)*/
 
         galleryAdapter = new GalleryAdapter(context, listPhoto, new GalleryAdapter.PhotoListener() {
             @Override

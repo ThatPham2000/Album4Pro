@@ -19,7 +19,7 @@ import java.util.List;
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder>{
 
     private Context context;
-    private List<AlbumItem> aListAlbum;
+    private List<AlbumItem> mListAlbum;
     protected AlbumListener albumListener;
 
     public AlbumAdapter(Context context, AlbumListener albumListener) {
@@ -28,7 +28,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     }
 
     public void setData(List<AlbumItem> list){
-        this.aListAlbum = list;
+        this.mListAlbum = list;
         notifyDataSetChanged(); //load data to AlbumAdapter
     }
 
@@ -42,7 +42,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        AlbumItem album = aListAlbum.get(position);
+        AlbumItem album = mListAlbum.get(position);
         if (album == null) {
             return;
         }
@@ -65,8 +65,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        if (aListAlbum != null){
-            return aListAlbum.size();
+        if (mListAlbum != null){
+            return mListAlbum.size();
         }
         return 0;
     }

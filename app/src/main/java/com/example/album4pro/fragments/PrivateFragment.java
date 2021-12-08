@@ -79,7 +79,7 @@ public class PrivateFragment extends Fragment {
         try{
             context = getActivity();
             mainActivity = (MainActivity) getActivity(); // Tham chiếu tới MainActivity
-            mainActivity.privateContext = this.context;
+            /*mainActivity.privateContext = this.context;*/
         }
         catch (IllegalStateException e) {
             throw new IllegalStateException("MainActivity must implement callbacks");
@@ -112,7 +112,7 @@ public class PrivateFragment extends Fragment {
         // Sau khi nhập mật khẩu
         PASSWORD_ENTERED = true;
 
-        // Load lại Private khi có sự thay đổi
+        /*// Load lại Private khi có sự thay đổi
         if(DetailPhoto.pressinsidePrivate == true && DetailPhoto.tempcheckToast == true){
             Toast.makeText(context, "Hình ảnh/video đã được hiển thị lại ở Library", Toast.LENGTH_SHORT).show();
             DetailPhoto.tempcheckToast = false;
@@ -120,7 +120,7 @@ public class PrivateFragment extends Fragment {
         if(DetailPhoto.pressinsidePrivate == true){
             LoadImage();
             DetailPhoto.pressinsidePrivate = false;
-        }
+        }*/
     }
 
     @Override
@@ -135,7 +135,7 @@ public class PrivateFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
-        listPhoto = mainActivity.listPhotoPrivate(context);
+        /*listPhoto = mainActivity.listPhotoPrivate(context);*/
 
         galleryAdapter = new GalleryAdapter(context, listPhoto, new GalleryAdapter.PhotoListener() {
             @Override
