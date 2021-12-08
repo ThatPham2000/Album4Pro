@@ -2,6 +2,7 @@ package com.example.album4pro.gallery;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.FileProvider;
 
 import android.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -33,6 +35,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
 import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.album4pro.BuildConfig;
@@ -40,6 +43,7 @@ import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.PrivateDatabase;
 import com.example.album4pro.R;
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,7 +55,7 @@ import java.util.List;
 
 public class DetailPhoto extends AppCompatActivity {
 
-    private ImageView img;
+    private PhotoView img;
     private ImageButton btnShare;
     private ImageButton btnEdit;
     private ImageButton btnHide;
@@ -69,11 +73,27 @@ public class DetailPhoto extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set Theme Before SetContentView, Default Is Light Theme
+        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            if (sharedPreferences.getBoolean("smoke", false)) setTheme(R.style.SmokeTheme);
+            if (sharedPreferences.getBoolean("blue", true)) setTheme(R.style.Theme_Album4Pro);
+            if (sharedPreferences.getBoolean("brown", false)) setTheme(R.style.BrownTheme);
+            if (sharedPreferences.getBoolean("purple", false)) setTheme(R.style.PurpleTheme);
+            if (sharedPreferences.getBoolean("yellow", false)) setTheme(R.style.YellowTheme);
+            if (sharedPreferences.getBoolean("green", false)) setTheme(R.style.GreenTheme);
+            if (sharedPreferences.getBoolean("orange", false)) setTheme(R.style.OrangeTheme);
+            if (sharedPreferences.getBoolean("navy", false)) setTheme(R.style.NavyTheme);
+            if (sharedPreferences.getBoolean("pink", false)) setTheme(R.style.PinkTheme);
+        }
+
         setContentView(R.layout.activity_detail_photo);
 
         mContext = getApplicationContext();
 
-        img = findViewById(R.id.img_detail);
+        img = (PhotoView) findViewById(R.id.img_detail);
         pathImage = getIntent().getStringExtra("path");
         Glide.with(this).load(pathImage).into(img);
 
@@ -178,6 +198,14 @@ public class DetailPhoto extends AppCompatActivity {
                                     e.printStackTrace();
                                     break;
                                 }
+                            case R.id.menu_image_rotate_left:
+                                Glide.with(DetailPhoto.this)
+                                        .load(pathImage)
+                                        .centerCrop()
+                                        .transform(new MyTransformation(mContext, 90))
+                                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                                        .into(img);
+                                break;
                             case R.id.menu_image_set_background:
                                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
                                 try {

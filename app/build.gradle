@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.album4pro"
-        minSdk 28
+        minSdk 25
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -59,4 +59,8 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // Zoom image
+//    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 }
