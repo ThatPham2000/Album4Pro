@@ -25,7 +25,7 @@
             android:id="@+id/tv_date"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/purple_700"
             android:gravity="center"
             android:text="-- select date --" />
         <Button
