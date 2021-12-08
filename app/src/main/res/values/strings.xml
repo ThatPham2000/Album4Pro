@@ -1,14 +1,67 @@
 <resources>
     <string name="app_name">Album4Pro</string>
-    <string name="menu_library_title">Thư viện</string>
+    <!--Navigation Menu-->
+    <string name="menu_library_title">Gallery</string>
     <string name="menu_albums_title">Albums</string>
-    <string name="menu_private_title">Riêng tư</string>
-    <string name="menu_search_title">Tìm kiếm</string>
-    <string name="menu_setting_title">Cài đặt</string>
+    <string name="menu_private_title">Private</string>
+    <string name="menu_search_title">Search</string>
+    <string name="menu_setting_title">Setting</string>
+    <!--Detail Menu-->
+    <string name="menu_detail_title">Details</string>
+    <string name="menu_set_as_wallpaper_title">Set as wallpaper</string>
+    <string name="menu_rename_title">Rename</string>
+    <string name="menu_add_to_album_title">Add to album</string>
+    <!--Side Menu-->
+    <string name="menu_slide_show_title">Slideshow</string>
+    <string name="menu_filter_title">Filter</string>
+    <string name="menu_load_image_title">Load image from URL</string>
+    <string name="menu_select_multiple_items_title">Select multiple items</string>
+    <string name="menu_photo_title">Photo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="private_fragment">PRIVATE FRAGMENT</string>
     <string name="forgot_the_password">
         <u>Forgot your Password</u>
     </string>
+    <string name="rong_answer">Your answer is not correct!!!</string>
+    <string name="entered_password_yet">You have not entered your password!</string>
+    <string name="password_donot_match">Sorry, the password you entered does not match!</string>
+    <string name="rong_password">Incorrect password!</string>
+    <string name="question_entered_yet">You have not entered a question</string>
+    <string name="answer_entered_yet">You have not entered your answer yet</string>
+    <string name="food_favourite">What is your favourite food?</string>
+    <string name="film_favourite">What is your favorite movie name?</string>
+    <string name="best_friend">What is your best friend name?</string>
+    <string name="song_favourite">What is your favorite song?</string>
+    <string name="lucky_number">What is your lucky number?</string>
+    <string name="color_favourite">What is your favorite color?</string>
+    <string name="option_quenstion">Custom</string>
+    <string name="show_image_again">The image has been displayed again in the Library</string>
+    <string name="hide_image">The image has been moved to Private</string>
+    <string name="enter_answer">Enter security answer</string>
+    <string name="enter_answerhint">Enter your answer</string>
+    <string name="confirmbutton">Confirm</string>
+    <string name="create_pass">Create password</string>
+    <string name="enter_pass">Enter password</string>
+    <string name="re_enterpass">Re-Enter password</string>
+    <string name="enter_pass_here">Re-Enter password at here</string>
+    <string name="change">Change</string>
+    <string name="change_pass">Change password</string>
+    <string name="old_pass">Old password</string>
+    <string name="new_pass">New password</string>
+    <string name="confirm_pass">Confirm password</string>
+    <string name="cancel">Cancel</string>
+    <string name="please_choose_question">Please choose 1 question</string>
+    <string name="enter_question">Enter question</string>
+    <string name="confirm_change_pass">Are you sure you want to change the password?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <!--Dark Mode Switch-->
+    <string name="darkmode_text">DarkMode</string>
+    <!--Language-->
+    <string name="english_text">English</string>
+    <string name="vietnamese_text">Vietnamese</string>
+    <!--Select Theme-->
+    <string name="select_theme_title">Select Theme</string>
+    <string name="select_column_title">Pictures Displayed Columns</string>
 </resources>

@@ -23,7 +23,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nhập câu trả lời bảo mật">
+        android:text="@string/enter_answer">
     </TextView>
 
     <TextView
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Nhập câu trả lời" />
+        android:hint="@string/enter_answerhint" />
 
     <Button
         android:layout_marginTop="20dp"
@@ -54,5 +54,5 @@
         android:id="@+id/buttonConfirmQuestionA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Xác nhận" />
+        android:text="@string/confirmbutton" />
 </LinearLayout>

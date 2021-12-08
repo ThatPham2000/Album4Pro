@@ -74,10 +74,10 @@ public class SecurityQuestionActivity extends AppCompatActivity {
                 String temp_question = edtQuestion.getText().toString().trim();
                 String temp_answer = edtAnswer.getText().toString().trim();
                 if(question.equals("") && temp_question.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Bạn chưa nhập câu hỏi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.question_entered_yet, Toast.LENGTH_SHORT).show();
                 } else {
                     if(temp_answer.equals("")){
-                        Toast.makeText(getApplicationContext(), "Bạn chưa nhập câu trả lời", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.answer_entered_yet, Toast.LENGTH_SHORT).show();
                     } else {
                         if(question.equals("")){
                             question = edtQuestion.getText().toString().trim();
@@ -103,12 +103,12 @@ public class SecurityQuestionActivity extends AppCompatActivity {
     }
 
     private void AddQuestion() {
-        arrQuestion.add("Món ăn yêu thích của bạn là gì?");
-        arrQuestion.add("Tên bộ phim mà bạn yêu thích nhất?");
-        arrQuestion.add("Tên người bạn thân nhất của bạn?");
-        arrQuestion.add("Bài hát yêu thích của bạn là gì?");
-        arrQuestion.add("Con số may mắn của bạn là số mấy?");
-        arrQuestion.add("Màu bạn thích nhất?");
-        arrQuestion.add("Tùy chỉnh");
+        arrQuestion.add(getString(R.string.food_favourite));
+        arrQuestion.add(getString(R.string.film_favourite));
+        arrQuestion.add(getString(R.string.best_friend));
+        arrQuestion.add(getString(R.string.song_favourite));
+        arrQuestion.add(getString(R.string.lucky_number));
+        arrQuestion.add(getString(R.string.color_favourite));
+        arrQuestion.add(getString(R.string.option_quenstion));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.album4pro.setting;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -7,19 +8,26 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
+import com.example.album4pro.privates.CreatePasswordActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +35,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class SettingActivity extends AppCompatActivity {
     ListView mySetting;
@@ -34,6 +43,7 @@ public class SettingActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     Context context;
     Dialog myThemeDialog;
+    Dialog myColumnDialog;
     HashMap<TextView, Boolean> listThemeButton;
     Switch darkModeSwitch;
     TextView smokeButton;
@@ -45,6 +55,9 @@ public class SettingActivity extends AppCompatActivity {
     TextView orangeButton;
     TextView navyButton;
     TextView pinkButton;
+    RadioButton twoColumns;
+    RadioButton threeColumns;
+    RadioButton fourColumns;
     SharedPreferences sharedPreferences;
 
 
@@ -72,13 +85,21 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //---------------------------------------- INITIAL VALUE -----------------------------------------------
+        myColumnDialog = new Dialog(this);
+        myColumnDialog.setContentView(R.layout.column_selection);
+
         myThemeDialog = new Dialog(this);
         myThemeDialog.setContentView(R.layout.theme_selection);
+
         listThemeButton = new HashMap<TextView, Boolean>();
         context = this;
 
+        //--------------------------------------------- COLUMN SELECTOR ----------------------------------------
+        twoColumns = findViewById(R.id.twoColumns);
+        threeColumns = findViewById(R.id.threeColumns);
+        fourColumns = findViewById(R.id.fourColumns);
 
-        //----------------------------------- CREATE HASHMAP THEME BUTTON ------------------------------------
+        //----------------------------------- CREATE HASHMAP THEME BUTTON --------------------------------------
 
         smokeButton = myThemeDialog.findViewById(R.id.smoke);
         blueButton = myThemeDialog.findViewById(R.id.blue);
@@ -306,6 +327,20 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //---------------------------------------- SET LANGUAGE ------------------------------------------------
+        // Set Language
+        if (sharedPreferences.getBoolean("vietnamese", false)) {
+            setLocale("vi");
+        } else {
+            setLocale("en");
+        }
+
         //---------------------------------------------- List View -------------------------------------------------
 
         // ListView
@@ -313,11 +348,22 @@ public class SettingActivity extends AppCompatActivity {
 
         // Data
         arrayList = new ArrayList<String>();
-        arrayList.add("Select Theme");
-        arrayList.add("Policy");
-        arrayList.add("About Us");
-        arrayList.add("Help");
-        arrayList.add("Language");
+
+        if (sharedPreferences.getBoolean("vietnamese", false)) {
+            arrayList.add("Chủ Đề");
+            arrayList.add("Pictures Displayed Columns");
+            arrayList.add("Về Chúng Tôi");
+            arrayList.add("Trợ Giúp");
+            arrayList.add("Ngôn Ngữ");
+            arrayList.add("Privacy Policy");
+        } else {
+            arrayList.add("Select Theme");
+            arrayList.add("Pictures Displayed Columns");
+            arrayList.add("About Us");
+            arrayList.add("Help");
+            arrayList.add("Language");
+            arrayList.add("Privacy Policy");
+        }
 
         // Connect Data to ListView
         arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, arrayList);
@@ -329,30 +375,32 @@ public class SettingActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (arrayList.get(i)) {
                     case "Select Theme":
+                    case "Chủ Đề":
                         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
-                            showPopup(view);
+                            showPopup("Theme");
                         }
                         break;
-                    case "Policy":
+                    case "Pictures Displayed Columns":
+                        showPopup("Column");
+                        break;
+                    case "Privacy Policy":
                         startActivity(new Intent(context, PolicyActivity.class));
                         break;
                     case "About Us":
+                    case "Về Chúng Tôi":
                         startActivity(new Intent(context, AboutUsActivity.class));
                         break;
                     case "Help":
+                    case "Trợ Giúp":
                         startActivity(new Intent(context, HelpActivity.class));
                         break;
                     case "Language":
+                    case "Ngôn Ngữ":
                         startActivity(new Intent(context, LanguageActivity.class));
                         break;
                 }
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
 
     }
 
@@ -385,17 +433,56 @@ public class SettingActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_in);
     }
 
-    public void showPopup(View view) {
+    public void showPopup(String selector) {
         //---------------------------------------------- SHOW POPUP -------------------------------------------------
+        if (selector.equals("Theme")) {
+            // Delete Background
+            myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 
-        // Delete Background
-        myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            // Set Animation
+            myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
 
-        // Set Animation
-        myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
+            // Show Popup
+            myThemeDialog.show();
+        } else if (selector.equals("Column")) {
+            // Delete Background
+            myColumnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 
-        // Show Popup
-        myThemeDialog.show();
+            // Set Animation
+            myColumnDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
+
+            // Show Popup
+            myColumnDialog.show();
+        }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(context, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void setLocale(String language) {
+        // Initalize resources
+        Resources resources = getResources();
+        // Initialize metrics
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        // Initialize configuration
+        Configuration configuration = resources.getConfiguration();
+        // Initialize locale
+        configuration.setLocale(new Locale(language));
+        // Update configuration
+        resources.updateConfiguration(configuration, metrics);
+        // Notify configuration
+        onConfigurationChanged(configuration);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Set strings from resources
+        darkModeSwitch.setText(R.string.darkmode_text);
+    }
 }

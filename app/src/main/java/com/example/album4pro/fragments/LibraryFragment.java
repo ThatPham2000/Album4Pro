@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.album4pro.gallery.GalleryAdapter;
 import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
+import com.example.album4pro.gallery.VideoViewActivity;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -86,6 +88,21 @@ public class LibraryFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Ẩn Photo khi đưa vào Private
+        if(DetailPhoto.pressPrivate == true && DetailPhoto.tempcheckToast == true){
+            Toast.makeText(context, R.string.hide_image, Toast.LENGTH_SHORT).show();
+            DetailPhoto.tempcheckToast = false;
+        }
+        if(DetailPhoto.pressPrivate == true){
+            loadImages();
+            DetailPhoto.pressPrivate = false;
+        }
+    }
+
     private void requestPermission(){
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -109,19 +126,38 @@ public class LibraryFragment extends Fragment {
                 .check();
     }
 
+
     private void loadImages(){
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
-        listPhoto = ImagesGallery.listPhoto(context);
+        //listPhoto = ImagesGallery.listPhoto(context); // code cũ
+        listPhoto = mainActivity.minusPrivatePhoto(mainActivity.listPhotoPrivate(context)); // Chỉnh sửa để ẩn Private trong Library (Tuong)
 
         galleryAdapter = new GalleryAdapter(context, listPhoto, new GalleryAdapter.PhotoListener() {
             @Override
             public void onPhotoClick(String path) {
                 // TODO ST
-                Intent intent = new Intent(context, DetailPhoto.class);
-                intent.putExtra("path", path);
-                context.startActivity(intent);
+                String[] imageExtensions = {"jpg", "png", "gif", "jpeg", "tiff", "webp"};
+                boolean isImage = false;
+                String extension = path.substring(path.lastIndexOf(".") + 1);
+
+                for (int i = 0; i < imageExtensions.length; i++){
+                    if(extension.equalsIgnoreCase(imageExtensions[i])){
+                        isImage = true;
+                        break;
+                    }
+                }
+
+                if (!isImage){
+                    Intent intent = new Intent(context, VideoViewActivity.class);
+                    intent.putExtra("path", path);
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, DetailPhoto.class);
+                    intent.putExtra("path", path);
+                    context.startActivity(intent);
+                }
             }
         });
 

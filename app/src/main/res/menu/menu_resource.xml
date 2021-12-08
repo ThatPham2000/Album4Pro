@@ -16,28 +16,28 @@
     </item>
 
     <item android:id="@+id/action_slideshow"
-        android:title="Trình chiếu"
+        android:title="@string/menu_slide_show_title"
         app:showAsAction="never"
         />
 
     <item android:id="@+id/action_sort"
-        android:title="Lọc"
+        android:title="@string/menu_filter_title"
         app:showAsAction="never">
         <menu>
             <item android:id="@+id/action_sort_image"
-                android:title="Hình ảnh"/>
+                android:title="@string/menu_photo_title"/>
             <item android:id="@+id/action_sort_video"
                 android:title="Video"/>
         </menu>
     </item>
 
     <item android:id="@+id/action_load_url"
-        android:title="Load ảnh từ URL"
+        android:title="@string/menu_load_image_title"
         app:showAsAction="never"
         />
 
     <item android:id="@+id/action_selection"
-        android:title="Chọn nhiều mục"
+        android:title="@string/menu_select_multiple_items_title"
         app:showAsAction="never"
         />
 </menu>
