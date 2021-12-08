@@ -10,15 +10,18 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.AlertDialog;
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.database.Cursor;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.os.Environment;
@@ -54,11 +57,17 @@ import com.example.album4pro.privates.EnterPasswordActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -384,10 +393,20 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_ID_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
                 Bitmap bp = (Bitmap) data.getExtras().get("data");
+
+                //Lưu ảnh
+                MediaStore.Images.Media.insertImage(getContentResolver(), bp, String.valueOf(System.currentTimeMillis()),"");
+
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Action canceled", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Action Failed", Toast.LENGTH_LONG).show();
+            }
+            if (Configuration.getInstance().getGalleryAdapter() != null){
+                List<String> list = ImagesGallery.listPhoto(libraryContext);
+                Configuration.getInstance().setVideo(false);
+                Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
+                Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
             }
         } else if (requestCode == REQUEST_ID_VIDEO_CAPTURE) {
             if (resultCode == RESULT_OK) {
