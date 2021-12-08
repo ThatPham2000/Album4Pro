@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,9 +55,9 @@ public class SettingActivity extends AppCompatActivity {
     TextView orangeButton;
     TextView navyButton;
     TextView pinkButton;
-    CheckBox twoColumns;
-    CheckBox threeColumns;
-    CheckBox fourColumns;
+    RadioButton twoColumns;
+    RadioButton threeColumns;
+    RadioButton fourColumns;
     SharedPreferences sharedPreferences;
 
 
@@ -97,39 +98,6 @@ public class SettingActivity extends AppCompatActivity {
         twoColumns = findViewById(R.id.twoColumns);
         threeColumns = findViewById(R.id.threeColumns);
         fourColumns = findViewById(R.id.fourColumns);
-
-//        twoColumns.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked)
-//                {
-//                    threeColumns.setChecked(false);
-//                    fourColumns.setChecked(false);
-//                }
-//            }
-//        });
-//
-//        threeColumns.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked)
-//                {
-//                    twoColumns.setChecked(false);
-//                    fourColumns.setChecked(false);
-//                }
-//            }
-//        });
-//
-//        fourColumns.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked)
-//                {
-//                    twoColumns.setChecked(false);
-//                    threeColumns.setChecked(false);
-//                }
-//            }
-//        });
 
         //----------------------------------- CREATE HASHMAP THEME BUTTON --------------------------------------
 
