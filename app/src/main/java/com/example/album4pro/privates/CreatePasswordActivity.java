@@ -41,7 +41,7 @@ public class CreatePasswordActivity extends AppCompatActivity {
 
                 if(first_pass.equals("") || second_pass.equals("")){
                     // there is no password
-                    Toast.makeText(CreatePasswordActivity.this, "Bạn chưa nhập mật khẩu!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreatePasswordActivity.this, R.string.entered_password_yet, Toast.LENGTH_SHORT).show();
                 } else {
                     if(first_pass.equals(second_pass)){
                         // Save password
@@ -59,7 +59,7 @@ public class CreatePasswordActivity extends AppCompatActivity {
                         }
                     } else {
                     // there is no match on the passwords
-                    Toast.makeText(CreatePasswordActivity.this, "Xin lỗi, mật khẩu bạn nhập không khớp!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreatePasswordActivity.this, R.string.password_donot_match, Toast.LENGTH_SHORT).show();
                 }
             }
             }

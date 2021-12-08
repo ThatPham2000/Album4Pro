@@ -59,7 +59,7 @@ public class EnterPasswordActivity extends AppCompatActivity {
                     // Enter the app, Finish Activity hiện tại
                     finish();
                 } else {
-                    Toast.makeText(EnterPasswordActivity.this, "Mật khẩu không chính xác!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EnterPasswordActivity.this, R.string.rong_password, Toast.LENGTH_SHORT).show();
                 }
             }
         });
