@@ -8,6 +8,7 @@
     <string name="menu_setting_title">Setting</string>
     <!--Detail Menu-->
     <string name="menu_detail_title">Details</string>
+    <string name="menu_rotate_title">Rotate</string>
     <string name="menu_set_as_wallpaper_title">Set as wallpaper</string>
     <string name="menu_rename_title">Rename</string>
     <string name="menu_add_to_album_title">Add to album</string>
@@ -17,6 +18,8 @@
     <string name="menu_load_image_title">Load image from URL</string>
     <string name="menu_select_multiple_items_title">Select multiple items</string>
     <string name="menu_photo_title">Photo</string>
+    <string name="menu_take_picture_title">Take a photo</string>
+    <string name="menu_record_video_title">Record video</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="private_fragment">PRIVATE FRAGMENT</string>
