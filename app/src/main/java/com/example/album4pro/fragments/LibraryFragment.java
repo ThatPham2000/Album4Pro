@@ -94,7 +94,7 @@ public class LibraryFragment extends Fragment {
 
         // Ẩn Photo khi đưa vào Private
         if(DetailPhoto.pressPrivate == true && DetailPhoto.tempcheckToast == true){
-            Toast.makeText(context, "Hình ảnh/video đã được chuyển vào Private", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.hide_image, Toast.LENGTH_SHORT).show();
             DetailPhoto.tempcheckToast = false;
         }
         if(DetailPhoto.pressPrivate == true){

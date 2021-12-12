@@ -32,6 +32,7 @@
     <color name="huong_start">#5433FF</color>
     <color name="huong_end">#20BDFF</color>
 
-
+    <!--    Huong create color-->
+    <color name="dialog_title">#4CE753</color>
 
 </resources>

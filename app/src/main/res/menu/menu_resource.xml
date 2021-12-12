@@ -9,9 +9,9 @@
         app:showAsAction="ifRoom">
         <menu>
             <item android:id="@+id/action_camera_photo"
-                android:title="Chụp ảnh"/>
+                android:title="@string/menu_take_picture_title"/>
             <item android:id="@+id/action_camera_video"
-                android:title="Quay phim"/>
+                android:title="@string/menu_record_video_title"/>
         </menu>
     </item>
 

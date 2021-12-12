@@ -23,7 +23,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vui lòng chọn 1 câu hỏi">
+        android:text="@string/please_choose_question">
     </TextView>
 
 
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nhập câu hỏi" />
+        android:hint="@string/enter_question" />
 
     <EditText
         android:layout_marginRight="5dp"
@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nhập câu trả lời" />
+        android:hint="@string/enter_answerhint" />
 
     <Button
         android:layout_marginTop="20dp"
@@ -64,5 +64,5 @@
         android:id="@+id/buttonConfirmQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Xác nhận" />
+        android:text="@string/confirmbutton" />
 </LinearLayout>
