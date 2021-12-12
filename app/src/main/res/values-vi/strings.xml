@@ -31,5 +31,8 @@
     <string name="vietnamese_text">Tiếng Việt</string>
     <!--Select Theme-->
     <string name="select_theme_title">Chủ Đề</string>
-    <string name="select_column_title">Pictures Displayed Columns</string>
+    <string name="select_column_title">Hiển Thị Hình Ảnh Theo Số Cột</string>
+    <string name="two_column_title">2 Cột</string>
+    <string name="three_column_title">3 Cột</string>
+    <string name="four_column_title">4 Cột</string>
 </resources>

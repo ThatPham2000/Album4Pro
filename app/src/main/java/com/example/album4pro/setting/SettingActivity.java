@@ -351,7 +351,7 @@ public class SettingActivity extends AppCompatActivity {
 
         if (sharedPreferences.getBoolean("vietnamese", false)) {
             arrayList.add("Chủ Đề");
-            arrayList.add("Pictures Displayed Columns");
+            arrayList.add("Hiển Thị Hình Ảnh Theo Số Cột");
             arrayList.add("Về Chúng Tôi");
             arrayList.add("Trợ Giúp");
             arrayList.add("Ngôn Ngữ");
@@ -381,6 +381,7 @@ public class SettingActivity extends AppCompatActivity {
                         }
                         break;
                     case "Pictures Displayed Columns":
+                    case "Hiển Thị Hình Ảnh Theo Số Cột":
                         showPopup("Column");
                         break;
                     case "Privacy Policy":
