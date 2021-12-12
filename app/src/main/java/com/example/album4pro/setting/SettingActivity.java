@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,9 +56,10 @@ public class SettingActivity extends AppCompatActivity {
     TextView orangeButton;
     TextView navyButton;
     TextView pinkButton;
-    RadioButton twoColumns;
-    RadioButton threeColumns;
-    RadioButton fourColumns;
+    RadioGroup rgColumns;
+    RadioButton rbTwoColumns;
+    RadioButton rbThreeColumns;
+    RadioButton rbFourColumns;
     SharedPreferences sharedPreferences;
 
 
@@ -95,9 +97,19 @@ public class SettingActivity extends AppCompatActivity {
         context = this;
 
         //--------------------------------------------- COLUMN SELECTOR ----------------------------------------
-        twoColumns = findViewById(R.id.twoColumns);
-        threeColumns = findViewById(R.id.threeColumns);
-        fourColumns = findViewById(R.id.fourColumns);
+        rgColumns = findViewById(R.id.rgColumns);
+        rbTwoColumns = findViewById(R.id.rbTwoColumns);
+        rbThreeColumns = findViewById(R.id.rbThreeColumns);
+        rbFourColumns = findViewById(R.id.rbFourColumns);
+
+//        // Set Check Column Selector, Default Is 3 Columns
+//        if (sharedPreferences.getBoolean("twocolumn", false)) {
+//            twoColumns.setChecked(true);
+//        } else if (sharedPreferences.getBoolean("fourcolumn", false)) {
+//            fourColumns.setChecked(true);
+//        } else {
+//            threeColumns.setChecked(true);
+//        }
 
         //----------------------------------- CREATE HASHMAP THEME BUTTON --------------------------------------
 
@@ -423,6 +435,10 @@ public class SettingActivity extends AppCompatActivity {
 
         // Save State Of DarkMode Button
         editor.putBoolean("darkmode", darkModeSwitch.isChecked());
+
+        // Save State Of Column Selection
+        editor.putBoolean("twocolumn", rbTwoColumns.isChecked());
+        editor.putBoolean("fourcolumn", rbFourColumns.isChecked());
 
         editor.apply();
     }

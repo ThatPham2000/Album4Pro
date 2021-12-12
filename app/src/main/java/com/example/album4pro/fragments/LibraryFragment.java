@@ -3,6 +3,7 @@ package com.example.album4pro.fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -35,6 +36,8 @@ public class LibraryFragment extends Fragment {
     private List<String> listPhoto;
     private Context context = null;
     private MainActivity mainActivity;
+    SharedPreferences sharedPreferences;
+    int columnNumber;
 
     // TODO: Rename parameter arguments, choose names that match
     private static final String ARG_PARAM1 = "param1";
@@ -129,7 +132,17 @@ public class LibraryFragment extends Fragment {
 
     private void loadImages(){
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3);
+
+        // Get Column Selection Data
+        sharedPreferences = this.getActivity().getSharedPreferences("save", Context.MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean("twocolumn", false)) columnNumber = 2;
+        if (sharedPreferences.getBoolean("fourcolumn", false)) columnNumber = 4;
+
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, columnNumber = 3);
+
+
         recyclerView.setLayoutManager(gridLayoutManager);
         //listPhoto = ImagesGallery.listPhoto(context); // code cũ
         listPhoto = mainActivity.minusPrivatePhoto(mainActivity.listPhotoPrivate(context)); // Chỉnh sửa để ẩn Private trong Library (Tuong)
