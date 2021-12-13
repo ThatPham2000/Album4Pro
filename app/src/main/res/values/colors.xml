@@ -20,6 +20,18 @@
     <color name="navy_theme">#091353</color>
     <color name="pink_theme">#FF5DA2</color>
 
+<!--    Gradient Color-->
+    <color name="sy_start">#ec008c</color>
+    <color name="sy_end">#fc6767</color>
+    <color name="that_start">#16222A</color>
+    <color name="that_end">#3A6073</color>
+    <color name="tuong_start">#f7797d</color>
+    <color name="tuong_end">#FBD786</color>
+    <color name="tri_start">#4776E6</color>
+    <color name="tri_end">#8E54E9</color>
+    <color name="huong_start">#5433FF</color>
+    <color name="huong_end">#20BDFF</color>
+
 
 
 </resources>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_image_detail"
-        android:title="Chi tiết" />
+        android:title="@string/menu_detail_title" />
     <item android:id="@+id/menu_image_rotate_left"
         android:title="Xoay" />
     <item android:id="@+id/menu_image_set_background"
-        android:title="Đặt làm hình nền"/>
+        android:title="@string/menu_set_as_wallpaper_title"/>
     <item android:id="@+id/menu_image_rename"
-        android:title="Đổi tên"/>
+        android:title="@string/menu_rename_title"/>
     <item android:id="@+id/menu_image_add_album"
-        android:title="Thêm vào album"/>
+        android:title="@string/menu_add_to_album_title"/>
 </menu>

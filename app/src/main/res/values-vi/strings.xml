@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Album4Pro</string>
+    <!--Navigation Menu-->
+    <string name="menu_library_title">Thư viện</string>
+    <string name="menu_albums_title">Albums</string>
+    <string name="menu_private_title">Riêng tư</string>
+    <string name="menu_search_title">Tìm kiếm</string>
+    <string name="menu_setting_title">Cài đặt</string>
+    <!--Detail Menu-->
+    <string name="menu_detail_title">Chi tiết</string>
+    <string name="menu_set_as_wallpaper_title">Đặt làm hình nền</string>
+    <string name="menu_rename_title">Đổi tên</string>
+    <string name="menu_add_to_album_title">Thêm vào album</string>
+    <!--Side Menu-->
+    <string name="menu_slide_show_title">Trình chiếu</string>
+    <string name="menu_filter_title">Lọc</string>
+    <string name="menu_load_image_title">Load ảnh từ URL</string>
+    <string name="menu_select_multiple_items_title">Chọn nhiều mục</string>
+    <string name="menu_photo_title">Hình ảnh</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="private_fragment">PRIVATE FRAGMENT</string>
+    <string name="forgot_the_password">
+        <u>Quên mật khẩu</u>
+    </string>
+    <string name="rong_answer">Câu trả lời của bạn không đúng!!!</string>
+    <string name="entered_password_yet">Bạn chưa nhập mật khẩu!</string>
+    <string name="password_donot_match">Xin lỗi, mật khẩu bạn nhập không khớp!</string>
+    <string name="rong_password">Mật khẩu không chính xác!</string>
+    <string name="question_entered_yet">Bạn chưa nhập câu hỏi</string>
+    <string name="answer_entered_yet">Bạn chưa nhập câu trả lời</string>
+    <string name="food_favourite">Món ăn yêu thích của bạn là gì?</string>
+    <string name="film_favourite">Tên bộ phim mà bạn yêu thích nhất?</string>
+    <string name="best_friend">Tên người bạn thân nhất của bạn?</string>
+    <string name="song_favourite">Bài hát yêu thích của bạn là gì?</string>
+    <string name="lucky_number">Con số may mắn của bạn là số mấy?</string>
+    <string name="color_favourite">Màu bạn thích nhất?</string>
+    <string name="option_quenstion">Tùy chỉnh</string>
+    <string name="show_image_again">Hình ảnh đã được hiển thị lại ở Library</string>
+    <string name="hide_image">Hình ảnh đã được chuyển vào Private</string>
+    <string name="enter_answer">Nhập câu trả lời bảo mật</string>
+    <string name="enter_answerhint">Nhập câu trả lời</string>
+    <string name="confirmbutton">Xác nhận</string>
+    <string name="create_pass">Tạo mật khẩu</string>
+    <string name="enter_pass">Nhập mật khẩu</string>
+    <string name="re_enterpass">Nhập lại mật khẩu</string>
+    <string name="enter_pass_here">Nhập mật khẩu tại đây</string>
+    <string name="change">Thay đổi</string>
+    <string name="change_pass">Thay đổi mật khẩu</string>
+    <string name="old_pass">Mật khẩu cũ</string>
+    <string name="new_pass">Mật khẩu mới</string>
+    <string name="confirm_pass">Xác nhận mật khẩu</string>
+    <string name="cancel">Hủy</string>
+    <string name="please_choose_question">Vui lòng chọn 1 câu hỏi</string>
+    <string name="enter_question">Nhập câu hỏi</string>
+    <string name="confirm_change_pass">Bạn có chắc chắn muốn thay đổi mật khẩu?</string>
+    <string name="yes">Đồng ý</string>
+    <string name="no">Không đồng ý</string>
+    <!--Dark Mode Switch-->
+    <string name="darkmode_text">Chế độ tối</string>
+    <!--Language-->
+    <string name="english_text">Tiếng Anh</string>
+    <string name="vietnamese_text">Tiếng Việt</string>
+    <!--Select Theme-->
+    <string name="select_theme_title">Chủ Đề</string>
+    <string name="select_column_title">Số cột hiển thị</string>
+</resources>

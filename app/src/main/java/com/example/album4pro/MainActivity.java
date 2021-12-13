@@ -56,13 +56,14 @@ public class MainActivity extends AppCompatActivity {
     public Context libraryContext, privateContext;
 
     private PrivateDatabase privateDatabase;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Set Theme Before SetContentView, Default Is Light Theme
-        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
             if (sharedPreferences.getBoolean("smoke", false)) setTheme(R.style.SmokeTheme);
@@ -194,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
                 input.setLayoutParams(layoutParams);
 
-                myBuilder.setIcon(R.drawable.ic_launcher_foreground)
+                myBuilder.setIcon(R.drawable.ic_app)
                         .setTitle("URL Hình ảnh")
                         .setMessage("Nhập URL của hình ảnh\n")
                         .setView(input)
