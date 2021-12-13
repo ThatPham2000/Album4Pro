@@ -37,7 +37,6 @@ public class LibraryFragment extends Fragment {
     private Context context = null;
     private MainActivity mainActivity;
     SharedPreferences sharedPreferences;
-    int columnNumber;
 
     // TODO: Rename parameter arguments, choose names that match
     private static final String ARG_PARAM1 = "param1";
@@ -135,9 +134,7 @@ public class LibraryFragment extends Fragment {
 
         // Get Column Selection Data
         sharedPreferences = this.getActivity().getSharedPreferences("save", Context.MODE_PRIVATE);
-        columnNumber = sharedPreferences.getInt("column", 3);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, columnNumber);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, sharedPreferences.getInt("column", 3));
 
 
         recyclerView.setLayoutManager(gridLayoutManager);

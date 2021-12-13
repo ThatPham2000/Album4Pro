@@ -340,6 +340,10 @@ public class SettingActivity extends AppCompatActivity {
             setLocale("en");
         }
 
+        //--------------------------------------- Prevent Reset Value ------------------------------------------------
+        columnIndex = sharedPreferences.getInt("columnindex", 1);
+        columnNumber = sharedPreferences.getInt("column", 3);
+
         //---------------------------------------------- List View -------------------------------------------------
 
         // ListView
