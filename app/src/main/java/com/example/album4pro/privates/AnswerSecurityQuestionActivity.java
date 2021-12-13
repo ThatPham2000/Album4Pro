@@ -40,7 +40,8 @@ public class AnswerSecurityQuestionActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                answerInput = edtAnswer.getText().toString().trim();
+                String tempAnswer = edtAnswer.getText().toString().trim();
+                answerInput = CreatePasswordActivity.md5HashandPepper(tempAnswer + CreatePasswordActivity.pepperHasing);
                 if(answerInput.equals(answer)){
                     Intent intent = new Intent(getApplicationContext(), CreatePasswordActivity.class);
                     intent.putExtra("check_out", true);

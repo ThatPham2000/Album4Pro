@@ -53,7 +53,8 @@ public class EnterPasswordActivity extends AppCompatActivity {
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String enteredPass = edtPass.getText().toString();
+                String tempPass = edtPass.getText().toString();
+                String enteredPass = CreatePasswordActivity.md5HashandPepper(tempPass + CreatePasswordActivity.pepperHasing);
 
                 if(password_Prefs.equals(enteredPass)){
                     // Enter the app, Finish Activity hiện tại

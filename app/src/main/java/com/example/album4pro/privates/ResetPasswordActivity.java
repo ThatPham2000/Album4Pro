@@ -34,11 +34,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String oldPass = edtOldPass.getText().toString().trim();
+                String tempoldPass = edtOldPass.getText().toString().trim();
+                String oldPass = CreatePasswordActivity.md5HashandPepper(tempoldPass + CreatePasswordActivity.pepperHasing);
                 String newPass = edtNewPass.getText().toString().trim();
                 String renewPass = edtReNewPass.getText().toString().trim();
 
-                if(oldPass.equals("") || newPass.equals("") ||renewPass.equals("")){
+                if(tempoldPass.equals("") || newPass.equals("") ||renewPass.equals("")){
                     // there is no password
                     Toast.makeText(ResetPasswordActivity.this, R.string.entered_password_yet, Toast.LENGTH_SHORT).show();
                 } else {
@@ -49,7 +50,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                         if(newPass.equals(renewPass)){
                             // the new passwords match
                             editor.remove("password_tag");
-                            editor.putString("password_tag", newPass);
+                            editor.putString("password_tag", CreatePasswordActivity.md5HashandPepper(newPass + CreatePasswordActivity.pepperHasing));
                             editor.commit();
 
                             // Enter the EnterPassword Activity

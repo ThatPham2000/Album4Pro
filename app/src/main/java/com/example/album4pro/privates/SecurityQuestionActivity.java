@@ -85,7 +85,7 @@ public class SecurityQuestionActivity extends AppCompatActivity {
                         answer = edtAnswer.getText().toString().trim();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("question_tag", question);
-                        editor.putString("answer_tag", answer);
+                        editor.putString("answer_tag", CreatePasswordActivity.md5HashandPepper(answer + CreatePasswordActivity.pepperHasing));
                         editor.commit();
 
                         // Enter the app
