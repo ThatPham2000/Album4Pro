@@ -135,12 +135,9 @@ public class LibraryFragment extends Fragment {
 
         // Get Column Selection Data
         sharedPreferences = this.getActivity().getSharedPreferences("save", Context.MODE_PRIVATE);
+        columnNumber = sharedPreferences.getInt("column", 3);
 
-        if (sharedPreferences.getBoolean("twocolumn", false)) columnNumber = 2;
-        if (sharedPreferences.getBoolean("fourcolumn", false)) columnNumber = 4;
-
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, columnNumber = 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, columnNumber);
 
 
         recyclerView.setLayoutManager(gridLayoutManager);

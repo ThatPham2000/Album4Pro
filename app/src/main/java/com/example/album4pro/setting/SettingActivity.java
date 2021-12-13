@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -44,7 +46,6 @@ public class SettingActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     Context context;
     Dialog myThemeDialog;
-    Dialog myColumnDialog;
     HashMap<TextView, Boolean> listThemeButton;
     Switch darkModeSwitch;
     TextView smokeButton;
@@ -61,6 +62,10 @@ public class SettingActivity extends AppCompatActivity {
     RadioButton rbThreeColumns;
     RadioButton rbFourColumns;
     SharedPreferences sharedPreferences;
+    int columnNumber;
+    int columnIndex;
+    String[] columnNumberTitleEn = {"2 Columns", "3 Columns", "4 Columns"};
+    String[] columnNumberTitleVi = {"2 Cột", "3 Cột", "4 Cột"};
 
 
 
@@ -87,29 +92,11 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //---------------------------------------- INITIAL VALUE -----------------------------------------------
-        myColumnDialog = new Dialog(this);
-        myColumnDialog.setContentView(R.layout.column_selection);
-
         myThemeDialog = new Dialog(this);
         myThemeDialog.setContentView(R.layout.theme_selection);
 
         listThemeButton = new HashMap<TextView, Boolean>();
         context = this;
-
-        //--------------------------------------------- COLUMN SELECTOR ----------------------------------------
-        rgColumns = findViewById(R.id.rgColumns);
-        rbTwoColumns = findViewById(R.id.rbTwoColumns);
-        rbThreeColumns = findViewById(R.id.rbThreeColumns);
-        rbFourColumns = findViewById(R.id.rbFourColumns);
-
-//        // Set Check Column Selector, Default Is 3 Columns
-//        if (sharedPreferences.getBoolean("twocolumn", false)) {
-//            twoColumns.setChecked(true);
-//        } else if (sharedPreferences.getBoolean("fourcolumn", false)) {
-//            fourColumns.setChecked(true);
-//        } else {
-//            threeColumns.setChecked(true);
-//        }
 
         //----------------------------------- CREATE HASHMAP THEME BUTTON --------------------------------------
 
@@ -393,8 +380,10 @@ public class SettingActivity extends AppCompatActivity {
                         }
                         break;
                     case "Pictures Displayed Columns":
+                        showOptionsDialog(columnNumberTitleEn);
+                        break;
                     case "Hiển Thị Hình Ảnh Theo Số Cột":
-                        showPopup("Column");
+                        showOptionsDialog(columnNumberTitleVi);
                         break;
                     case "Privacy Policy":
                         startActivity(new Intent(context, PolicyActivity.class));
@@ -417,6 +406,33 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
+    private void showOptionsDialog(String[] columnNumberTitle) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+        builder.setTitle(R.string.select_column_title);
+
+        columnIndex = sharedPreferences.getInt("columnindex", 1);
+        int columnChecked = columnIndex;
+
+        builder.setSingleChoiceItems(columnNumberTitle, columnChecked, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (columnNumberTitle[which] == "2 Columns" || columnNumberTitle[which] == "2 Cột") {
+                    columnIndex = which;
+                    columnNumber = 2;
+                }
+                if (columnNumberTitle[which] == "3 Columns" || columnNumberTitle[which] == "3 Cột") {
+                    columnIndex = which;
+                    columnNumber = 3;
+                }
+                if (columnNumberTitle[which] == "4 Columns" || columnNumberTitle[which] == "4 Cột") {
+                    columnIndex = which;
+                    columnNumber = 4;
+                }
+            }
+        });
+        builder.show();
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -436,9 +452,9 @@ public class SettingActivity extends AppCompatActivity {
         // Save State Of DarkMode Button
         editor.putBoolean("darkmode", darkModeSwitch.isChecked());
 
-        // Save State Of Column Selection
-        editor.putBoolean("twocolumn", rbTwoColumns.isChecked());
-        editor.putBoolean("fourcolumn", rbFourColumns.isChecked());
+        // Save Column Number Selection
+        editor.putInt("columnindex", columnIndex);
+        editor.putInt("column", columnNumber);
 
         editor.apply();
     }
@@ -452,25 +468,14 @@ public class SettingActivity extends AppCompatActivity {
 
     public void showPopup(String selector) {
         //---------------------------------------------- SHOW POPUP -------------------------------------------------
-        if (selector.equals("Theme")) {
-            // Delete Background
-            myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        // Delete Background
+        myThemeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 
-            // Set Animation
-            myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
+        // Set Animation
+        myThemeDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
 
-            // Show Popup
-            myThemeDialog.show();
-        } else if (selector.equals("Column")) {
-            // Delete Background
-            myColumnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-
-            // Set Animation
-            myColumnDialog.getWindow().setWindowAnimations(R.style.AnimationsForDialog);
-
-            // Show Popup
-            myColumnDialog.show();
-        }
+        // Show Popup
+        myThemeDialog.show();
     }
 
     @Override
