@@ -58,11 +58,15 @@ public class SearchFragment extends Fragment {
 
     Calendar calendar = Calendar.getInstance();
 
-    private int lastSelectedYear =  calendar.get(Calendar.YEAR);;
-    private int lastSelectedMonth = calendar.get(Calendar.MONTH);
-    private int lastSelectedDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+    private int lastSelectedYear_Start =  calendar.get(Calendar.YEAR);;
+    private int lastSelectedMonth_Start = calendar.get(Calendar.MONTH);
+    private int lastSelectedDayOfMonth_Start = calendar.get(Calendar.DAY_OF_MONTH);
 
-    private Date date;
+    private int lastSelectedYear_End =  calendar.get(Calendar.YEAR);;
+    private int lastSelectedMonth_End = calendar.get(Calendar.MONTH);
+    private int lastSelectedDayOfMonth_End = calendar.get(Calendar.DAY_OF_MONTH);
+
+    private Date startDate, endDate;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -179,15 +183,17 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
 
         //Get search date
-        String searchDay;
+        String startDay, endDay;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy:MM:dd");
-        if (date != null) {
-            searchDay = "" + simpleDateFormat.format(date);
-        } else {
-            searchDay = "";
-        }
+        if (startDate != null && endDate!= null) {
+            startDay = "" + simpleDateFormat.format(startDate);
+            endDay = "" + simpleDateFormat.format(endDate);
 
-        listPhoto = ImagesGallery.listPhotoFilter(context, searchDay);
+            listPhoto = ImagesGallery.listPhotoFilter(context, startDay, endDay);
+        } else {
+            startDay = "";
+            endDay = "";
+        }
 
         galleryAdapter = new GalleryAdapter(context, listPhoto, new GalleryAdapter.PhotoListener() {
             @Override
@@ -213,12 +219,12 @@ public class SearchFragment extends Fragment {
 
                 tvStartDate.setText( year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
 
-                lastSelectedYear = year;
-                lastSelectedMonth = monthOfYear;
-                lastSelectedDayOfMonth = dayOfMonth;
+                lastSelectedYear_Start = year;
+                lastSelectedMonth_Start = monthOfYear;
+                lastSelectedDayOfMonth_Start = dayOfMonth;
 
                 Calendar myCalendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-                date = myCalendar.getTime();
+                startDate = myCalendar.getTime();
             }
         };
 
@@ -228,7 +234,7 @@ public class SearchFragment extends Fragment {
         // Create DatePickerDialog:
         datePickerDialog = new DatePickerDialog(this.context,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-                dateSetListener, lastSelectedYear, lastSelectedMonth, lastSelectedDayOfMonth);
+                dateSetListener, lastSelectedYear_Start, lastSelectedMonth_Start, lastSelectedDayOfMonth_Start);
 
         datePickerDialog.show();
     }
@@ -243,12 +249,12 @@ public class SearchFragment extends Fragment {
 
                 tvEndDate.setText( year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
 
-                lastSelectedYear = year;
-                lastSelectedMonth = monthOfYear;
-                lastSelectedDayOfMonth = dayOfMonth;
+                lastSelectedYear_End = year;
+                lastSelectedMonth_End = monthOfYear;
+                lastSelectedDayOfMonth_End = dayOfMonth;
 
                 Calendar myCalendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-                date = myCalendar.getTime();
+                endDate = myCalendar.getTime();
             }
         };
 
@@ -258,7 +264,7 @@ public class SearchFragment extends Fragment {
         // Create DatePickerDialog:
         datePickerDialog = new DatePickerDialog(this.context,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-                dateSetListener, lastSelectedYear, lastSelectedMonth, lastSelectedDayOfMonth);
+                dateSetListener, lastSelectedYear_End, lastSelectedMonth_End, lastSelectedDayOfMonth_End);
 
         datePickerDialog.show();
     }

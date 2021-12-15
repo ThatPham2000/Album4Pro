@@ -97,7 +97,7 @@ public class ImagesGallery {
         return listOfAllVideo;
     };
 
-    public static ArrayList<String> listPhotoFilter(Context context, String searchDate){
+    public static ArrayList<String> listPhotoFilter(Context context, String startDay, String endDay){
         Uri uri;
         Cursor cursor;
         int column_index_data, column_index_folder_name;
@@ -150,8 +150,11 @@ public class ImagesGallery {
                 }
             }
 
+            Date start = stringToDate_YMD(startDay);
+            Date end = stringToDate_YMD(endDay);
+            Date create = stringToDate_YMD(createdDate);
             //filter by comparing original day and search day
-            if (searchDate.equals(createdDate)) {
+            if (create.compareTo(start) >= 0 && create.compareTo(end) <= 0) {
                 listOfAllImage.add(pathOfImage);
             }
         }
@@ -164,6 +167,16 @@ public class ImagesGallery {
         if(aDate==null) return null;
         ParsePosition pos = new ParsePosition(0);
         SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+        Date stringDate = simpledateformat.parse(aDate, pos);
+        return stringDate;
+
+    }
+
+    private static Date stringToDate_YMD(String aDate) {
+
+        if(aDate==null) return null;
+        ParsePosition pos = new ParsePosition(0);
+        SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy:MM:dd");
         Date stringDate = simpledateformat.parse(aDate, pos);
         return stringDate;
 
