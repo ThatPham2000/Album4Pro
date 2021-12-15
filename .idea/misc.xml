@@ -6,17 +6,25 @@
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/circle_blue.xml" value="0.26256410256410256" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/circle_orange.xml" value="0.26256410256410256" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/circle_smoke.xml" value="0.26256410256410256" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/huong_gradient_background.xml" value="0.1609375" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_camera.xml" value="0.153125" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_job_that.xml" value="0.1609375" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_job_tri.xml" value="0.1609375" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26256410256410256" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_library.xml" value="0.26256410256410256" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_search.xml" value="0.153125" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_setting.xml" value="0.1609375" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/shape_custom_button.xml" value="0.153125" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/shape_custom_edittext.xml" value="0.153125" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/shape_custom_stroke.xml" value="0.153125" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/that_gradient_background.xml" value="0.16145833333333334" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/tri_gradient_button.xml" value="0.153125" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/tuong_gradient_button.xml" value="0.1609375" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_about_us.xml" value="0.12760416666666666" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_answer_security_question.xml" value="0.1453125" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_create_password.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_detail_photo.xml" value="0.12183383991894631" />
+        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_enter_password.xml" value="0.1453125" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_main.xml" value="0.12183383991894631" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_policy.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_setting.xml" value="0.12183383991894631" />
@@ -68,6 +76,9 @@
         <entry key="..\:/Users/123/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_image_more.xml" value="0.1265625" />
         <entry key="..\:/Users/123/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_resource.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/123/AndroidStudioProjects/Album4Pro/app/src/main/res/xml/provider_path.xml" value="0.14010416666666667" />
+        <entry key="..\:/Users/ADMIN/Desktop/Album4Pro/app/src/main/res/drawable-v24/bg_green_corner_title.xml" value="0.290625" />
+        <entry key="..\:/Users/ADMIN/Desktop/Album4Pro/app/src/main/res/layout/activity_about_us.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/ADMIN/Desktop/Album4Pro/app/src/main/res/menu/menu_add_album.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Allen/StudioProjects/Album4Pro/app/src/main/res/layout/activity_detail_photo.xml" value="0.20277777777777778" />
         <entry key="..\:/Users/OS/AndroidStudioProjects/Album4Pro/app/src/main/res/drawable/ic_private.xml" value="0.2703125" />
         <entry key="..\:/Users/OS/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/activity_answer_security_question.xml" value="0.25416666666666665" />

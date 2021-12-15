@@ -52,8 +52,9 @@ public class SearchFragment extends Fragment {
     private Context context = null;
     private MainActivity mainActivity;
     private Button btnFilter;
-    private TextView tvDate;
-    private Button btnSelectDate;
+    private TextView tvStartDate;
+    private TextView tvEndDate;
+    //private Button btnSelectDate;
 
     Calendar calendar = Calendar.getInstance();
 
@@ -120,14 +121,22 @@ public class SearchFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view_search);
 
-        tvDate = view.findViewById(R.id.tv_date);
-        btnSelectDate = view.findViewById(R.id.btn_select_date);
+        tvStartDate = view.findViewById(R.id.tv_start_date);
+        tvEndDate = view.findViewById(R.id.tv_end_date);
+//        btnSelectDate = view.findViewById(R.id.btn_select_date);
         btnFilter = view.findViewById(R.id.btn_filter);
 
-        btnSelectDate.setOnClickListener(new View.OnClickListener() {
+        tvStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonSelectDate();
+                selectStartDate();
+            }
+        });
+
+        tvEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectEndDate();
             }
         });
 
@@ -194,7 +203,7 @@ public class SearchFragment extends Fragment {
         Configuration.getInstance().setGalleryAdapter(this.galleryAdapter);
     }
 
-    private void buttonSelectDate() {
+    private void selectStartDate() {
         // Date Select Listener.
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -202,7 +211,37 @@ public class SearchFragment extends Fragment {
             public void onDateSet(DatePicker view, int year,
                                   int monthOfYear, int dayOfMonth) {
 
-                tvDate.setText( year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+                tvStartDate.setText( year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+
+                lastSelectedYear = year;
+                lastSelectedMonth = monthOfYear;
+                lastSelectedDayOfMonth = dayOfMonth;
+
+                Calendar myCalendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+                date = myCalendar.getTime();
+            }
+        };
+
+        DatePickerDialog datePickerDialog = null;
+
+
+        // Create DatePickerDialog:
+        datePickerDialog = new DatePickerDialog(this.context,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                dateSetListener, lastSelectedYear, lastSelectedMonth, lastSelectedDayOfMonth);
+
+        datePickerDialog.show();
+    }
+
+    private void selectEndDate() {
+        // Date Select Listener.
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year,
+                                  int monthOfYear, int dayOfMonth) {
+
+                tvEndDate.setText( year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
 
                 lastSelectedYear = year;
                 lastSelectedMonth = monthOfYear;

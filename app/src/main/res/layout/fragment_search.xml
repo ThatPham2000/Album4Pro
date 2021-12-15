@@ -13,23 +13,34 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_select_date"
-            android:layout_margin="5dp"
-            android:layout_width="140dp"
-            android:layout_height="40dp"
-            android:background="@drawable/shape_custom_button"
-            android:text="Select Date"
-            android:textColor="@color/white" />
+<!--        <Button-->
+<!--            android:id="@+id/btn_select_date"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:layout_width="140dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="@drawable/shape_custom_button"-->
+<!--            android:text="Select Date"-->
+<!--            android:textColor="@color/white" />-->
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tv_start_date"
             android:layout_margin="5dp"
-            android:layout_width="190dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple_700"
+            android:textColor="@color/white"
+            android:background="@drawable/tri_gradient_button"
             android:gravity="center"
-            android:text="-- select date --" />
+            android:text="-- start date --" />
+
+        <TextView
+            android:id="@+id/tv_end_date"
+            android:layout_margin="5dp"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@drawable/tri_gradient_button"
+            android:gravity="center"
+            android:text="-- end date --" />
 
         <Button
             android:id="@+id/btn_filter"
