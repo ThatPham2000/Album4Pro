@@ -268,9 +268,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_selection:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-                Toast.makeText(this, "Show selection", Toast.LENGTH_SHORT).show();
+                //captureImage();
+                //Toast.makeText(this, "Show selection", Toast.LENGTH_SHORT).show();
                 return true;
 
             default:

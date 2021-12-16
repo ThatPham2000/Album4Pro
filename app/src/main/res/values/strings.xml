@@ -67,4 +67,7 @@
     <!--Select Theme-->
     <string name="select_theme_title">Select Theme</string>
     <string name="select_column_title">Pictures Displayed Columns</string>
+    <!--Date search-->
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
 </resources>
