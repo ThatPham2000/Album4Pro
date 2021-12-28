@@ -57,10 +57,6 @@ public class SettingActivity extends AppCompatActivity {
     TextView orangeButton;
     TextView navyButton;
     TextView pinkButton;
-    RadioGroup rgColumns;
-    RadioButton rbTwoColumns;
-    RadioButton rbThreeColumns;
-    RadioButton rbFourColumns;
     SharedPreferences sharedPreferences;
     int columnNumber;
     int columnIndex;

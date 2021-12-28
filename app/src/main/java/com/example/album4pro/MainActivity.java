@@ -72,9 +72,10 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ViewPager2 menuViewPager2;
+    public ViewPager2 menuViewPager2;
     private BottomNavigationView menuBottomNavigationView;
     public Context libraryContext, privateContext;
+    public MyFragmentAdapter myFragmentAdapter;
 
     private PrivateDatabase privateDatabase;
     SharedPreferences sharedPreferences;
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         menuBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         // Khởi tạo adapter
-        MyFragmentAdapter myFragmentAdapter = new MyFragmentAdapter(this);
+        myFragmentAdapter = new MyFragmentAdapter(this);
         menuViewPager2.setAdapter(myFragmentAdapter);
 
         // Set hiệu ứng chuyển trang Zoom Out Page
