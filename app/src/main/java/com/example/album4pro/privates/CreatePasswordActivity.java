@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,25 +50,29 @@ public class CreatePasswordActivity extends AppCompatActivity {
                     // there is no password
                     Toast.makeText(CreatePasswordActivity.this, R.string.entered_password_yet, Toast.LENGTH_SHORT).show();
                 } else {
-                    if(first_pass.equals(second_pass)){
-                        // Save password
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("password_tag", CreatePasswordActivity.md5HashandPepper(second_pass + CreatePasswordActivity.pepperHasing));
-                        editor.commit();
-                        if(checkout == true){
-                            // Enter the app
-                            finish();
-                        } else {
-                            // Nhảy tới Activity thiết lập câu hỏi bảo mật
-                            intent = new Intent(getApplicationContext(), SecurityQuestionActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
+                    if(  second_pass.length() < 6 || first_pass.length() < 6){
+                        Toast.makeText(CreatePasswordActivity.this, R.string.six_digits, Toast.LENGTH_SHORT).show();
                     } else {
-                    // there is no match on the passwords
-                    Toast.makeText(CreatePasswordActivity.this, R.string.password_donot_match, Toast.LENGTH_SHORT).show();
+                        if(first_pass.equals(second_pass)){
+                            // Save password
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("password_tag", CreatePasswordActivity.md5HashandPepper(second_pass + CreatePasswordActivity.pepperHasing));
+                            editor.commit();
+                            if(checkout == true){
+                                // Enter the app
+                                finish();
+                            } else {
+                                // Nhảy tới Activity thiết lập câu hỏi bảo mật
+                                intent = new Intent(getApplicationContext(), SecurityQuestionActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } else {
+                            // there is no match on the passwords
+                            Toast.makeText(CreatePasswordActivity.this, R.string.password_donot_match, Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
-            }
             }
         });
     }

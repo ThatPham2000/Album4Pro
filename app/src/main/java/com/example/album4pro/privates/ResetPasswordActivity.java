@@ -43,25 +43,31 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     // there is no password
                     Toast.makeText(ResetPasswordActivity.this, R.string.entered_password_yet, Toast.LENGTH_SHORT).show();
                 } else {
-                    if(!oldPass.equals(password_Prefs)){
-                        Toast.makeText(ResetPasswordActivity.this,R.string.rong_password, Toast.LENGTH_SHORT).show();
+                    // Password is not enough 6 digits
+                    if(tempoldPass.length() < 6 || newPass.length() < 6 ||renewPass.length() < 6){
+                        Toast.makeText(ResetPasswordActivity.this,R.string.six_digits, Toast.LENGTH_SHORT).show();
                     } else {
-                        // old password is correct
-                        if(newPass.equals(renewPass)){
-                            // the new passwords match
-                            editor.remove("password_tag");
-                            editor.putString("password_tag", CreatePasswordActivity.md5HashandPepper(newPass + CreatePasswordActivity.pepperHasing));
-                            editor.commit();
-
-                            // Enter the EnterPassword Activity
-                            Intent intent = new Intent(getApplicationContext(), EnterPasswordActivity.class);
-                            startActivity(intent);
-                            finish();
+                        if(!oldPass.equals(password_Prefs)){
+                            Toast.makeText(ResetPasswordActivity.this,R.string.rong_password, Toast.LENGTH_SHORT).show();
                         } else {
-                            // there is no match on the passwords
-                            Toast.makeText(ResetPasswordActivity.this,R.string.password_donot_match, Toast.LENGTH_SHORT).show();
+                            // old password is correct
+                            if(newPass.equals(renewPass)){
+                                // the new passwords match
+                                editor.remove("password_tag");
+                                editor.putString("password_tag", CreatePasswordActivity.md5HashandPepper(newPass + CreatePasswordActivity.pepperHasing));
+                                editor.commit();
+
+                                // Enter the EnterPassword Activity
+                                Intent intent = new Intent(getApplicationContext(), EnterPasswordActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // there is no match on the passwords
+                                Toast.makeText(ResetPasswordActivity.this,R.string.password_donot_match, Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
+
                 }
             }
         });

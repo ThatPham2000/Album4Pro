@@ -65,4 +65,5 @@
     <!--Select Theme-->
     <string name="select_theme_title">Chủ Đề</string>
     <string name="select_column_title">Số cột hiển thị</string>
+    <string name="six_digits">*Mật khẩu phải bao gồm 6 chữ số*</string>
 </resources>

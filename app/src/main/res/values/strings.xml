@@ -64,4 +64,5 @@
     <!--Select Theme-->
     <string name="select_theme_title">Select Theme</string>
     <string name="select_column_title">Pictures Displayed Columns</string>
+    <string name="six_digits">*Password must consist of 6 digits*</string>
 </resources>
