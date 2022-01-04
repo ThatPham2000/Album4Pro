@@ -77,6 +77,7 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
 
         btnScrollUp = findViewById(R.id.btnScrollUp2);
         btnScrollDown = findViewById(R.id.btnScrollDown2);
+        Handler handler =  new android.os.Handler();
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -89,7 +90,6 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
                         btnScrollUp.show();
 
                         // Hide Button After 2 Seconds
-                        Handler handler =  new android.os.Handler();
                         Runnable myRunnable = new Runnable() {
                             public void run() {
                                 btnScrollUp.hide();
@@ -108,7 +108,6 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
                         btnScrollDown.show();
 
                         // Hide Button After 2 Seconds
-                        Handler handler =  new android.os.Handler();
                         Runnable myRunnable = new Runnable() {
                             public void run() {
                                 btnScrollDown.hide();

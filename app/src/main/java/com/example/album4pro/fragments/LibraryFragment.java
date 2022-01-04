@@ -94,6 +94,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
         recyclerView = view.findViewById(R.id.recycler_view_gallery);
         btnScrollUp = view.findViewById(R.id.btnScrollUp1);
         btnScrollDown = view.findViewById(R.id.btnScrollDown1);
+        Handler handler =  new android.os.Handler();
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -106,7 +107,6 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
                         btnScrollUp.show();
 
                         // Hide Button After 2 Seconds
-                        Handler handler =  new android.os.Handler();
                         Runnable myRunnable = new Runnable() {
                             public void run() {
                                 btnScrollUp.hide();
@@ -126,7 +126,6 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
                         btnScrollDown.show();
 
                         // Hide Button After 2 Seconds
-                        Handler handler =  new android.os.Handler();
                         Runnable myRunnable = new Runnable() {
                             public void run() {
                                 btnScrollDown.hide();
