@@ -161,14 +161,6 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
             loadImages();
             DetailPhoto.pressPrivate = false;
         }
-
-        // Appear Scroll Up Button If View As Top To Bottom
-        if (sharedPreferences.getInt("view", 1) == 0) {
-            btnScrollDown.hide();
-        } // Appear Scroll Up Button If View As Bottom To Top
-        else {
-            btnScrollUp.hide();
-        }
     }
 
     private void requestPermission(){

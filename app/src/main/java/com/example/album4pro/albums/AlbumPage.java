@@ -128,17 +128,6 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        if (sharedPreferences.getInt("view", 1) == 0) {
-            btnScrollDown.hide();
-        } else {
-            btnScrollUp.hide();
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_add_album, menu);
