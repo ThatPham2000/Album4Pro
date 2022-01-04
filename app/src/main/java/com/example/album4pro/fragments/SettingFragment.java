@@ -70,8 +70,12 @@ public class SettingFragment extends Fragment {
     SharedPreferences sharedPreferences;
     int columnNumber;
     int columnIndex;
+    int viewNumber;
+    int viewIndex;
     String[] columnNumberTitleEn = {"2 Columns", "3 Columns", "4 Columns"};
     String[] columnNumberTitleVi = {"2 Cột", "3 Cột", "4 Cột"};
+    String[] viewAsTitleEn = {"Top", "Bottom"};
+    String[] viewAsTitleVi = {"Từ trên xuống", "Đảo ngược"};
 
     LayoutInflater myInflater;
     ViewGroup myContainer;
@@ -415,6 +419,9 @@ public class SettingFragment extends Fragment {
         columnIndex = sharedPreferences.getInt("columnindex", 1);
         columnNumber = sharedPreferences.getInt("column", 3);
 
+        viewIndex = sharedPreferences.getInt("viewindex", 0);
+        viewNumber = sharedPreferences.getInt("view", 0);
+
         //---------------------------------------------- List View -------------------------------------------------
 
 //        // ListView
@@ -425,6 +432,7 @@ public class SettingFragment extends Fragment {
 
         if (sharedPreferences.getBoolean("vietnamese", false)) {
             arrayList.add("Chủ Đề");
+            arrayList.add("Xem");
             arrayList.add("Hiển Thị Hình Ảnh Theo Số Cột");
             arrayList.add("Về Chúng Tôi");
             arrayList.add("Trợ Giúp");
@@ -432,6 +440,7 @@ public class SettingFragment extends Fragment {
             arrayList.add("Privacy Policy");
         } else {
             arrayList.add("Select Theme");
+            arrayList.add("View As");
             arrayList.add("Pictures Displayed Columns");
             arrayList.add("About Us");
             arrayList.add("Help");
@@ -459,6 +468,12 @@ public class SettingFragment extends Fragment {
                         break;
                     case "Hiển Thị Hình Ảnh Theo Số Cột":
                         showOptionsDialog(columnNumberTitleVi);
+                        break;
+                    case "View As":
+                        showOptionsDialog2(viewAsTitleEn);
+                        break;
+                    case "Xem":
+                        showOptionsDialog2(viewAsTitleVi);
                         break;
                     case "Privacy Policy":
                         startActivity(new Intent(context, PolicyActivity.class));
@@ -508,6 +523,29 @@ public class SettingFragment extends Fragment {
         builder.show();
     }
 
+    private void showOptionsDialog2(String[] selectViewTitle) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(R.string.select_view_title);
+
+        viewIndex = sharedPreferences.getInt("viewindex", 0);
+        int viewChecked = viewIndex;
+
+        builder.setSingleChoiceItems(selectViewTitle, viewChecked, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (selectViewTitle[which] == "Top" || selectViewTitle[which] == "Từ trên xuống") {
+                    viewIndex = which;
+                    viewNumber = 0;
+                }
+                if (selectViewTitle[which] == "Bottom" || selectViewTitle[which] == "Đảo ngược") {
+                    viewIndex = which;
+                    viewNumber = 1;
+                }
+            }
+        });
+        builder.show();
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -530,6 +568,10 @@ public class SettingFragment extends Fragment {
         // Save Column Number Selection
         editor.putInt("columnindex", columnIndex);
         editor.putInt("column", columnNumber);
+
+        // Save View Selection
+        editor.putInt("viewindex", viewIndex);
+        editor.putInt("view", viewNumber);
 
         editor.apply();
     }

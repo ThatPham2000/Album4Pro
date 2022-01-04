@@ -35,4 +35,21 @@
     <string name="two_column_title">2 Cột</string>
     <string name="three_column_title">3 Cột</string>
     <string name="four_column_title">4 Cột</string>
+    <string name="select_view_title">Xem</string>
+    <string name="top_bottom_title">Từ trên xuống</string>
+    <string name="bottom_top_title">Đảo ngược</string>
+    <!--Policy-->
+    <string name="policy_text_1">Chính Sách Bảo Mật</string>
+    <string name="policy_text_2">Quyền riêng tư của bạn rất quan trọng đối với chúng tôi. Chính sách bảo mật của chúng tôi bao gồm cách chúng tôi thu thập, sử dụng và lưu trữ thông tin của bạn. Chúng tôi hy vọng chính sách của chúng tôi đơn giản và dễ hiểu. Vui lòng dành một phút để xem xét các điều khoản về chính sách bảo mật của chúng tôi bên dưới.</string>
+    <string name="policy_text_3">Thông Tin Cá Nhân</string>
+    <string name="policy_text_4">Chúng tôi sử dụng thông tin thu thập được thông qua ứng dụng này với mục đích:</string>
+    <string name="policy_text_5">I - để liên lạc với bạn.</string>
+    <string name="policy_text_6">II - để cải thiện ứng dụng.</string>
+    <string name="policy_text_7">III - để phân tích nhu cầu khách hàng.</string>
+    <string name="policy_text_8">IV - cho các mục đích khác liên quan đến hoạt động kinh doanh của chúng tôi.</string>
+    <string name="policy_text_9">Quyền Lợi Của Bạn</string>
+    <string name="policy_text_10">Bạn có quyền phản đối hoặc yêu cầu giới hạn xử lý dữ liệu cá nhân của mình cũng như quyền yêu cầu truy cập, chỉnh sửa và khả năng chia sẻ dữ liệu cá nhân của riêng mình.</string>
+    <string name="policy_text_11">Yêu cầu phải được gửi bằng cách liên hệ với chúng tôi qua e-mail tài khoản nhà phát triển của chúng tôi trên Google Play.</string>
+    <string name="policy_text_12">Bạn cũng có quyền kiểm soát trang web xã hội nào mà bạn muốn chia sẻ hoặc tải lên.</string>
+
 </resources>
