@@ -82,15 +82,33 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
+                // Appear Scroll Up Button If View As Top To Bottom
                 if (sharedPreferences.getInt("view", 1) == 0) {
-                    if (dy > 0) {
+                    if (dy != 0) {
                         btnScrollUp.show();
+
+                        // Hide Button After 2 Seconds
+                        new android.os.Handler().postDelayed(
+                                new Runnable() {
+                                    public void run() {
+                                        btnScrollUp.hide();
+                                    }
+                                }, 2000);
                     } else {
                         btnScrollUp.hide();
                     }
-                } else {
-                    if (dy < 0) {
+                } // Appear Scroll Up Button If View As Bottom To Top
+                else {
+                    if (dy != 0) {
                         btnScrollDown.show();
+
+                        // Hide Button After 2 Seconds
+                        new android.os.Handler().postDelayed(
+                                new Runnable() {
+                                    public void run() {
+                                        btnScrollDown.hide();
+                                    }
+                                }, 2000);
                     } else {
                         btnScrollDown.hide();
                     }

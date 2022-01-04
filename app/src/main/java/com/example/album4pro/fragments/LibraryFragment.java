@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class LibraryFragment extends Fragment implements View.OnClickListener {
 
@@ -96,15 +99,33 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
+                // Appear Scroll Up Button If View As Top To Bottom
                 if (sharedPreferences.getInt("view", 1) == 0) {
-                    if (dy > 0) {
+                    if (dy != 0) {
                         btnScrollUp.show();
+
+                        // Hide Button After 2 Seconds
+                        new android.os.Handler().postDelayed(
+                                new Runnable() {
+                                    public void run() {
+                                        btnScrollUp.hide();
+                                    }
+                                }, 2000);
                     } else {
                         btnScrollUp.hide();
                     }
-                } else {
-                    if (dy < 0) {
+                } // Appear Scroll Up Button If View As Bottom To Top
+                else {
+                    if (dy != 0) {
                         btnScrollDown.show();
+
+                        // Hide Button After 2 Seconds
+                        new android.os.Handler().postDelayed(
+                                new Runnable() {
+                                    public void run() {
+                                        btnScrollDown.hide();
+                                    }
+                                }, 2000);
                     } else {
                         btnScrollDown.hide();
                     }
@@ -134,9 +155,11 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
             DetailPhoto.pressPrivate = false;
         }
 
+        // Appear Scroll Up Button If View As Top To Bottom
         if (sharedPreferences.getInt("view", 1) == 0) {
             btnScrollDown.hide();
-        } else {
+        } // Appear Scroll Up Button If View As Bottom To Top
+        else {
             btnScrollUp.hide();
         }
     }
