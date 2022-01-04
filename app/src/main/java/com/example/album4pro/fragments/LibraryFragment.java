@@ -84,6 +84,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_library, container, false);
+        sharedPreferences = this.getActivity().getSharedPreferences("save", Context.MODE_PRIVATE);
 
         recyclerView = view.findViewById(R.id.recycler_view_gallery);
         btnScrollUp = view.findViewById(R.id.btnScrollUp1);
@@ -150,7 +151,6 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
         recyclerView.setHasFixedSize(true);
 
         // Get Column Selection Data
-        sharedPreferences = this.getActivity().getSharedPreferences("save", Context.MODE_PRIVATE);
         gridLayoutManager = new GridLayoutManager(context, sharedPreferences.getInt("column", 3));
 
 
@@ -187,6 +187,9 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
 
         recyclerView.setAdapter(galleryAdapter);
         Configuration.getInstance().setGalleryAdapter(this.galleryAdapter);
+
+        // Scroll To End if View As Bottom To Top
+        if (sharedPreferences.getInt("view", 1) == 1) scrollToItem(listPhoto.size() - 1);
     }
 
     @Override

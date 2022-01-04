@@ -172,6 +172,9 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
             });
             recyclerView.setAdapter(galleryAdapter);
         }
+
+        // Scroll To End if View As Bottom To Top
+        if (sharedPreferences.getInt("view", 1) == 1) scrollToItem(listImageOnAlbum.size() - 1);
     }
     private void onClickGoToDetailPhoto(String path){
         Intent intent = new Intent(this, DetailPhoto.class);
