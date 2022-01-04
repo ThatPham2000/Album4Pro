@@ -28,5 +28,17 @@
         android:backgroundTint="@color/teal_200"
         />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnScrollDown1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_downward"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        app:fabSize="mini"
+        android:backgroundTint="@color/teal_200"
+        />
+
 
 </RelativeLayout>

@@ -17,12 +17,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +33,10 @@ import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.R;
 import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.GalleryAdapter;
+import com.example.album4pro.setting.AboutUsActivity;
+import com.example.album4pro.setting.HelpActivity;
+import com.example.album4pro.setting.LanguageActivity;
+import com.example.album4pro.setting.PolicyActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
@@ -43,6 +50,7 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
     private GalleryAdapter galleryAdapter;
     private NewAlbumAdapter newAlbumAdapter;
     private FloatingActionButton btnScrollUp;
+    private FloatingActionButton btnScrollDown;
     GridLayoutManager gridLayoutManager;
     SharedPreferences sharedPreferences;
 
@@ -67,21 +75,43 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         }
 
         btnScrollUp = findViewById(R.id.btnScrollUp2);
+        btnScrollDown = findViewById(R.id.btnScrollDown2);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
-                    btnScrollUp.show();
+
+                if (sharedPreferences.getInt("view", 1) == 0) {
+                    if (dy > 0) {
+                        btnScrollUp.show();
+                    } else {
+                        btnScrollUp.hide();
+                    }
                 } else {
-                    btnScrollUp.hide();
+                    if (dy < 0) {
+                        btnScrollDown.show();
+                    } else {
+                        btnScrollDown.hide();
+                    }
                 }
             }
         });
 
         btnScrollUp.setOnClickListener(this);
+        btnScrollDown.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (sharedPreferences.getInt("view", 1) == 0) {
+            btnScrollDown.hide();
+        } else {
+            btnScrollUp.hide();
+        }
     }
 
     @Override
@@ -173,8 +203,13 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
             recyclerView.setAdapter(galleryAdapter);
         }
 
-        // Scroll To End if View As Bottom To Top
-        if (sharedPreferences.getInt("view", 1) == 1) scrollToItem(listImageOnAlbum.size() - 1);
+        // Scroll To Begin if View As Top To Bottom
+        if (sharedPreferences.getInt("view", 1) == 0) {
+            scrollToItem(0);
+        } // Scroll To End if View As Bottom To Top
+        else {
+            scrollToItem(listImageOnAlbum.size() - 1);
+        }
     }
     private void onClickGoToDetailPhoto(String path){
         Intent intent = new Intent(this, DetailPhoto.class);
@@ -274,6 +309,9 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.btnScrollUp2:
                 scrollToItem(0);
+                break;
+            case R.id.btnScrollDown2:
+                scrollToItem(listImageOnAlbum.size() - 1);
                 break;
         }
     }

@@ -33,6 +33,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
     // Khởi tạo các tham số
     private RecyclerView recyclerView;
     private FloatingActionButton btnScrollUp;
+    private FloatingActionButton btnScrollDown;
     private GalleryAdapter galleryAdapter;
     private List<String> listPhoto;
     private Context context = null;
@@ -88,20 +89,31 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
 
         recyclerView = view.findViewById(R.id.recycler_view_gallery);
         btnScrollUp = view.findViewById(R.id.btnScrollUp1);
+        btnScrollDown = view.findViewById(R.id.btnScrollDown1);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
-                    btnScrollUp.show();
+
+                if (sharedPreferences.getInt("view", 1) == 0) {
+                    if (dy > 0) {
+                        btnScrollUp.show();
+                    } else {
+                        btnScrollUp.hide();
+                    }
                 } else {
-                    btnScrollUp.hide();
+                    if (dy < 0) {
+                        btnScrollDown.show();
+                    } else {
+                        btnScrollDown.hide();
+                    }
                 }
             }
         });
 
         btnScrollUp.setOnClickListener(this);
+        btnScrollDown.setOnClickListener(this);
 
         requestPermission();
 
@@ -120,6 +132,12 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
         if(DetailPhoto.pressPrivate == true){
             loadImages();
             DetailPhoto.pressPrivate = false;
+        }
+
+        if (sharedPreferences.getInt("view", 1) == 0) {
+            btnScrollDown.hide();
+        } else {
+            btnScrollUp.hide();
         }
     }
 
@@ -188,8 +206,13 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
         recyclerView.setAdapter(galleryAdapter);
         Configuration.getInstance().setGalleryAdapter(this.galleryAdapter);
 
-        // Scroll To End if View As Bottom To Top
-        if (sharedPreferences.getInt("view", 1) == 1) scrollToItem(listPhoto.size() - 1);
+        // Scroll To Begin if View As Top To Bottom
+        if (sharedPreferences.getInt("view", 1) == 0) {
+            scrollToItem(0);
+        } // Scroll To End if View As Bottom To Top
+        else {
+            scrollToItem(listPhoto.size() - 1);
+        }
     }
 
     @Override
@@ -197,6 +220,9 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btnScrollUp1:
                 scrollToItem(0);
+                break;
+            case R.id.btnScrollDown1:
+                scrollToItem(listPhoto.size() - 1);
                 break;
         }
     }
