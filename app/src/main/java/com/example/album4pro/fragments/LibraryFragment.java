@@ -30,7 +30,7 @@ import com.gun0912.tedpermission.normal.TedPermission;
 
 import java.util.List;
 
-public class LibraryFragment extends Fragment {
+public class LibraryFragment extends Fragment implements View.OnClickListener {
 
     // Khởi tạo các tham số
     private RecyclerView recyclerView;
@@ -39,6 +39,7 @@ public class LibraryFragment extends Fragment {
     private List<String> listPhoto;
     private Context context = null;
     private MainActivity mainActivity;
+    GridLayoutManager gridLayoutManager;
     SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -101,6 +102,8 @@ public class LibraryFragment extends Fragment {
             }
         });
 
+        btnScrollUp.setOnClickListener(this);
+
         requestPermission();
 
         return view;
@@ -150,7 +153,7 @@ public class LibraryFragment extends Fragment {
 
         // Get Column Selection Data
         sharedPreferences = this.getActivity().getSharedPreferences("save", Context.MODE_PRIVATE);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, sharedPreferences.getInt("column", 3));
+        gridLayoutManager = new GridLayoutManager(context, sharedPreferences.getInt("column", 3));
 
 
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -186,5 +189,20 @@ public class LibraryFragment extends Fragment {
 
         recyclerView.setAdapter(galleryAdapter);
         Configuration.getInstance().setGalleryAdapter(this.galleryAdapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnScrollUp:
+                scrollToItem(0);
+                break;
+        }
+    }
+
+    private void scrollToItem(int index) {
+        if (gridLayoutManager == null) return;
+
+        gridLayoutManager.scrollToPositionWithOffset(index, 0);
     }
 }
