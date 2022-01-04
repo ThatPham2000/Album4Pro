@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -88,12 +89,16 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
                         btnScrollUp.show();
 
                         // Hide Button After 2 Seconds
-                        new android.os.Handler().postDelayed(
-                                new Runnable() {
-                                    public void run() {
-                                        btnScrollUp.hide();
-                                    }
-                                }, 2000);
+                        Handler handler =  new android.os.Handler();
+                        Runnable myRunnable = new Runnable() {
+                            public void run() {
+                                btnScrollUp.hide();
+                            }
+                        };
+
+                        handler.postDelayed(myRunnable, 2000);
+
+
                     } else {
                         btnScrollUp.hide();
                     }
@@ -103,12 +108,14 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
                         btnScrollDown.show();
 
                         // Hide Button After 2 Seconds
-                        new android.os.Handler().postDelayed(
-                                new Runnable() {
-                                    public void run() {
-                                        btnScrollDown.hide();
-                                    }
-                                }, 2000);
+                        Handler handler =  new android.os.Handler();
+                        Runnable myRunnable = new Runnable() {
+                            public void run() {
+                                btnScrollDown.hide();
+                            }
+                        };
+
+                        handler.postDelayed(myRunnable, 2000);
                     } else {
                         btnScrollDown.hide();
                     }

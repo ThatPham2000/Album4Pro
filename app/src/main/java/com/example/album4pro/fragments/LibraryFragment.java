@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,12 +106,17 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
                         btnScrollUp.show();
 
                         // Hide Button After 2 Seconds
-                        new android.os.Handler().postDelayed(
-                                new Runnable() {
-                                    public void run() {
-                                        btnScrollUp.hide();
-                                    }
-                                }, 2000);
+                        Handler handler =  new android.os.Handler();
+                        Runnable myRunnable = new Runnable() {
+                            public void run() {
+                                btnScrollUp.hide();
+                            }
+                        };
+
+                        // Remove All messages and callbacks in handler
+//                        handler.removeCallbacksAndMessages(null);
+
+                        handler.postDelayed(myRunnable, 2000);
                     } else {
                         btnScrollUp.hide();
                     }
@@ -120,12 +126,14 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
                         btnScrollDown.show();
 
                         // Hide Button After 2 Seconds
-                        new android.os.Handler().postDelayed(
-                                new Runnable() {
-                                    public void run() {
-                                        btnScrollDown.hide();
-                                    }
-                                }, 2000);
+                        Handler handler =  new android.os.Handler();
+                        Runnable myRunnable = new Runnable() {
+                            public void run() {
+                                btnScrollDown.hide();
+                            }
+                        };
+
+                        handler.postDelayed(myRunnable, 2000);
                     } else {
                         btnScrollDown.hide();
                     }
