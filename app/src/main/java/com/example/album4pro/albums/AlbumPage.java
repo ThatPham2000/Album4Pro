@@ -2,7 +2,9 @@ package com.example.album4pro.albums;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -28,17 +30,21 @@ import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.R;
 import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.GalleryAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class AlbumPage extends AppCompatActivity {
+public class AlbumPage extends AppCompatActivity implements View.OnClickListener{
     private static final int SELECT_PICTURES = 10;
     private RecyclerView recyclerView;
     private GalleryAdapter galleryAdapter;
     private NewAlbumAdapter newAlbumAdapter;
+    private FloatingActionButton btnScrollUp;
+    GridLayoutManager gridLayoutManager;
+    SharedPreferences sharedPreferences;
 
     private List<String> listImageOnAlbum;
     private List<String> listFolderName;
@@ -59,6 +65,22 @@ public class AlbumPage extends AppCompatActivity {
             AlbumItem album = (AlbumItem) getIntent().getExtras().get("folder name");
             loadImages(album.getName());
         }
+
+        btnScrollUp = findViewById(R.id.btnScrollUp2);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    btnScrollUp.show();
+                } else {
+                    btnScrollUp.hide();
+                }
+            }
+        });
+
+        btnScrollUp.setOnClickListener(this);
 
     }
 
@@ -122,7 +144,7 @@ public class AlbumPage extends AppCompatActivity {
 
                     newAlbumAdapter = new NewAlbumAdapter(AlbumPage.this);
 
-                    GridLayoutManager gridLayoutManager = new GridLayoutManager(AlbumPage.this, 4);
+                    gridLayoutManager = new GridLayoutManager(AlbumPage.this, 4);
                     recyclerView.setLayoutManager(gridLayoutManager);
                     recyclerView.setAdapter(newAlbumAdapter);
 
@@ -138,7 +160,8 @@ public class AlbumPage extends AppCompatActivity {
         else {
             listImageOnAlbum = ImagesGallery.listImageOnAlbum(this,folderName);
 
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+            sharedPreferences = getSharedPreferences("save", Context.MODE_PRIVATE);
+            gridLayoutManager = new GridLayoutManager(this, sharedPreferences.getInt("column", 3));
             recyclerView.setLayoutManager(gridLayoutManager);
 
             galleryAdapter = new GalleryAdapter(this, listImageOnAlbum, new GalleryAdapter.PhotoListener() {
@@ -241,5 +264,20 @@ public class AlbumPage extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.rcv_album, albumsFragment);
         fragmentTransaction.commit();*/
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnScrollUp2:
+                scrollToItem(0);
+                break;
+        }
+    }
+
+    private void scrollToItem(int index) {
+        if (gridLayoutManager == null) return;
+
+        gridLayoutManager.scrollToPositionWithOffset(index, 0);
     }
 }

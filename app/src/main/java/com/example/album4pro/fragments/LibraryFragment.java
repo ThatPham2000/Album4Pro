@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 import com.example.album4pro.gallery.Configuration;
 import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.GalleryAdapter;
-import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
 import com.example.album4pro.gallery.VideoViewActivity;
@@ -88,7 +86,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_library, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_view_gallery);
-        btnScrollUp = view.findViewById(R.id.btnScrollUp);
+        btnScrollUp = view.findViewById(R.id.btnScrollUp1);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -194,7 +192,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnScrollUp:
+            case R.id.btnScrollUp1:
                 scrollToItem(0);
                 break;
         }
