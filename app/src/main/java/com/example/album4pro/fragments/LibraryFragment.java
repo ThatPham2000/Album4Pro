@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
 import com.example.album4pro.gallery.VideoViewActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -32,6 +34,7 @@ public class LibraryFragment extends Fragment {
 
     // Khởi tạo các tham số
     private RecyclerView recyclerView;
+    private FloatingActionButton btnScrollUp;
     private GalleryAdapter galleryAdapter;
     private List<String> listPhoto;
     private Context context = null;
@@ -84,6 +87,19 @@ public class LibraryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_library, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_view_gallery);
+        btnScrollUp = view.findViewById(R.id.btnScrollUp);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    btnScrollUp.show();
+                } else {
+                    btnScrollUp.hide();
+                }
+            }
+        });
 
         requestPermission();
 
