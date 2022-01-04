@@ -114,11 +114,9 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
                         };
 
                         // Remove All messages and callbacks in handler
-//                        handler.removeCallbacksAndMessages(null);
+                        handler.removeCallbacksAndMessages(null);
 
                         handler.postDelayed(myRunnable, 2000);
-                    } else {
-                        btnScrollUp.hide();
                     }
                 } // Appear Scroll Up Button If View As Bottom To Top
                 else {
@@ -132,9 +130,10 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
                             }
                         };
 
+                        // Remove All messages and callbacks in handler
+                        handler.removeCallbacksAndMessages(null);
+
                         handler.postDelayed(myRunnable, 2000);
-                    } else {
-                        btnScrollDown.hide();
                     }
                 }
             }

@@ -96,11 +96,12 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
                             }
                         };
 
+                        // Remove All messages and callbacks in handler
+                        handler.removeCallbacksAndMessages(null);
+
                         handler.postDelayed(myRunnable, 2000);
 
 
-                    } else {
-                        btnScrollUp.hide();
                     }
                 } // Appear Scroll Up Button If View As Bottom To Top
                 else {
@@ -114,9 +115,10 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
                             }
                         };
 
+                        // Remove All messages and callbacks in handler
+                        handler.removeCallbacksAndMessages(null);
+
                         handler.postDelayed(myRunnable, 2000);
-                    } else {
-                        btnScrollDown.hide();
                     }
                 }
             }
