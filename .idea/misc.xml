@@ -6,35 +6,21 @@
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/circle_blue.xml" value="0.26256410256410256" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/circle_orange.xml" value="0.26256410256410256" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/circle_smoke.xml" value="0.26256410256410256" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/huong_gradient_background.xml" value="0.1609375" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_camera.xml" value="0.153125" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_job_that.xml" value="0.1609375" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_job_tri.xml" value="0.1609375" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26256410256410256" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_library.xml" value="0.26256410256410256" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_search.xml" value="0.153125" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/ic_setting.xml" value="0.1609375" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/shape_custom_button.xml" value="0.153125" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/shape_custom_edittext.xml" value="0.153125" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/shape_custom_stroke.xml" value="0.153125" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/that_gradient_background.xml" value="0.16145833333333334" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/tri_gradient_button.xml" value="0.153125" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/drawable/tuong_gradient_button.xml" value="0.1609375" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_about_us.xml" value="0.12760416666666666" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_album_page.xml" value="0.2341485507246377" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_answer_security_question.xml" value="0.1453125" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_create_password.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_detail_photo.xml" value="0.12183383991894631" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_enter_password.xml" value="0.1453125" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_language.xml" value="0.18704710144927536" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_main.xml" value="0.12183383991894631" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_policy.xml" value="0.12760416666666666" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_reset_password.xml" value="0.2341485507246377" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_select_theme.xml" value="0.2341485507246377" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_setting.xml" value="0.12183383991894631" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_slide_show.xml" value="0.2341485507246377" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/activity_splash.xml" value="0.12183383991894631" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/album_item.xml" value="0.2341485507246377" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/fragment_albums.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/fragment_library.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/fragment_private.xml" value="0.12760416666666666" />
@@ -42,8 +28,6 @@
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/fragment_setting.xml" value="0.12760416666666666" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/gallery_item.xml" value="0.12183383991894631" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/theme_selection.xml" value="0.12183383991894631" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/layout/tri_information.xml" value="0.18704710144927536" />
-        <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/menu/menu_add_album.xml" value="0.275" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.2" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/menu/menu_image_more.xml" value="0.2" />
         <entry key="..\:/Android/CASESTUDY/Album4Pro/app/src/main/res/menu/menu_resource.xml" value="0.2" />
@@ -110,6 +94,7 @@
         <entry key="..\:/Users/OS/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/gallery_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/OS/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/OS/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_resource.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/fragment_search.xml" value="0.18" />
       </map>
     </option>
   </component>
