@@ -26,6 +26,7 @@
     <string name="forgot_the_password">
         <u>Forgot your Password</u>
     </string>
+
     <string name="rong_answer">Your answer is not correct!!!</string>
     <string name="entered_password_yet">You have not entered your password!</string>
     <string name="password_donot_match">Sorry, the password you entered does not match!</string>
