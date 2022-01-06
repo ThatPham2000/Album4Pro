@@ -28,6 +28,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
 
     public void setListPhoto(List<String> listPhoto) {
         this.listPhoto = listPhoto;
+        notifyDataSetChanged();
     }
 
     @NonNull

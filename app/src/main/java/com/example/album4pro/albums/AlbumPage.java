@@ -44,7 +44,6 @@ public class AlbumPage extends AppCompatActivity {
     private List<String> listFolderName;
     private String dialogAlbumName;
 
-    private String imagePath;
     private List<String> imagePathList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,21 +53,17 @@ public class AlbumPage extends AppCompatActivity {
 
         listFolderName = ImagesGallery.listFolderName(this);
 
-
         if (getIntent().getExtras() != null){
             AlbumItem album = (AlbumItem) getIntent().getExtras().get("folder name");
-            loadImages(album.getName());
+            loadImages(album);
         }
-
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_add_album, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -85,62 +80,30 @@ public class AlbumPage extends AppCompatActivity {
         }
     }
 
-    private void loadImages(String folderName){
-        setTitle(folderName);
+    private void loadImages(AlbumItem album){
+        setTitle(album.getName());
 
-        if (folderName.equals("Tạo album mới")){
+        if (album.getNumber().equals("0")){
+            selectImagesFromGallery();
 
-            final Dialog dialog = new Dialog(this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_create_new_album);
-
-            Window window = dialog.getWindow();
-            if (window == null){
-                return;
-            }
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-            dialog.setCancelable(false);
-
-            EditText edtAlbumName = dialog.findViewById(R.id.edt_album_name);
-            Button btnExit = dialog.findViewById(R.id.btn_exit);
-            Button btnCreate = dialog.findViewById(R.id.btn_create);
-
-            btnExit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    /*dialog.dismiss();*/
-                    finish();
-                }
-            });
-            btnCreate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    dialogAlbumName = edtAlbumName.getText().toString().trim();
-
-                    newAlbumAdapter = new NewAlbumAdapter(AlbumPage.this);
-
-                    GridLayoutManager gridLayoutManager = new GridLayoutManager(AlbumPage.this, 4);
-                    recyclerView.setLayoutManager(gridLayoutManager);
-                    recyclerView.setAdapter(newAlbumAdapter);
-
-                    selectImagesFromGallery();
-
-                    dialog.dismiss();
-
-                }
-            });
-            dialog.show();
-
-        }
-        else {
-            listImageOnAlbum = ImagesGallery.listImageOnAlbum(this,folderName);
-
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(AlbumPage.this, 4);
             recyclerView.setLayoutManager(gridLayoutManager);
 
+            if (imagePathList != null){
+
+                galleryAdapter = new GalleryAdapter(this, imagePathList, new GalleryAdapter.PhotoListener() {
+                    @Override
+                    public void onPhotoClick(String path) {
+                        onClickGoToDetailPhoto(path);
+                    }
+                });
+                recyclerView.setAdapter(galleryAdapter);
+            }
+        }
+        else{
+            listImageOnAlbum = ImagesGallery.listImageOnAlbum(this,album.getName());
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+            recyclerView.setLayoutManager(gridLayoutManager);
             galleryAdapter = new GalleryAdapter(this, listImageOnAlbum, new GalleryAdapter.PhotoListener() {
                 @Override
                 public void onPhotoClick(String path) {
@@ -155,35 +118,19 @@ public class AlbumPage extends AppCompatActivity {
         intent.putExtra("path", path);
         startActivity(intent);
     }
-
-
-
+    //---------------------------------------------------------------------------------------------
     private void selectImagesFromGallery(){
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"),SELECT_PICTURES);
-
-
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if (requestCode == SELECT_PICTURES){
-            if (resultCode == Activity.RESULT_OK){
-                if (data.getClipData() != null){
-                    int count = data.getClipData().getItemCount();
-                    for (int i = 0; i < count; i++){
-                        Uri uri = data.getClipData().getItemAt(i).getUri();
-                    }
-                } else if (data.getData() != null){
-                    String imagePath = data.getData().getPath();
-                }
-            }
-        }*/
         if (requestCode == SELECT_PICTURES && resultCode == RESULT_OK  && data != null) {
-            imagePathList = new ArrayList<>();
             if (data.getClipData() != null) {
+                imagePathList = new ArrayList<>();
                 int count = data.getClipData().getItemCount();
                 for (int i=0; i<count; i++) {
                     Uri imageUri = data.getClipData().getItemAt(i).getUri();
@@ -202,14 +149,20 @@ public class AlbumPage extends AppCompatActivity {
         String[] filePath = file.getPath().split(":");
         String image_id = filePath[filePath.length - 1];
 
-        Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Images.Media._ID + " = ? ", new String[]{image_id}, null);
+        Cursor cursor = getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null,
+                MediaStore.Images.Media._ID + " = ? ",
+                new String[]{image_id},
+                null);
         if (cursor!=null) {
             cursor.moveToFirst();
-            imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+            String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
             imagePathList.add(imagePath);
             cursor.close();
         }
     }
+    //---------------------------------------------------------------------------------------------
     /*private void sendAlbum(AlbumItem album){
      *//*AlbumsFragment albumsFragment = new AlbumsFragment();*//*
 
@@ -222,9 +175,9 @@ public class AlbumPage extends AppCompatActivity {
         returnIntent.putExtra("album folder", album);
         setResult(Activity.RESULT_OK, returnIntent);
     }*/
-    private void sendNewAlbum(){
+    /*private void sendNewAlbum(){
         AlbumItem album = new AlbumItem(R.drawable.icon_album,dialogAlbumName,"10");
-        /*AlbumsFragment albumsFragment = new AlbumsFragment();*/
+        *//*AlbumsFragment albumsFragment = new AlbumsFragment();*//*
 
         Intent returnIntent = new Intent();
 
@@ -236,10 +189,10 @@ public class AlbumPage extends AppCompatActivity {
         setResult(Activity.RESULT_OK, returnIntent);
 
 
-        /*albumsFragment.setArguments(bundle);
+        *//*albumsFragment.setArguments(bundle);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.rcv_album, albumsFragment);
-        fragmentTransaction.commit();*/
-    }
+        fragmentTransaction.commit();*//*
+    }*/
 }

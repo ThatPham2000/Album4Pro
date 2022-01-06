@@ -1,23 +1,25 @@
 package com.example.album4pro.albums;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 
 public class AlbumItem implements Serializable {
-    private int resourceId;
+    private String resourceId;
     private String name;
     private String number;
 
-    public AlbumItem(int resourceId, String name, String number) {
+    public AlbumItem(String resourceId, String name, String number) {
         this.resourceId = resourceId;
         this.name = name;
         this.number = number;
     }
 
-    public int getResourceId() {
+    public String getResourceId() {
         return resourceId;
     }
 
-    public void setResourceId(int resourceId) {
+    public void setResourceId(String resourceId) {
         this.resourceId = resourceId;
     }
 

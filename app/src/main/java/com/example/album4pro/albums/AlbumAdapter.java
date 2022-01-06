@@ -1,6 +1,8 @@
 package com.example.album4pro.albums;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.album4pro.R;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder>{
@@ -44,7 +48,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
         if (album == null) {
             return;
         }
-        holder.imgAlbum.setImageResource(album.getResourceId());
+        String photo = album.getResourceId();
+        Glide.with(context).load(photo).into(holder.imgAlbum);
+
         holder.tvNameFolder.setText(album.getName());
         holder.tvNumberImg.setText(album.getNumber());
 
