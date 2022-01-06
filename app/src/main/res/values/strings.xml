@@ -70,4 +70,24 @@
     <!--Date search-->
     <string name="start_date">Start date</string>
     <string name="end_date">End date</string>
+    <string name="two_column_title">2 Columns</string>
+    <string name="three_column_title">3 Columns</string>
+    <string name="four_column_title">4 Columns</string>
+    <string name="select_view_title">View As</string>
+    <string name="top_bottom_title">Top</string>
+    <string name="bottom_top_title">Bottom</string>
+    <!--Policy-->
+    <string name="policy_text_1">Privacy Policy</string>
+    <string name="policy_text_2">Your privacy is very important to us. Our Privacy Policy covers how we collect, use and store your information. We hope our policy is simple and straightforward. Please take a minute to review our privacy policy terms below.</string>
+    <string name="policy_text_3">Personal information</string>
+    <string name="policy_text_4">We use the information collected through this app for the following purposes:</string>
+    <string name="policy_text_5">I - to contact you.</string>
+    <string name="policy_text_6">II - to improve the application.</string>
+    <string name="policy_text_7">III - to analyze customer needs.</string>
+    <string name="policy_text_8">IV - for other purposes related to our business.</string>
+    <string name="policy_text_9">Your Benefits</string>
+    <string name="policy_text_10">You have the right to object or request that the processing of your personal data be restricted, as well as the right to request access, correction and the ability to share your own personal data.</string>
+    <string name="policy_text_11">Requests must be submitted by contacting us via e-mail to our developer account on Google Play.</string>
+    <string name="policy_text_12">You also have control over which social sites you want to share or upload.</string>
+
 </resources>

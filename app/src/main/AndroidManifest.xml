@@ -69,7 +69,7 @@
         <activity
             android:name=".setting.LanguageActivity"
             android:exported="true"
-            android:parentActivityName=".setting.SettingActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".setting.HelpActivity"
             android:exported="true"

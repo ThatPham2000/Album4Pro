@@ -1,6 +1,7 @@
 package com.example.album4pro;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -29,7 +30,11 @@ public class ImagesGallery {
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME
         };
         String orderBy = MediaStore.Video.Media.DATE_TAKEN;
-        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + " DESC");
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
+        String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
+        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
+
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
 
         // get folder name
@@ -56,7 +61,11 @@ public class ImagesGallery {
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME
         };
         String orderBy = MediaStore.Video.Media.DATE_TAKEN;
-        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + " DESC");
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
+        String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
+        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
+
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
 
         // get folder name
@@ -83,7 +92,9 @@ public class ImagesGallery {
                 MediaStore.Video.Media.BUCKET_DISPLAY_NAME
         };
         String orderBy = MediaStore.Video.Media.DATE_TAKEN;
-        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + " DESC");
+        SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
+        String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
+        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
 
         // get folder name
@@ -110,7 +121,9 @@ public class ImagesGallery {
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME
         };
         String orderBy = MediaStore.Video.Media.DATE_TAKEN;
-        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + " DESC");
+        SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
+        String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
+        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
 
         // get folder name
@@ -232,7 +245,9 @@ public class ImagesGallery {
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME
         };
         String orderBy = MediaStore.Images.Media.DATE_TAKEN;
-        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + " DESC");
+        SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
+        String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
+        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
         column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
 
@@ -246,8 +261,9 @@ public class ImagesGallery {
         return listImageOnAlbum;
     }
 
-    public static int firstImageOnAlbum(List<String> listImageOnALbum){
-        return Integer.parseInt(listImageOnALbum.get(0));
+    public static String firstImageOnAlbum(List<String> listImageOnALbum){
+
+        return listImageOnALbum.get(0);
     }
 
     public static String numberImageOnAlbum(List<String> listImageOnAlbum){
@@ -256,5 +272,20 @@ public class ImagesGallery {
             number++;
         }
         return Integer.toString(number);
+    }
+    public static ArrayList<String> insertImageOnAlbum(Context context, List<String> pickedImage, String newFolderName){
+        Uri uri;
+        Cursor cursor;
+        ArrayList<String> insertedList = new ArrayList<String>();
+
+        uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        String[] projection = {
+                MediaStore.MediaColumns.DATA,
+                MediaStore.Images.Media.BUCKET_DISPLAY_NAME
+        };
+        String orderBy = MediaStore.Images.Media.DATE_TAKEN;
+
+
+        return insertedList;
     }
 }

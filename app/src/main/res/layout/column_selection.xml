@@ -15,7 +15,7 @@
 
     <TextView
         android:id="@+id/textView35"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
@@ -32,34 +32,34 @@
         >
 
         <RadioButton
-            android:id="@+id/twoColumns"
-            android:layout_width="wrap_content"
+            android:id="@+id/rbTwoColumns"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
             android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
             android:drawablePadding="125dp"
-            android:text="2 columns" />
+            android:text="@string/two_column_title" />
 
         <RadioButton
-            android:id="@+id/threeColumns"
-            android:layout_width="wrap_content"
+            android:id="@+id/rbThreeColumns"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
             android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
             android:drawablePadding="125dp"
-            android:text="3 columns" />
+            android:text="@string/three_column_title" />
 
         <RadioButton
-            android:id="@+id/fourColumns"
-            android:layout_width="wrap_content"
+            android:id="@+id/rbFourColumns"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
             android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
             android:drawablePadding="125dp"
-            android:text="4 columns" />
+            android:text="@string/four_column_title" />
     </RadioGroup>
 
 
