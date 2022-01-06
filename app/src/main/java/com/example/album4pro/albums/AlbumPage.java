@@ -256,26 +256,26 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         returnIntent.putExtra("album folder", album);
         setResult(Activity.RESULT_OK, returnIntent);
     }*/
-    private void sendNewAlbum(){
-        AlbumItem album = new AlbumItem(R.drawable.icon_album,dialogAlbumName,"10");
-        /*AlbumsFragment albumsFragment = new AlbumsFragment();*/
-
-        Intent returnIntent = new Intent();
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("new album", album);
-        returnIntent.putExtras(bundle);
-
-        returnIntent.putExtra("new album", album);
-        setResult(Activity.RESULT_OK, returnIntent);
-
-
-        /*albumsFragment.setArguments(bundle);
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.rcv_album, albumsFragment);
-        fragmentTransaction.commit();*/
-    }
+//    private void sendNewAlbum(){
+//        AlbumItem album = new AlbumItem(R.drawable.icon_album ,dialogAlbumName,"10");
+//        /*AlbumsFragment albumsFragment = new AlbumsFragment();*/
+//
+//        Intent returnIntent = new Intent();
+//
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("new album", album);
+//        returnIntent.putExtras(bundle);
+//
+//        returnIntent.putExtra("new album", album);
+//        setResult(Activity.RESULT_OK, returnIntent);
+//
+//
+//        /*albumsFragment.setArguments(bundle);
+//
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.rcv_album, albumsFragment);
+//        fragmentTransaction.commit();*/
+//    }
 
     @Override
     public void onClick(View v) {
