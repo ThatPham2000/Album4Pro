@@ -1,6 +1,7 @@
 package com.example.album4pro.privates;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Dialog;
@@ -30,14 +31,29 @@ public class EnterPasswordActivity extends AppCompatActivity {
     Button btnYesDia, btnNoDia;
     ImageView imgShow;
     TextView txtForgotPass, txtError;
+    SharedPreferences sharedPreferences;
 
     ViewPager2 passViewPager;
-
-    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set Theme Before SetContentView, Default Is Light Theme
+        sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            if (sharedPreferences.getBoolean("smoke", false)) setTheme(R.style.SmokeTheme);
+            if (sharedPreferences.getBoolean("blue", true)) setTheme(R.style.Theme_Album4Pro);
+            if (sharedPreferences.getBoolean("brown", false)) setTheme(R.style.BrownTheme);
+            if (sharedPreferences.getBoolean("purple", false)) setTheme(R.style.PurpleTheme);
+            if (sharedPreferences.getBoolean("yellow", false)) setTheme(R.style.YellowTheme);
+            if (sharedPreferences.getBoolean("green", false)) setTheme(R.style.GreenTheme);
+            if (sharedPreferences.getBoolean("orange", false)) setTheme(R.style.OrangeTheme);
+            if (sharedPreferences.getBoolean("navy", false)) setTheme(R.style.NavyTheme);
+            if (sharedPreferences.getBoolean("pink", false)) setTheme(R.style.PinkTheme);
+        }
+
         setContentView(R.layout.activity_enter_password);
 
         // load password
