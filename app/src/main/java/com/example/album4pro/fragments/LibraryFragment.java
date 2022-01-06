@@ -102,7 +102,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
                 super.onScrolled(recyclerView, dx, dy);
 
                 // Appear Scroll Up Button If View As Top To Bottom
-                if (sharedPreferences.getInt("view", 1) == 0) {
+                if (sharedPreferences.getInt("view", 0) == 0) {
                     if (dy != 0) {
                         btnScrollUp.show();
 
@@ -228,7 +228,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
         Configuration.getInstance().setGalleryAdapter(this.galleryAdapter);
 
         // Scroll To Begin if View As Top To Bottom
-        if (sharedPreferences.getInt("view", 1) == 0) {
+        if (sharedPreferences.getInt("view", 0) == 0) {
             scrollToItem(0);
         } // Scroll To End if View As Bottom To Top
         else {

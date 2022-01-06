@@ -32,7 +32,7 @@ public class ImagesGallery {
         String orderBy = MediaStore.Video.Media.DATE_TAKEN;
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
-        String viewAs = sharedPreferences.getInt("view", 1) == 0 ? " DESC" : " ASC";
+        String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
         cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
 
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
@@ -63,7 +63,7 @@ public class ImagesGallery {
         String orderBy = MediaStore.Video.Media.DATE_TAKEN;
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
-        String viewAs = sharedPreferences.getInt("view", 1) == 0 ? " DESC" : " ASC";
+        String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
         cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
 
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
@@ -93,7 +93,7 @@ public class ImagesGallery {
         };
         String orderBy = MediaStore.Video.Media.DATE_TAKEN;
         SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
-        String viewAs = sharedPreferences.getInt("view", 1) == 0 ? " DESC" : " ASC";
+        String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
         cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
 
@@ -122,7 +122,7 @@ public class ImagesGallery {
         };
         String orderBy = MediaStore.Video.Media.DATE_TAKEN;
         SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
-        String viewAs = sharedPreferences.getInt("view", 1) == 0 ? " DESC" : " ASC";
+        String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
         cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
 
@@ -233,7 +233,7 @@ public class ImagesGallery {
         };
         String orderBy = MediaStore.Images.Media.DATE_TAKEN;
         SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
-        String viewAs = sharedPreferences.getInt("view", 1) == 0 ? " DESC" : " ASC";
+        String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
         cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
         column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);

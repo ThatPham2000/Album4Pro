@@ -85,7 +85,7 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
                 super.onScrolled(recyclerView, dx, dy);
 
                 // Appear Scroll Up Button If View As Top To Bottom
-                if (sharedPreferences.getInt("view", 1) == 0) {
+                if (sharedPreferences.getInt("view", 0) == 0) {
                     if (dy != 0) {
                         btnScrollUp.show();
 
@@ -219,7 +219,7 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         }
 
         // Scroll To Begin if View As Top To Bottom
-        if (sharedPreferences.getInt("view", 1) == 0) {
+        if (sharedPreferences.getInt("view", 0) == 0) {
             scrollToItem(0);
         } // Scroll To End if View As Bottom To Top
         else {
