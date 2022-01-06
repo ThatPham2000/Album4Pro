@@ -66,4 +66,7 @@ dependencies {
 
     // Import CardView
     implementation "androidx.cardview:cardview:1.0.0"
+
+    // Design FAB
+    runtimeOnly 'com.google.android.material:material:1.6.0-alpha01'
 }

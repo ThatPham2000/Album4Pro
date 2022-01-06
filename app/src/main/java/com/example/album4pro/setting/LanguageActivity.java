@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -113,5 +114,12 @@ public class LanguageActivity extends AppCompatActivity {
         editor.putBoolean("vietnamese", rbVietnamese.isChecked());
 
         editor.apply();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(LanguageActivity.this, MainActivity.class);
+        startActivity(intent);
+        LanguageActivity.this.overridePendingTransition(R.anim.default_status, R.anim.default_status);
     }
 }
