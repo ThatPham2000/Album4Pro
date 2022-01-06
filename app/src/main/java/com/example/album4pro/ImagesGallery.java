@@ -248,8 +248,9 @@ public class ImagesGallery {
         return listImageOnAlbum;
     }
 
-    public static int firstImageOnAlbum(List<String> listImageOnALbum){
-        return Integer.parseInt(listImageOnALbum.get(0));
+    public static String firstImageOnAlbum(List<String> listImageOnALbum){
+
+        return listImageOnALbum.get(0);
     }
 
     public static String numberImageOnAlbum(List<String> listImageOnAlbum){
@@ -258,5 +259,20 @@ public class ImagesGallery {
             number++;
         }
         return Integer.toString(number);
+    }
+    public static ArrayList<String> insertImageOnAlbum(Context context, List<String> pickedImage, String newFolderName){
+        Uri uri;
+        Cursor cursor;
+        ArrayList<String> insertedList = new ArrayList<String>();
+
+        uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        String[] projection = {
+                MediaStore.MediaColumns.DATA,
+                MediaStore.Images.Media.BUCKET_DISPLAY_NAME
+        };
+        String orderBy = MediaStore.Images.Media.DATE_TAKEN;
+
+
+        return insertedList;
     }
 }

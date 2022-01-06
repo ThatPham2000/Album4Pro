@@ -59,7 +59,6 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
     private List<String> listFolderName;
     private String dialogAlbumName;
 
-    private String imagePath;
     private List<String> imagePathList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +68,9 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
 
         listFolderName = ImagesGallery.listFolderName(this);
 
-
         if (getIntent().getExtras() != null){
             AlbumItem album = (AlbumItem) getIntent().getExtras().get("folder name");
-            loadImages(album.getName());
+            loadImages(album);
         }
 
         btnScrollUp = findViewById(R.id.btnScrollUp2);
@@ -128,14 +126,12 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         btnScrollDown.setOnClickListener(this);
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_add_album, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -152,63 +148,32 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    private void loadImages(String folderName){
-        setTitle(folderName);
+    private void loadImages(AlbumItem album){
+        setTitle(album.getName());
 
-        if (folderName.equals("Tạo album mới")){
+        if (album.getNumber().equals("0")){
+            selectImagesFromGallery();
 
-            final Dialog dialog = new Dialog(this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_create_new_album);
+            gridLayoutManager = new GridLayoutManager(AlbumPage.this, 4);
+            recyclerView.setLayoutManager(gridLayoutManager);
 
-            Window window = dialog.getWindow();
-            if (window == null){
-                return;
+            if (imagePathList != null){
+
+                galleryAdapter = new GalleryAdapter(this, imagePathList, new GalleryAdapter.PhotoListener() {
+                    @Override
+                    public void onPhotoClick(String path) {
+                        onClickGoToDetailPhoto(path);
+                    }
+                });
+                recyclerView.setAdapter(galleryAdapter);
             }
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-            dialog.setCancelable(false);
-
-            EditText edtAlbumName = dialog.findViewById(R.id.edt_album_name);
-            Button btnExit = dialog.findViewById(R.id.btn_exit);
-            Button btnCreate = dialog.findViewById(R.id.btn_create);
-
-            btnExit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    /*dialog.dismiss();*/
-                    finish();
-                }
-            });
-            btnCreate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    dialogAlbumName = edtAlbumName.getText().toString().trim();
-
-                    newAlbumAdapter = new NewAlbumAdapter(AlbumPage.this);
-
-                    gridLayoutManager = new GridLayoutManager(AlbumPage.this, 4);
-                    recyclerView.setLayoutManager(gridLayoutManager);
-                    recyclerView.setAdapter(newAlbumAdapter);
-
-                    selectImagesFromGallery();
-
-                    dialog.dismiss();
-
-                }
-            });
-            dialog.show();
-
         }
         else {
-            listImageOnAlbum = ImagesGallery.listImageOnAlbum(this,folderName);
+            listImageOnAlbum = ImagesGallery.listImageOnAlbum(this,album.getName());
 
             sharedPreferences = getSharedPreferences("save", Context.MODE_PRIVATE);
             gridLayoutManager = new GridLayoutManager(this, sharedPreferences.getInt("column", 3));
             recyclerView.setLayoutManager(gridLayoutManager);
-
             galleryAdapter = new GalleryAdapter(this, listImageOnAlbum, new GalleryAdapter.PhotoListener() {
                 @Override
                 public void onPhotoClick(String path) {
@@ -245,21 +210,9 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if (requestCode == SELECT_PICTURES){
-            if (resultCode == Activity.RESULT_OK){
-                if (data.getClipData() != null){
-                    int count = data.getClipData().getItemCount();
-                    for (int i = 0; i < count; i++){
-                        Uri uri = data.getClipData().getItemAt(i).getUri();
-                    }
-                } else if (data.getData() != null){
-                    String imagePath = data.getData().getPath();
-                }
-            }
-        }*/
         if (requestCode == SELECT_PICTURES && resultCode == RESULT_OK  && data != null) {
-            imagePathList = new ArrayList<>();
             if (data.getClipData() != null) {
+                imagePathList = new ArrayList<>();
                 int count = data.getClipData().getItemCount();
                 for (int i=0; i<count; i++) {
                     Uri imageUri = data.getClipData().getItemAt(i).getUri();
@@ -278,10 +231,15 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         String[] filePath = file.getPath().split(":");
         String image_id = filePath[filePath.length - 1];
 
-        Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Images.Media._ID + " = ? ", new String[]{image_id}, null);
+        Cursor cursor = getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null,
+                MediaStore.Images.Media._ID + " = ? ",
+                new String[]{image_id},
+                null);
         if (cursor!=null) {
             cursor.moveToFirst();
-            imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+            String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
             imagePathList.add(imagePath);
             cursor.close();
         }
