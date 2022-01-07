@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "405361855832",
+    "project_id": "album4pro",
+    "storage_bucket": "album4pro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405361855832:android:1bf4a0df1d5b9b571a292d",
+        "android_client_info": {
+          "package_name": "com.example.album4pro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405361855832-q1bq92nqj41qrvit1nr6mv42uhpt4e90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIHZWY4AiNN3QRT8H0Z6nSJI1yaVvDcNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405361855832-q1bq92nqj41qrvit1nr6mv42uhpt4e90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

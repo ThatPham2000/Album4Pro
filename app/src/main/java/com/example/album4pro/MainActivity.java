@@ -50,6 +50,7 @@ import com.example.album4pro.gallery.Configuration;
 import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.GalleryAdapter;
+import com.example.album4pro.searching.SearchImageUsingFirebase;
 import com.example.album4pro.setting.PolicyActivity;
 import com.example.album4pro.setting.SettingActivity;
 import com.example.album4pro.privates.CreatePasswordActivity;
@@ -269,6 +270,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_search_image_firebase:
+                Intent intent = new Intent(MainActivity.this, SearchImageUsingFirebase.class);
+                startActivity(intent);
                 return true;
 
 //            case R.id.action_selection:

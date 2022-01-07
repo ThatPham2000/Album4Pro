@@ -21,8 +21,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Album4Pro">
-        <activity android:name=".albums.AlbumPage"
-            android:exported="true"/>
+        <activity
+            android:name=".searching.SearchImageUsingFirebase"
+            android:exported="false" />
+        <activity
+            android:name=".albums.AlbumPage"
+            android:exported="true" />
         <activity
             android:name=".gallery.VideoViewActivity"
             android:exported="true" />

@@ -92,4 +92,9 @@
     <string name="policy_text_11">Requests must be submitted by contacting us via e-mail to our developer account on Google Play.</string>
     <string name="policy_text_12">You also have control over which social sites you want to share or upload.</string>
 
+    <!-- Search In firebase -->
+    <string name="search_firebase_snap">SNAP</string>
+    <string name="search_firebase_search_result">Get search results</string>
+    <string name="search_firebase_search_fail_noti">Fail to detect message</string>
+    <string name="search_firebase_search_empty_noti">No results found</string>
 </resources>

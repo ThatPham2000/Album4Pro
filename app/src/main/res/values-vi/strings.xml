@@ -92,4 +92,10 @@
     <string name="policy_text_12">Bạn cũng có quyền kiểm soát trang web xã hội nào mà bạn muốn chia sẻ hoặc tải lên.</string>
 
     <string name="six_digits">*Mật khẩu phải bao gồm 6 chữ số*</string>
+
+    <!-- Search In firebase -->
+    <string name="search_firebase_snap">Chụp ảnh</string>
+    <string name="search_firebase_search_result">Tìm kiếm kết quả</string>
+    <string name="search_firebase_search_fail_noti">Không thể xử lý hình ảnh</string>
+    <string name="search_firebase_search_empty_noti">Không tìm thấy kết quả</string>
 </resources>
