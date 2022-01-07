@@ -6,12 +6,16 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -72,6 +76,8 @@ public class PrivateFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -172,4 +178,23 @@ public class PrivateFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        MenuItem menuItem_camera = menu.findItem(R.id.action_camera);
+        menuItem_camera.setVisible(false);
+
+        MenuItem menuItem_slideshow = menu.findItem(R.id.action_slideshow);
+        menuItem_slideshow.setVisible(false);
+
+        MenuItem menuItem_sort = menu.findItem(R.id.action_sort);
+        menuItem_sort.setVisible(false);
+
+        MenuItem menuItem_loadUrl = menu.findItem(R.id.action_load_url);
+        menuItem_loadUrl.setVisible(false);
+
+        MenuItem menuItem_image_search = menu.findItem(R.id.action_search_image_firebase);
+        menuItem_image_search.setVisible(false);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 }

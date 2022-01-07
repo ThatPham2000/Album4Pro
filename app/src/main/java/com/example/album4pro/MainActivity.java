@@ -268,10 +268,13 @@ public class MainActivity extends AppCompatActivity {
                         }).show();
                 return true;
 
-            case R.id.action_selection:
-                //captureImage();
-                //Toast.makeText(this, "Show selection", Toast.LENGTH_SHORT).show();
+            case R.id.action_search_image_firebase:
                 return true;
+
+//            case R.id.action_selection:
+//                //captureImage();
+//                //Toast.makeText(this, "Show selection", Toast.LENGTH_SHORT).show();
+//                return true;
 
             default:
                 // If we got here, the user's action was not recognized.

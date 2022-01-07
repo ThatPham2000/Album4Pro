@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -70,6 +73,8 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -252,5 +257,13 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
         if (gridLayoutManager == null) return;
 
         gridLayoutManager.scrollToPositionWithOffset(index, 0);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        MenuItem menuItem_image_search = menu.findItem(R.id.action_search_image_firebase);
+        menuItem_image_search.setVisible(false);
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
