@@ -1,6 +1,7 @@
 package com.example.album4pro.gallery;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,23 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
         String photo = listPhoto.get(position);
         Glide.with(context).load(photo).into(holder.imgPhoto);
 
+        String[] imageExtensions = {"jpg", "png", "gif", "jpeg", "tiff", "webp"};
+        boolean isImage = false;
+        String extension = photo.substring(photo.lastIndexOf(".") + 1);
+
+        for (int i = 0; i < imageExtensions.length; i++){
+            if(extension.equalsIgnoreCase(imageExtensions[i])){
+                isImage = true;
+                break;
+            }
+        }
+
+        if (!isImage){
+            holder.playVideoIV.setVisibility(View.VISIBLE);
+        } else {
+            holder.playVideoIV.setVisibility(View.GONE);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,10 +98,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView imgPhoto;
+        private ImageView playVideoIV;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imgPhoto = itemView.findViewById(R.id.gallery_item_imgView);
+            playVideoIV = (ImageView) itemView.findViewById(R.id.ic_play_video);
         }
     }
 

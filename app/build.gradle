@@ -69,6 +69,9 @@ dependencies {
     // Import CardView
     implementation "androidx.cardview:cardview:1.0.0"
 
+    // Circle Image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
     // Design FAB
     runtimeOnly 'com.google.android.material:material:1.6.0-alpha01'
 

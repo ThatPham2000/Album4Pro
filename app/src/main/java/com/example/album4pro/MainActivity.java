@@ -488,7 +488,7 @@ public class MainActivity extends AppCompatActivity {
 
     // list photo đã trừ đi các photo trong Private (Tuong)
     public ArrayList<String> minusPrivatePhoto(List<String> plist){
-        List<String> master_list = ImagesGallery.listPhoto(libraryContext);
+        List<String> master_list = ImagesGallery.listPhotoAndVideo(libraryContext);
         ArrayList<String> list_result = new ArrayList<>();
 
         boolean check = false;
