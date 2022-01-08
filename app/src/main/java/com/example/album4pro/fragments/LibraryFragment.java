@@ -200,7 +200,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
 
         recyclerView.setLayoutManager(gridLayoutManager);
         //listPhoto = ImagesGallery.listPhoto(context); // code cũ
-        listPhoto = mainActivity.minusPrivatePhoto(mainActivity.listPhotoPrivate(context)); // Chỉnh sửa để ẩn Private trong Library (Tuong)
+        listPhoto = mainActivity.minusPrivatePhoto(mainActivity.listPhotoPrivate(context), 0); // Chỉnh sửa để ẩn Private trong Library (Tuong)
 
         galleryAdapter = new GalleryAdapter(context, listPhoto, new GalleryAdapter.PhotoListener() {
             @Override

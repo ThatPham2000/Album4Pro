@@ -32,6 +32,8 @@
                 android:title="@string/menu_photo_title"/>
             <item android:id="@+id/action_sort_video"
                 android:title="Video"/>
+            <item android:id="@+id/action_unfiltered"
+                android:title="@string/menu_unfiltered"/>
         </menu>
     </item>
 

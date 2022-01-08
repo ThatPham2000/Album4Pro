@@ -220,7 +220,8 @@ public class MainActivity extends AppCompatActivity {
                 // as a favorite...
 
                 if(Configuration.getInstance().getGalleryAdapter() != null){
-                    List<String> list = ImagesGallery.listPhoto(libraryContext);
+//                    List<String> list = ImagesGallery.listPhoto(libraryContext);
+                    List<String> list = minusPrivatePhoto(listPhotoPrivate(libraryContext), 1);
                     Configuration.getInstance().setVideo(false);
                     Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
                     Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
@@ -232,8 +233,19 @@ public class MainActivity extends AppCompatActivity {
                 // as a favorite...
 
                 if(Configuration.getInstance().getGalleryAdapter() != null){
-                    List<String> list = ImagesGallery.listVideo(libraryContext);
+//                    List<String> list = ImagesGallery.listVideo(libraryContext);
+                    List<String> list = minusPrivatePhoto(listPhotoPrivate(libraryContext), 2);
                     Configuration.getInstance().setVideo(true);
+                    Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
+                    Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
+                }
+                return true;
+
+            case R.id.action_unfiltered:
+                if(Configuration.getInstance().getGalleryAdapter() != null){
+//                    List<String> list = ImagesGallery.listPhoto(libraryContext);
+                    List<String> list = minusPrivatePhoto(listPhotoPrivate(libraryContext), 0);
+                    Configuration.getInstance().setVideo(false);
                     Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
                     Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
                 }
@@ -487,8 +499,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // list photo đã trừ đi các photo trong Private (Tuong)
-    public ArrayList<String> minusPrivatePhoto(List<String> plist){
-        List<String> master_list = ImagesGallery.listPhotoAndVideo(libraryContext);
+    public ArrayList<String> minusPrivatePhoto(List<String> plist, int type){ //type = {1: Image, 2: Video, 0: Image and Video}
+        List<String> master_list = new ArrayList<>();
+        if (type == 0) {
+            master_list = ImagesGallery.listPhotoAndVideo(libraryContext);
+        } else if (type == 1){
+            master_list = ImagesGallery.listPhoto(libraryContext);
+        } else {
+            master_list = ImagesGallery.listVideo(libraryContext);
+        }
+
         ArrayList<String> list_result = new ArrayList<>();
 
         boolean check = false;

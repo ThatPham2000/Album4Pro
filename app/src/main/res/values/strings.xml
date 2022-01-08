@@ -15,6 +15,7 @@
     <!--Side Menu-->
     <string name="menu_slide_show_title">Slideshow</string>
     <string name="menu_filter_title">Filter</string>
+    <string name="menu_unfiltered">Unfiltered</string>
     <string name="menu_load_image_title">Load image from URL</string>
     <string name="menu_select_multiple_items_title">Select multiple items</string>
     <string name="menu_photo_title">Photo</string>

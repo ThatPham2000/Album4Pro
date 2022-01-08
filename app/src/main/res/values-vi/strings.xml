@@ -16,6 +16,7 @@
     <!--Side Menu-->
     <string name="menu_slide_show_title">Trình chiếu</string>
     <string name="menu_filter_title">Lọc</string>
+    <string name="menu_unfiltered">Bỏ lọc</string>
     <string name="menu_load_image_title">Load ảnh từ URL</string>
     <string name="menu_select_multiple_items_title">Chọn nhiều mục</string>
     <string name="menu_photo_title">Hình ảnh</string>
