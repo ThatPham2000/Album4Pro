@@ -43,6 +43,7 @@
     <string name="option_quenstion">Tùy chỉnh</string>
     <string name="show_image_again">Hình ảnh đã được hiển thị lại ở Library</string>
     <string name="hide_image">Hình ảnh đã được chuyển vào Private</string>
+    <string name="delete_image">Tệp đã được chuyển vào thùng rác</string>
     <string name="enter_answer">Nhập câu trả lời bảo mật</string>
     <string name="enter_answerhint">Nhập câu trả lời</string>
     <string name="confirmbutton">Xác nhận</string>

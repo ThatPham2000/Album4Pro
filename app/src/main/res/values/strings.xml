@@ -42,7 +42,8 @@
     <string name="color_favourite">What is your favorite color?</string>
     <string name="option_quenstion">Custom</string>
     <string name="show_image_again">The image has been displayed again in the Library</string>
-    <string name="hide_image">The image has been moved to Private</string>
+    <string name="hide_image">The item has been moved to Private</string>
+    <string name="delete_image">The item has been moved to Trash</string>
     <string name="enter_answer">Enter security answer</string>
     <string name="enter_answerhint">Enter your answer</string>
     <string name="confirmbutton">Confirm</string>

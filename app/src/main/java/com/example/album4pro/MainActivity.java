@@ -226,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
                 Configuration.getInstance().setListPhotoDelete(listPhotoDelete(this));
 
                 startActivity(intenttrash);
+                finish();
                 return true;
 
             case R.id.action_sort_image:

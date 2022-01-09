@@ -74,23 +74,9 @@ public class TrashActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-//        listPhoto = getIntent().getStringArrayListExtra("pathPhotoDelete");
-//        // Load lại Private khi có sự thay đổi
-//        if(DetailPhoto.pressinsideDelete == true && DetailPhoto.tempcheckToastDelete == true){
-//            Toast.makeText(TrashActivity.this, R.string.show_image_again, Toast.LENGTH_SHORT).show();
-//            DetailPhoto.tempcheckToastDelete = false;
-//            if(galleryAdapter != null){
-//                galleryAdapter.notifyDataSetChanged();
-//            }
-//        }
-//        if(DetailPhoto.pressinsideDelete == true){
-//            loadImage();
-//            DetailPhoto.pressinsideDelete = false;
-//            if(galleryAdapter != null){
-//                galleryAdapter.notifyDataSetChanged();
-//            }
-//        }
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(TrashActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

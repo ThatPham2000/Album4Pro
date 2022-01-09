@@ -93,6 +93,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        listPhoto = mainActivity.minusPrivatePhoto(Configuration.getInstance().getListPhotoDelete(), 0);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_library, container, false);
         sharedPreferences = this.getActivity().getSharedPreferences("save", Context.MODE_PRIVATE);
@@ -169,7 +170,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
 
         // delete Photo khi đưa vào delete
         if(DetailPhoto.pressDelete == true && DetailPhoto.tempcheckToastDelete == true){
-            Toast.makeText(context, R.string.hide_image, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.delete_image, Toast.LENGTH_SHORT).show();
             DetailPhoto.tempcheckToast = false;
         }
         if(DetailPhoto.pressDelete == true){
