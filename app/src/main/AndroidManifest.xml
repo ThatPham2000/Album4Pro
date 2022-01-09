@@ -22,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Album4Pro">
         <activity
+            android:name=".gallery.VideoDetailDeleteActivity"
+            android:exported="false" />
+        <activity
             android:name=".gallery.DetailPhotoDelete"
             android:exported="false" />
         <activity

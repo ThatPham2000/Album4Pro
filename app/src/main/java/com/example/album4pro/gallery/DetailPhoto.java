@@ -170,6 +170,7 @@ public class DetailPhoto extends AppCompatActivity {
                 pressinsideDelete = true;
                 tempcheckToastDelete = true;
                 onBackPressed();
+                Toast.makeText(DetailPhoto.this, R.string.delete_image, Toast.LENGTH_SHORT).show();
             }
         });
         btnMore.setOnClickListener(new View.OnClickListener() {

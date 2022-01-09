@@ -170,7 +170,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
 
         // delete Photo khi đưa vào delete
         if(DetailPhoto.pressDelete == true && DetailPhoto.tempcheckToastDelete == true){
-            Toast.makeText(context, R.string.delete_image, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, R.string.delete_image, Toast.LENGTH_SHORT).show();
             DetailPhoto.tempcheckToast = false;
         }
         if(DetailPhoto.pressDelete == true){

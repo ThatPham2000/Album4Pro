@@ -12,6 +12,7 @@ import com.example.album4pro.gallery.Configuration;
 import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.DetailPhotoDelete;
 import com.example.album4pro.gallery.GalleryAdapter;
+import com.example.album4pro.gallery.VideoDetailDeleteActivity;
 import com.example.album4pro.gallery.VideoViewActivity;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public class TrashActivity extends AppCompatActivity {
                 }
 
                 if (!isImage){
-                    Intent intent = new Intent(TrashActivity.this, VideoViewActivity.class);
+                    Intent intent = new Intent(TrashActivity.this, VideoDetailDeleteActivity.class);
                     intent.putExtra("path", path);
                     TrashActivity.this.startActivity(intent);
                     finish();

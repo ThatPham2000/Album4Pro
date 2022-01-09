@@ -1,10 +1,12 @@
 package com.example.album4pro.gallery;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.FileProvider;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.album4pro.BuildConfig;
@@ -36,6 +39,20 @@ public class VideoViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set Theme Before SetContentView, Default Is Light Theme
+        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            if (sharedPreferences.getBoolean("smoke", false)) setTheme(R.style.SmokeTheme);
+            if (sharedPreferences.getBoolean("blue", true)) setTheme(R.style.Theme_Album4Pro);
+            if (sharedPreferences.getBoolean("brown", false)) setTheme(R.style.BrownTheme);
+            if (sharedPreferences.getBoolean("purple", false)) setTheme(R.style.PurpleTheme);
+            if (sharedPreferences.getBoolean("yellow", false)) setTheme(R.style.YellowTheme);
+            if (sharedPreferences.getBoolean("green", false)) setTheme(R.style.GreenTheme);
+            if (sharedPreferences.getBoolean("orange", false)) setTheme(R.style.OrangeTheme);
+            if (sharedPreferences.getBoolean("navy", false)) setTheme(R.style.NavyTheme);
+            if (sharedPreferences.getBoolean("pink", false)) setTheme(R.style.PinkTheme);
+        }
         setContentView(R.layout.activity_video_view);
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -95,6 +112,7 @@ public class VideoViewActivity extends AppCompatActivity {
                 DetailPhoto.pressinsideDelete = true;
                 DetailPhoto.tempcheckToastDelete = true;
                 onBackPressed();
+                Toast.makeText(VideoViewActivity.this, R.string.delete_image, Toast.LENGTH_SHORT).show();
             }
         });
     }
