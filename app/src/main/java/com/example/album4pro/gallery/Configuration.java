@@ -1,7 +1,10 @@
 package com.example.album4pro.gallery;
 
+import java.util.ArrayList;
+
 public class Configuration {
     private GalleryAdapter galleryAdapter;
+    private ArrayList<String> listPhotoDelete = new ArrayList<>();
 
     private static Configuration instance;
 
@@ -32,5 +35,13 @@ public class Configuration {
 
     public void setVideo(Boolean video) {
         isVideo = video;
+    }
+
+    public ArrayList<String> getListPhotoDelete() {
+        return listPhotoDelete;
+    }
+
+    public void setListPhotoDelete(ArrayList<String> listPhotoDelete) {
+        this.listPhotoDelete = listPhotoDelete;
     }
 }

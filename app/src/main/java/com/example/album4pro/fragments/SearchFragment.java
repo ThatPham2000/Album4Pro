@@ -289,6 +289,9 @@ public class SearchFragment extends Fragment {
         MenuItem menuItem_loadUrl = menu.findItem(R.id.action_load_url);
         menuItem_loadUrl.setVisible(false);
 
+        MenuItem menuItem_trash = menu.findItem(R.id.action_load_trash);
+        menuItem_trash.setVisible(false);
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 }

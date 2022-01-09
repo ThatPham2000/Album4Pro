@@ -43,6 +43,7 @@ import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.PrivateDatabase;
 import com.example.album4pro.R;
+import com.example.album4pro.TrashActivity;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
@@ -69,6 +70,11 @@ public class DetailPhoto extends AppCompatActivity {
     public static Boolean pressPrivate = false;
     public static Boolean pressinsidePrivate = false;
     public static Boolean tempcheckToast = false;
+
+    public static String pathDelete = "";
+    public static Boolean pressDelete = false;
+    public static Boolean pressinsideDelete = false;
+    public static Boolean tempcheckToastDelete = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +165,11 @@ public class DetailPhoto extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                pathDelete = pathImage;
+                pressDelete = true;
+                pressinsideDelete = true;
+                tempcheckToastDelete = true;
+                onBackPressed();
             }
         });
         btnMore.setOnClickListener(new View.OnClickListener() {

@@ -392,6 +392,9 @@ public class AlbumsFragment extends Fragment {
         MenuItem menuItem_image_search = menu.findItem(R.id.action_search_image_firebase);
         menuItem_image_search.setVisible(false);
 
+        MenuItem menuItem_trash = menu.findItem(R.id.action_load_trash);
+        menuItem_trash.setVisible(false);
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 }

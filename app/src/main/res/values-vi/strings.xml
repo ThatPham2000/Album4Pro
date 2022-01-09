@@ -99,4 +99,6 @@
     <string name="search_firebase_search_result">Tìm kiếm kết quả</string>
     <string name="search_firebase_search_fail_noti">Không thể xử lý hình ảnh</string>
     <string name="search_firebase_search_empty_noti">Không tìm thấy kết quả</string>
+
+    <string name="album_trash">Thùng rác</string>
 </resources>

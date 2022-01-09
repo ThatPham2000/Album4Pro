@@ -98,4 +98,6 @@
     <string name="search_firebase_search_result">Get search results</string>
     <string name="search_firebase_search_fail_noti">Fail to detect message</string>
     <string name="search_firebase_search_empty_noti">No results found</string>
+
+    <string name="album_trash">Trash</string>
 </resources>

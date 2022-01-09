@@ -31,6 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -165,6 +166,16 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
             loadImages();
             DetailPhoto.pressPrivate = false;
         }
+
+        // delete Photo khi đưa vào delete
+        if(DetailPhoto.pressDelete == true && DetailPhoto.tempcheckToastDelete == true){
+            Toast.makeText(context, R.string.hide_image, Toast.LENGTH_SHORT).show();
+            DetailPhoto.tempcheckToast = false;
+        }
+        if(DetailPhoto.pressDelete == true){
+            loadImages();
+            DetailPhoto.pressDelete = false;
+        }
     }
 
     private void requestPermission(){
@@ -200,7 +211,9 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
 
         recyclerView.setLayoutManager(gridLayoutManager);
         //listPhoto = ImagesGallery.listPhoto(context); // code cũ
-        listPhoto = mainActivity.minusPrivatePhoto(mainActivity.listPhotoPrivate(context), 0); // Chỉnh sửa để ẩn Private trong Library (Tuong)
+        ArrayList<String> minusList = new ArrayList<>(mainActivity.listPhotoPrivate(context));
+        minusList.addAll(mainActivity.listPhotoDelete(context));
+        listPhoto = mainActivity.minusPrivatePhoto(minusList, 0); // Chỉnh sửa để ẩn Private trong Library (Tuong)
 
         galleryAdapter = new GalleryAdapter(context, listPhoto, new GalleryAdapter.PhotoListener() {
             @Override

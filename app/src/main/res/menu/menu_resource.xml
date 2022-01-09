@@ -42,6 +42,11 @@
         app:showAsAction="never"
         />
 
+    <item android:id="@+id/action_load_trash"
+        android:title="@string/album_trash"
+        app:showAsAction="never"
+        />
+
 <!--    <item android:id="@+id/action_selection"-->
 <!--        android:title="@string/menu_select_multiple_items_title"-->
 <!--        app:showAsAction="never"-->

@@ -90,7 +90,11 @@ public class VideoViewActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DetailPhoto.pathDelete = videoPath;
+                DetailPhoto.pressDelete = true;
+                DetailPhoto.pressinsideDelete = true;
+                DetailPhoto.tempcheckToastDelete = true;
+                onBackPressed();
             }
         });
     }

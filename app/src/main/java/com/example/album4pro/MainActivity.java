@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     public MyFragmentAdapter myFragmentAdapter;
 
     private PrivateDatabase privateDatabase;
+    private DeleteDatabase deleteDatabase;
     SharedPreferences sharedPreferences;
 
     private static final int REQUEST_ID_READ_WRITE_PERMISSION = 99;
@@ -128,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
         // Tạo database Private (Tuong)
         privateDatabase = new PrivateDatabase(this, "private.sqlite", null, 1);
         privateDatabase.QueryData("CREATE TABLE IF NOT EXISTS PrivateData(Id INTEGER PRIMARY KEY AUTOINCREMENT, Path VARCHAR(200))");
+
+        deleteDatabase = new DeleteDatabase(this, "delete.sqlite", null, 1);
+        deleteDatabase.QueryData("CREATE TABLE IF NOT EXISTS DeleteData(Id INTEGER PRIMARY KEY AUTOINCREMENT, Path VARCHAR(200))");
 
         menuViewPager2 = (ViewPager2) findViewById(R.id.view_pager_2);
         menuBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -213,6 +217,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_slideshow:
                 // User chose to slideshow Image
                 startActivity(new Intent(this, SlideShow.class));
+                return true;
+
+            case R.id.action_load_trash:
+                // User chose to slideshow Image
+                Intent intenttrash = new Intent(this, TrashActivity.class);
+//                intenttrash.putStringArrayListExtra("pathPhotoDelete", listPhotoDelete(this));
+                Configuration.getInstance().setListPhotoDelete(listPhotoDelete(this));
+
+                startActivity(intenttrash);
                 return true;
 
             case R.id.action_sort_image:
@@ -457,6 +470,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         insertAndRemovePrivate();
+        insertAndRemoveDelete();
     }
 
     // Trả ra listPhotoPrivate đã lưu trong Database (Tuong)
@@ -472,6 +486,20 @@ public class MainActivity extends AppCompatActivity {
             arrListPrivate.add(path_p);
         }
         return arrListPrivate;
+    }
+
+    public ArrayList<String> listPhotoDelete(Context context){
+
+        ArrayList<String> arrListDelete = new ArrayList<>();
+        // select data
+        Cursor dataCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (dataCursor.moveToNext()){
+            String path_p = dataCursor.getString(1); // i là cột
+            //int id = dataCursor.getInt(0);
+
+            arrListDelete.add(path_p);
+        }
+        return arrListDelete;
     }
 
     // Đưa/lấy hình ảnh/video vào/ra thư mục Private (Tuong)
@@ -495,6 +523,29 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Đã tồn tại trong private --> đưa ra ngoài Library
             privateDatabase.QueryData("DELETE FROM PrivateData WHERE Path = '"+ pathImage +"'");
+        }
+    }
+
+    private void insertAndRemoveDelete(){
+        String pathImage = DetailPhoto.pathDelete;
+
+        Boolean check = false;
+        Cursor checkCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (checkCursor.moveToNext()){
+            String path_p = checkCursor.getString(1); // i là cột
+            if(pathImage.equals(path_p)){
+                check = true;
+                break;
+            }
+        }
+        // Chưa tồn tại trong delete
+        if(check == false && !pathImage.equals("")){
+            // Thêm vào Private
+            deleteDatabase.QueryData("INSERT INTO DeleteData VALUES(null, '"+pathImage+"')");
+
+        } else {
+            // Đã tồn tại trong private --> đưa ra ngoài Library
+            deleteDatabase.QueryData("DELETE FROM DeleteData WHERE Path = '"+ pathImage +"'");
         }
     }
 
