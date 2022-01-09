@@ -27,6 +27,7 @@ import com.example.album4pro.R;
 import com.example.album4pro.gallery.Configuration;
 import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.GalleryAdapter;
+import com.example.album4pro.gallery.VideoViewActivity;
 import com.example.album4pro.privates.CreatePasswordActivity;
 import com.example.album4pro.privates.EnterPasswordActivity;
 import com.example.album4pro.privates.SecurityQuestionActivity;
@@ -147,9 +148,26 @@ public class PrivateFragment extends Fragment {
             @Override
             public void onPhotoClick(String path) {
                 // TODO ST
-                Intent intent = new Intent(context, DetailPhoto.class);
-                intent.putExtra("path", path);
-                context.startActivity(intent);
+                String[] imageExtensions = {"jpg", "png", "gif", "jpeg", "tiff", "webp"};
+                boolean isImage = false;
+                String extension = path.substring(path.lastIndexOf(".") + 1);
+
+                for (int i = 0; i < imageExtensions.length; i++){
+                    if(extension.equalsIgnoreCase(imageExtensions[i])){
+                        isImage = true;
+                        break;
+                    }
+                }
+
+                if (!isImage){
+                    Intent intent = new Intent(context, VideoViewActivity.class);
+                    intent.putExtra("path", path);
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, DetailPhoto.class);
+                    intent.putExtra("path", path);
+                    context.startActivity(intent);
+                }
             }
         });
 

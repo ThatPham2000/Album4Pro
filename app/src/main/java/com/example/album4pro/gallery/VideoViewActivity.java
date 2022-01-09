@@ -31,12 +31,7 @@ public class VideoViewActivity extends AppCompatActivity {
     private ImageButton btnHide;
     private ImageButton btnDelete;
 
-    String videoPath = "";
-
-    public static String pathPrivate = "";
-    public static Boolean pressPrivate = false;
-    public static Boolean pressinsidePrivate = false;
-    public static Boolean tempcheckToast = false;
+    private String videoPath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +57,16 @@ public class VideoViewActivity extends AppCompatActivity {
         videoView.start();
 
 
-//        btnHide.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                pathPrivate = videoPath;
-//                pressPrivate = true;
-//                pressinsidePrivate = true;
-//                tempcheckToast = true;
-//                onBackPressed();
-//            }
-//        });
+        btnHide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DetailPhoto.pathPrivate = videoPath;
+                DetailPhoto.pressPrivate = true;
+                DetailPhoto.pressinsidePrivate = true;
+                DetailPhoto.tempcheckToast = true;
+                onBackPressed();
+            }
+        });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
