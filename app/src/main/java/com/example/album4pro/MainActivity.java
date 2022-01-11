@@ -222,11 +222,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_load_trash:
                 // User chose to slideshow Image
                 Intent intenttrash = new Intent(this, TrashActivity.class);
-//                intenttrash.putStringArrayListExtra("pathPhotoDelete", listPhotoDelete(this));
-                Configuration.getInstance().setListPhotoDelete(listPhotoDelete(this));
-
                 startActivity(intenttrash);
-                finish();
                 return true;
 
             case R.id.action_sort_image:

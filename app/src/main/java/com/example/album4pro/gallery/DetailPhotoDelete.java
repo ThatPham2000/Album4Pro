@@ -62,18 +62,12 @@ public class DetailPhotoDelete extends AppCompatActivity {
         btnDeleteBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DetailPhoto.pathDelete = pathImage;
-                DetailPhoto.pressDelete = true;
-                DetailPhoto.pressinsideDelete = true;
-                DetailPhoto.tempcheckToastDelete = true;
-//                onBackPressed();
-                insertAndRemoveDelete();
-                DetailPhoto.pathDelete = "";
+                insertAndRemoveDelete(pathImage);
 
-                Configuration.getInstance().setListPhotoDelete(listPhotoDelete());
                 Intent i = new Intent(DetailPhotoDelete.this, TrashActivity.class);
                 startActivity(i);
                 Toast.makeText(DetailPhotoDelete.this, R.string.recovery_image, Toast.LENGTH_SHORT).show();
+                DetailPhotoDelete.this.overridePendingTransition(R.anim.default_status, R.anim.slide_out_right);
                 finish();
             }
         });
@@ -93,8 +87,7 @@ public class DetailPhotoDelete extends AppCompatActivity {
         return arrListDelete;
     }
 
-    private void insertAndRemoveDelete(){
-        String pathImage = DetailPhoto.pathDelete;
+    private void insertAndRemoveDelete(String pathImage){
 
         Boolean check = false;
         Cursor checkCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");

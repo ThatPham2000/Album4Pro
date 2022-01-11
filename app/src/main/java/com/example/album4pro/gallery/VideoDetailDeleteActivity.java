@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.album4pro.DeleteDatabase;
@@ -63,17 +64,12 @@ public class VideoDetailDeleteActivity extends AppCompatActivity {
         btnDeleteBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DetailPhoto.pathDelete = videoPath;
-                DetailPhoto.pressDelete = true;
-                DetailPhoto.pressinsideDelete = true;
-                DetailPhoto.tempcheckToastDelete = true;
-//                onBackPressed();
-                insertAndRemoveDelete();
-                DetailPhoto.pathDelete = "";
+                insertAndRemoveDelete(videoPath);
 
-                Configuration.getInstance().setListPhotoDelete(listPhotoDelete());
                 Intent i = new Intent(VideoDetailDeleteActivity.this, TrashActivity.class);
                 startActivity(i);
+                Toast.makeText(VideoDetailDeleteActivity.this, R.string.recovery_image, Toast.LENGTH_SHORT).show();
+                VideoDetailDeleteActivity.this.overridePendingTransition(R.anim.default_status, R.anim.slide_out_right);
                 finish();
             }
         });
@@ -93,8 +89,7 @@ public class VideoDetailDeleteActivity extends AppCompatActivity {
         return arrListDelete;
     }
 
-    private void insertAndRemoveDelete(){
-        String pathImage = DetailPhoto.pathDelete;
+    private void insertAndRemoveDelete(String pathImage){
 
         Boolean check = false;
         Cursor checkCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");

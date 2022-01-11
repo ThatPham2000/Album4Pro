@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.album4pro.gallery.Configuration;
@@ -15,6 +17,7 @@ import com.example.album4pro.gallery.GalleryAdapter;
 import com.example.album4pro.gallery.VideoDetailDeleteActivity;
 import com.example.album4pro.gallery.VideoViewActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrashActivity extends AppCompatActivity {
@@ -23,13 +26,17 @@ public class TrashActivity extends AppCompatActivity {
     private GalleryAdapter galleryAdapter;
     private List<String> listPhoto;
 
+    private DeleteDatabase deleteDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trash);
 
-//        listPhoto = getIntent().getStringArrayListExtra("pathPhotoDelete");
-        listPhoto = Configuration.getInstance().getListPhotoDelete();
+        deleteDatabase = new DeleteDatabase(this, "delete.sqlite", null, 1);
+
+        listPhoto = listPhotoDelete();
+//        listPhoto = Configuration.getInstance().getListPhotoDelete();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_trash);
 
         loadImage();
@@ -74,10 +81,41 @@ public class TrashActivity extends AppCompatActivity {
         Configuration.getInstance().setGalleryAdapter(this.galleryAdapter);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(TrashActivity.this, MainActivity.class);
-        startActivity(intent);
+    public ArrayList<String> listPhotoDelete(){
+
+        ArrayList<String> arrListDelete = new ArrayList<>();
+        // select data
+        Cursor dataCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (dataCursor.moveToNext()){
+            String path_p = dataCursor.getString(1); // i là cột
+            //int id = dataCursor.getInt(0);
+
+            arrListDelete.add(path_p);
+        }
+        return arrListDelete;
     }
+
+    private void insertAndRemoveDelete(String pathImage){
+
+        Boolean check = false;
+        Cursor checkCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (checkCursor.moveToNext()){
+            String path_p = checkCursor.getString(1); // i là cột
+            if(pathImage.equals(path_p)){
+                check = true;
+                break;
+            }
+        }
+        // Chưa tồn tại trong delete
+        if(check == false && !pathImage.equals("")){
+            // Thêm vào Private
+            deleteDatabase.QueryData("INSERT INTO DeleteData VALUES(null, '"+pathImage+"')");
+
+        } else {
+            // Đã tồn tại trong private --> đưa ra ngoài Library
+            deleteDatabase.QueryData("DELETE FROM DeleteData WHERE Path = '"+ pathImage +"'");
+        }
+    }
+
+
 }

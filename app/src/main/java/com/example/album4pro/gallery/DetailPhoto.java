@@ -39,6 +39,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
 import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.album4pro.BuildConfig;
+import com.example.album4pro.DeleteDatabase;
 import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.PrivateDatabase;
@@ -76,6 +77,8 @@ public class DetailPhoto extends AppCompatActivity {
     public static Boolean pressinsideDelete = false;
     public static Boolean tempcheckToastDelete = false;
 
+    private DeleteDatabase deleteDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +99,8 @@ public class DetailPhoto extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_detail_photo);
+
+        deleteDatabase = new DeleteDatabase(this, "delete.sqlite", null, 1);
 
         mContext = getApplicationContext();
 
@@ -165,10 +170,7 @@ public class DetailPhoto extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pathDelete = pathImage;
-                pressDelete = true;
-                pressinsideDelete = true;
-                tempcheckToastDelete = true;
+                insertAndRemoveDelete(pathImage);
                 onBackPressed();
                 Toast.makeText(DetailPhoto.this, R.string.delete_image, Toast.LENGTH_SHORT).show();
             }
@@ -281,5 +283,41 @@ public class DetailPhoto extends AppCompatActivity {
 
         // Tạo dialog và hiển thị
         builder.create().show();
+    }
+
+    public ArrayList<String> listPhotoDelete(){
+
+        ArrayList<String> arrListDelete = new ArrayList<>();
+        // select data
+        Cursor dataCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (dataCursor.moveToNext()){
+            String path_p = dataCursor.getString(1); // i là cột
+            //int id = dataCursor.getInt(0);
+
+            arrListDelete.add(path_p);
+        }
+        return arrListDelete;
+    }
+
+    private void insertAndRemoveDelete(String pathImage){
+
+        Boolean check = false;
+        Cursor checkCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (checkCursor.moveToNext()){
+            String path_p = checkCursor.getString(1); // i là cột
+            if(pathImage.equals(path_p)){
+                check = true;
+                break;
+            }
+        }
+        // Chưa tồn tại trong delete
+        if(check == false && !pathImage.equals("")){
+            // Thêm vào Private
+            deleteDatabase.QueryData("INSERT INTO DeleteData VALUES(null, '"+pathImage+"')");
+
+        } else {
+            // Đã tồn tại trong private --> đưa ra ngoài Library
+            deleteDatabase.QueryData("DELETE FROM DeleteData WHERE Path = '"+ pathImage +"'");
+        }
     }
 }

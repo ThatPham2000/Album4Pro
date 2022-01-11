@@ -7,6 +7,7 @@ import androidx.core.content.FileProvider;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -22,10 +23,12 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.album4pro.BuildConfig;
+import com.example.album4pro.DeleteDatabase;
 import com.example.album4pro.R;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class VideoViewActivity extends AppCompatActivity {
     private VideoView videoView;
@@ -35,6 +38,7 @@ public class VideoViewActivity extends AppCompatActivity {
     private ImageButton btnDelete;
 
     private String videoPath = "";
+    private DeleteDatabase deleteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,8 @@ public class VideoViewActivity extends AppCompatActivity {
             if (sharedPreferences.getBoolean("pink", false)) setTheme(R.style.PinkTheme);
         }
         setContentView(R.layout.activity_video_view);
+
+        deleteDatabase = new DeleteDatabase(this, "delete.sqlite", null, 1);
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
@@ -107,13 +113,46 @@ public class VideoViewActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DetailPhoto.pathDelete = videoPath;
-                DetailPhoto.pressDelete = true;
-                DetailPhoto.pressinsideDelete = true;
-                DetailPhoto.tempcheckToastDelete = true;
+                insertAndRemoveDelete(videoPath);
                 onBackPressed();
                 Toast.makeText(VideoViewActivity.this, R.string.delete_image, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public ArrayList<String> listPhotoDelete(){
+
+        ArrayList<String> arrListDelete = new ArrayList<>();
+        // select data
+        Cursor dataCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (dataCursor.moveToNext()){
+            String path_p = dataCursor.getString(1); // i là cột
+            //int id = dataCursor.getInt(0);
+
+            arrListDelete.add(path_p);
+        }
+        return arrListDelete;
+    }
+
+    private void insertAndRemoveDelete(String pathImage){
+
+        Boolean check = false;
+        Cursor checkCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (checkCursor.moveToNext()){
+            String path_p = checkCursor.getString(1); // i là cột
+            if(pathImage.equals(path_p)){
+                check = true;
+                break;
+            }
+        }
+        // Chưa tồn tại trong delete
+        if(check == false && !pathImage.equals("")){
+            // Thêm vào Private
+            deleteDatabase.QueryData("INSERT INTO DeleteData VALUES(null, '"+pathImage+"')");
+
+        } else {
+            // Đã tồn tại trong private --> đưa ra ngoài Library
+            deleteDatabase.QueryData("DELETE FROM DeleteData WHERE Path = '"+ pathImage +"'");
+        }
     }
 }
