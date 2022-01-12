@@ -116,8 +116,6 @@ public class PrivateFragment extends Fragment {
         if (PASSWORD_ENTERED == false){
             navigatingPrivateScreens();
         }
-        // Sau khi nhập mật khẩu
-        PASSWORD_ENTERED = true;
 
         // Load lại Private khi có sự thay đổi
         if(DetailPhoto.pressinsidePrivate == true && DetailPhoto.tempcheckToast == true){
@@ -128,14 +126,6 @@ public class PrivateFragment extends Fragment {
             LoadImage();
             DetailPhoto.pressinsidePrivate = false;
         }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // Đã nhập mật khẩu, khi Fragment bị stop bởi 1 Activity khác chiếm giữ, sẽ không phải nhập lại mật khẩu lần nữa
-        PASSWORD_ENTERED = true;
     }
 
     private void LoadImage() {
@@ -190,8 +180,10 @@ public class PrivateFragment extends Fragment {
                 startActivity(intent);
             } else {
                 // there is a password
-                Intent intent = new Intent(getActivity(), EnterPasswordActivity.class);
-                startActivity(intent);
+                if(EnterPasswordActivity.enterPassword == false){
+                    Intent intent = new Intent(getActivity(), EnterPasswordActivity.class);
+                    startActivity(intent);
+                }
             }
         }
     }

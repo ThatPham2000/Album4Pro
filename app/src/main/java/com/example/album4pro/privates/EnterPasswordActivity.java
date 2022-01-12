@@ -32,8 +32,8 @@ public class EnterPasswordActivity extends AppCompatActivity {
     TextView txtForgotPass, txtError;
 
     ViewPager2 passViewPager;
-
     SharedPreferences sharedPreferences;
+    public static Boolean enterPassword = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +88,7 @@ public class EnterPasswordActivity extends AppCompatActivity {
                     } else {
                         if(password_Prefs.equals(enteredPass)){
                             // Enter the app, Finish Activity hiện tại
+                            enterPassword = true; // Kiểm tra xem có nhập pass chưa
                             finish();
                         } else {
                             Toast.makeText(EnterPasswordActivity.this, R.string.rong_password, Toast.LENGTH_SHORT).show();
