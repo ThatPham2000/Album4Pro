@@ -36,6 +36,7 @@ import com.example.album4pro.R;
 import com.example.album4pro.albums.AlbumAdapter;
 import com.example.album4pro.albums.AlbumItem;
 import com.example.album4pro.albums.AlbumPage;
+import com.example.album4pro.albums.ChooseImageActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
@@ -99,20 +100,6 @@ public class AlbumsFragment extends Fragment {
     public AlbumsFragment() {
         // Required empty public constructor
     }
-    final private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() == Activity.RESULT_OK){
-                        Intent intent = result.getData();
-                        if (intent != null){
-                            AlbumItem newAlbum = (AlbumItem) intent.getSerializableExtra("new album");
-                            listAlbum.set(listAlbum.size(),newAlbum);
-                        }
-                    }
-                }
-            }
-    );
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -216,8 +203,8 @@ public class AlbumsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 filepath = edtAlbumName.getText().toString().trim();
-                selectImagesFromGallery();
-                File directory = context.getDir(filepath, Context.MODE_PRIVATE);
+                /*File directory = context.getDir(filepath, Context.MODE_PRIVATE);*/
+                context.startActivity(new Intent(context, ChooseImageActivity.class).putExtra("choose", filepath));
                 /*File f = createFile(filepath);
                 try {
                     copyFile(new File(imagePathList.get(0)), f);
@@ -268,7 +255,6 @@ public class AlbumsFragment extends Fragment {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
-        /*startActivityForResult(Intent.createChooser(intent, "Select Picture"),SELECT_PICTURES);*/
         activityResultLauncher.launch(intent);
     }
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
@@ -284,14 +270,14 @@ public class AlbumsFragment extends Fragment {
                                 Uri imageUri = intent.getClipData().getItemAt(i).getUri();
                                 String selectedImagePath = getImageFilePath(imageUri);
                                 imagePathList.add(selectedImagePath);
-                                /*getImageFilePath(imageUri);*/
+                                getImageFilePath(imageUri);
                             }
                         }
                         else if (intent.getData() != null) {
                             Uri imgUri = intent.getData();
                             String selectedImagePath = getImageFilePath(imgUri);
                             imagePathList.add(selectedImagePath);
-                            /*getImageFilePath(imgUri);*/
+                            getImageFilePath(imgUri);
                         }
                     }
                 }
@@ -318,18 +304,6 @@ public class AlbumsFragment extends Fragment {
     }
 
     //=============================================================================
-    private void onClickGoToNewAlbum(AlbumItem album){
-        /*Intent intent = new Intent(context, AlbumPage.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("new album", album);
-        intent.putExtras(bundle);
-        mActivityResultLauncher.launch(intent);*/
-        Intent intent = new Intent(context, AlbumPage.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("folder name", album);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
-    }
 
     private List<AlbumItem> loadAlbums(){
         /*listAlbum.add(new AlbumItem(R.drawable.icon_create_album,"Tạo album mới",""));*/

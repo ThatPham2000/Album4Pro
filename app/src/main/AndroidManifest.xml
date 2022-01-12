@@ -20,7 +20,10 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Album4Pro">
+        android:theme="@style/Theme.Album4Pro"
+        >
+        <activity android:name=".albums.ChooseImageActivity"
+            android:exported="true"/>
         <activity android:name=".albums.AlbumPage"
             android:exported="true"/>
         <activity

@@ -162,18 +162,22 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
                     return true;
                 } else {
                     String folderNameTest =  "Screenshots";
-                    listImageOnAlbum = ImagesGallery.listImageOnAlbum(AlbumPage.this, folderNameTest);
+                    listImageOnAlbum = ImagesGallery.listImageOnAlbum(this, folderNameTest);
                     String sourceImage = ImagesGallery.firstImageOnAlbum(listImageOnAlbum);
                     File f = new File(sourceImage);
 
 
                     String fileName = "newfile";
                     File myExternalFile = new File(getExternalFilesDir(folderName), fileName);
-                    try {
-                        copyFile(f, myExternalFile);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (!myExternalFile.exists()){
+                        try {
+                            f.createNewFile();
+                            copyFile(f, myExternalFile);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
+
                 }
                 /*selectImagesFromGallery();*/
                 return true;
