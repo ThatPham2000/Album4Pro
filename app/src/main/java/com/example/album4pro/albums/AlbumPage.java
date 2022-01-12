@@ -157,39 +157,24 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         switch (item.getItemId()) {
             case R.id.action_add_album:
                 // User chose the "Settings" item, show the app settings UI...
-                String folderNameTest =  "Screenshots";
-                listImageOnAlbum = ImagesGallery.listImageOnAlbum(AlbumPage.this, folderNameTest);
-                String sourceImage = ImagesGallery.firstImageOnAlbum(listImageOnAlbum);
-                File f = new File(sourceImage);
 
-                /*Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                String[] projection = {
-                        MediaStore.MediaColumns.DATA,
-                        MediaStore.Images.Media.BUCKET_DISPLAY_NAME
-                };
-                String orderBy = MediaStore.Images.Media.DATE_TAKEN;
-                Cursor cursor = AlbumPage.this.getContentResolver().query(uri, projection, null, null, orderBy);
-                int column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-                int column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
-                while (cursor.moveToNext()){
-                    String pathOfImage = cursor.getString(column_index_data);
-                    String pathOfName = cursor.getString(column_index_folder_name);
-                    if (folderName.equals(pathOfName)){
-                        listImageOnAlbum.add(pathOfImage);
+                if (!isExternalStorageAvailable() || isExternalStorageReadOnly()) {
+                    return true;
+                } else {
+                    String folderNameTest =  "Screenshots";
+                    listImageOnAlbum = ImagesGallery.listImageOnAlbum(AlbumPage.this, folderNameTest);
+                    String sourceImage = ImagesGallery.firstImageOnAlbum(listImageOnAlbum);
+                    File f = new File(sourceImage);
+
+
+                    String fileName = "newfile";
+                    File myExternalFile = new File(getExternalFilesDir(folderName), fileName);
+                    try {
+                        copyFile(f, myExternalFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
-                String destinationImage = listImageOnAlbum.get(0);*/
-                String fileName = "newfile";
-                File myExternalFile = new File(getExternalFilesDir(folderName), fileName);
-                try {
-                    f.createNewFile();
-                    copyFile(f, myExternalFile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-
                 /*selectImagesFromGallery();*/
                 return true;
 
@@ -323,9 +308,9 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
 
         gridLayoutManager.scrollToPositionWithOffset(index, 0);
     }
-    public static void MoveFile(String path_source, File file_Destination) throws IOException {
+    public static void MoveFile(String path_source, String path_destination) throws IOException {
         File file_Source = new File(path_source);
-        /*File file_Destination = new File(path_destination);*/
+        File file_Destination = new File(path_destination);
 
         FileChannel source = null;
         FileChannel destination = null;
