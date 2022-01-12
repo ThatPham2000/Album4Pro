@@ -470,6 +470,7 @@ public class MainActivity extends AppCompatActivity {
         insertAndRemoveDelete();
     }
 
+
     // Trả ra listPhotoPrivate đã lưu trong Database (Tuong)
     public ArrayList<String> listPhotoPrivate(Context context){
 
@@ -486,6 +487,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public ArrayList<String> listPhotoDelete(Context context){
+        insertAndRemovePrivate();
 
         ArrayList<String> arrListDelete = new ArrayList<>();
         // select data
@@ -521,6 +523,7 @@ public class MainActivity extends AppCompatActivity {
             // Đã tồn tại trong private --> đưa ra ngoài Library
             privateDatabase.QueryData("DELETE FROM PrivateData WHERE Path = '"+ pathImage +"'");
         }
+        DetailPhoto.pathPrivate = "";
     }
 
     private void insertAndRemoveDelete(){
