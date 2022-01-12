@@ -17,11 +17,10 @@
         android:id="@+id/fab_new_album"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:clickable="true"
-        android:src="@drawable/icon_create_album"
-        />
+        android:src="@drawable/ic_add_a_album" />
 </RelativeLayout>

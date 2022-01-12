@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -23,6 +24,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,12 +46,16 @@ import com.example.album4pro.setting.PolicyActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class AlbumPage extends AppCompatActivity implements View.OnClickListener{
-    private static final int SELECT_PICTURES = 10;
+/*    private static final int SELECT_PICTURES = 10;*/
     private RecyclerView recyclerView;
     private GalleryAdapter galleryAdapter;
     private NewAlbumAdapter newAlbumAdapter;
@@ -60,6 +69,17 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
     private String dialogAlbumName;
 
     private List<String> imagePathList;
+    private String folderName;
+
+    public class RunnableSimple implements Runnable{
+        @Override
+        public void run() {
+            if (Thread.currentThread().getName().equals("Thread-0")){
+                selectImagesFromGallery();
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,7 +157,40 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         switch (item.getItemId()) {
             case R.id.action_add_album:
                 // User chose the "Settings" item, show the app settings UI...
-                selectImagesFromGallery();
+                String folderNameTest =  "Screenshots";
+                listImageOnAlbum = ImagesGallery.listImageOnAlbum(AlbumPage.this, folderNameTest);
+                String sourceImage = ImagesGallery.firstImageOnAlbum(listImageOnAlbum);
+                File f = new File(sourceImage);
+
+                /*Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                String[] projection = {
+                        MediaStore.MediaColumns.DATA,
+                        MediaStore.Images.Media.BUCKET_DISPLAY_NAME
+                };
+                String orderBy = MediaStore.Images.Media.DATE_TAKEN;
+                Cursor cursor = AlbumPage.this.getContentResolver().query(uri, projection, null, null, orderBy);
+                int column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+                int column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
+                while (cursor.moveToNext()){
+                    String pathOfImage = cursor.getString(column_index_data);
+                    String pathOfName = cursor.getString(column_index_folder_name);
+                    if (folderName.equals(pathOfName)){
+                        listImageOnAlbum.add(pathOfImage);
+                    }
+                }
+                String destinationImage = listImageOnAlbum.get(0);*/
+                String fileName = "newfile";
+                File myExternalFile = new File(getExternalFilesDir(folderName), fileName);
+                try {
+                    f.createNewFile();
+                    copyFile(f, myExternalFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+
+                /*selectImagesFromGallery();*/
                 return true;
 
             default:
@@ -149,39 +202,21 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
     }
 
     private void loadImages(AlbumItem album){
-        setTitle(album.getName());
+        folderName = album.getName();
+        setTitle(folderName);
 
-        if (album.getNumber().equals("0")){
-            selectImagesFromGallery();
+        listImageOnAlbum = ImagesGallery.listImageOnAlbum(this,album.getName());
 
-            gridLayoutManager = new GridLayoutManager(AlbumPage.this, 4);
-            recyclerView.setLayoutManager(gridLayoutManager);
-
-            if (imagePathList != null){
-
-                galleryAdapter = new GalleryAdapter(this, imagePathList, new GalleryAdapter.PhotoListener() {
-                    @Override
-                    public void onPhotoClick(String path) {
-                        onClickGoToDetailPhoto(path);
-                    }
-                });
-                recyclerView.setAdapter(galleryAdapter);
+        sharedPreferences = getSharedPreferences("save", Context.MODE_PRIVATE);
+        gridLayoutManager = new GridLayoutManager(this, sharedPreferences.getInt("column", 3));
+        recyclerView.setLayoutManager(gridLayoutManager);
+        galleryAdapter = new GalleryAdapter(this, listImageOnAlbum, new GalleryAdapter.PhotoListener() {
+            @Override
+            public void onPhotoClick(String path) {
+                onClickGoToDetailPhoto(path);
             }
-        }
-        else {
-            listImageOnAlbum = ImagesGallery.listImageOnAlbum(this,album.getName());
-
-            sharedPreferences = getSharedPreferences("save", Context.MODE_PRIVATE);
-            gridLayoutManager = new GridLayoutManager(this, sharedPreferences.getInt("column", 3));
-            recyclerView.setLayoutManager(gridLayoutManager);
-            galleryAdapter = new GalleryAdapter(this, listImageOnAlbum, new GalleryAdapter.PhotoListener() {
-                @Override
-                public void onPhotoClick(String path) {
-                    onClickGoToDetailPhoto(path);
-                }
-            });
-            recyclerView.setAdapter(galleryAdapter);
-        }
+        });
+        recyclerView.setAdapter(galleryAdapter);
 
         // Scroll To Begin if View As Top To Bottom
         if (sharedPreferences.getInt("view", 0) == 0) {
@@ -197,39 +232,43 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         startActivity(intent);
     }
 
-
-
     private void selectImagesFromGallery(){
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"),SELECT_PICTURES);
-
-
+        activityResultLauncher.launch(intent);
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_PICTURES && resultCode == RESULT_OK  && data != null) {
-            if (data.getClipData() != null) {
-                imagePathList = new ArrayList<>();
-                int count = data.getClipData().getItemCount();
-                for (int i=0; i<count; i++) {
-                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    getImageFilePath(imageUri);
+    private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == RESULT_OK){
+                        Intent data = result.getData();
+                        imagePathList = new ArrayList<>();
+                        if (data.getClipData() != null) {
+                            int count = data.getClipData().getItemCount();
+                            for (int i=0; i<count; i++) {
+                                Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                                String selectedImagePath = getImageFilePath(imageUri);
+                                imagePathList.add(selectedImagePath);
+                                /*getImageFilePath(imageUri);*/
+                            }
+                        }
+                        else if (data.getData() != null) {
+                            Uri imgUri = data.getData();
+                            String selectedImagePath = getImageFilePath(imgUri);
+                            imagePathList.add(selectedImagePath);
+                            /*getImageFilePath(imgUri);*/
+                        }
+                    }
                 }
-            }
-            else if (data.getData() != null) {
-                Uri imgUri = data.getData();
-                getImageFilePath(imgUri);
-            }
-        }
-    }
-    public void getImageFilePath(Uri uri) {
+            });
+    private String getImageFilePath(Uri uri) {
 
         File file = new File(uri.getPath());
         String[] filePath = file.getPath().split(":");
         String image_id = filePath[filePath.length - 1];
+        String imagePath = null;
 
         Cursor cursor = getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -239,44 +278,34 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
                 null);
         if (cursor!=null) {
             cursor.moveToFirst();
-            String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-            imagePathList.add(imagePath);
-            cursor.close();
+            imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+
         }
+        return imagePath;
     }
-    /*private void sendAlbum(AlbumItem album){
-     *//*AlbumsFragment albumsFragment = new AlbumsFragment();*//*
+    /*
+     * Kiểm tra xe bộ nhớ ngoài SDCard có readonly không vì nếu là readonly thì
+     * không thể tạo file trên đó được
+     */
 
-        Intent returnIntent = new Intent();
+    private static boolean isExternalStorageReadOnly() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("album folder", album);
-        returnIntent.putExtras(bundle);
-
-        returnIntent.putExtra("album folder", album);
-        setResult(Activity.RESULT_OK, returnIntent);
-    }*/
-//    private void sendNewAlbum(){
-//        AlbumItem album = new AlbumItem(R.drawable.icon_album ,dialogAlbumName,"10");
-//        /*AlbumsFragment albumsFragment = new AlbumsFragment();*/
-//
-//        Intent returnIntent = new Intent();
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("new album", album);
-//        returnIntent.putExtras(bundle);
-//
-//        returnIntent.putExtra("new album", album);
-//        setResult(Activity.RESULT_OK, returnIntent);
-//
-//
-//        /*albumsFragment.setArguments(bundle);
-//
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.rcv_album, albumsFragment);
-//        fragmentTransaction.commit();*/
-//    }
-
+    /*
+     * Kiểmtra xem device có bộ nhớ ngoài không
+     */
+    private static boolean isExternalStorageAvailable() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -293,5 +322,47 @@ public class AlbumPage extends AppCompatActivity implements View.OnClickListener
         if (gridLayoutManager == null) return;
 
         gridLayoutManager.scrollToPositionWithOffset(index, 0);
+    }
+    public static void MoveFile(String path_source, File file_Destination) throws IOException {
+        File file_Source = new File(path_source);
+        /*File file_Destination = new File(path_destination);*/
+
+        FileChannel source = null;
+        FileChannel destination = null;
+        try {
+            source = new FileInputStream(file_Source).getChannel();
+            destination = new FileOutputStream(file_Destination).getChannel();
+
+            long count = 0;
+            long size = source.size();
+            while((count += destination.transferFrom(source, count, size-count))<size);
+            file_Source.delete();
+        }
+        finally {
+            if(source != null) {
+                source.close();
+            }
+            if(destination != null) {
+                destination.close();
+            }
+        }
+    }
+    private void copyFile(File sourceFile, File destFile) throws IOException {
+        if (!sourceFile.exists()) {
+            return;
+        }
+        FileChannel source = null;
+        FileChannel destination = null;
+        source = new FileInputStream(sourceFile).getChannel();
+        destination = new FileOutputStream(destFile).getChannel();
+        if (destination != null && source != null) {
+            destination.transferFrom(source, 0, source.size());
+        }
+        if (source != null) {
+            source.close();
+        }
+        if (destination != null) {
+            destination.close();
+        }
     }
 }

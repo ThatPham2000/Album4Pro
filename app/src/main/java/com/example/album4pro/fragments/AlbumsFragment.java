@@ -12,18 +12,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultCaller;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,26 +20,29 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.album4pro.ImagesGallery;
 import com.example.album4pro.MainActivity;
 import com.example.album4pro.R;
 import com.example.album4pro.albums.AlbumAdapter;
 import com.example.album4pro.albums.AlbumItem;
 import com.example.album4pro.albums.AlbumPage;
-import com.example.album4pro.albums.NewAlbumAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +87,14 @@ public class AlbumsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    public class RunnableSimple implements Runnable{
+        @Override
+        public void run() {
+            if (Thread.currentThread().getName().equals("Thread1")){
+                selectImagesFromGallery();
+            }
+        }
+    }
 
     public AlbumsFragment() {
         // Required empty public constructor
@@ -217,54 +216,92 @@ public class AlbumsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 filepath = edtAlbumName.getText().toString().trim();
-                ContextWrapper contextWrapper = new ContextWrapper(context.getApplicationContext());
-                File directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
                 selectImagesFromGallery();
-                for (int i = 0; i < imagePathList.size(); i++){
-                    File myInternalFile = new File(directory, imagePathList.get(i));
+                File directory = context.getDir(filepath, Context.MODE_PRIVATE);
+                /*File f = createFile(filepath);
+                try {
+                    copyFile(new File(imagePathList.get(0)), f);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+                dialog.dismiss();
+                /*FileOutputStream fos = null;
+                try {
+                    Bitmap bitmapImage = BitmapFactory.decodeStream(new FileInputStream(f));
+                    fos = new FileOutputStream(f);
+                    bitmapImage.compress(Bitmap.CompressFormat.PNG,100, fos);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } finally {
                     try {
-                        myInternalFile.createNewFile();
-                        copyFile(new File(imagePathList.get(i)), myInternalFile);
+                        fos.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                 }
-                dialog.dismiss();
+                dialog.dismiss();*/
             }
         });
         dialog.show();
     }
+    /*private File createFile(String filepath){
+        File directory = context.getDir(filepath, Context.MODE_PRIVATE);
+
+        *//*RunnableSimple runnable =  new RunnableSimple();
+        Thread thread1 = new Thread(runnable);
+        Thread thread2 = new Thread(runnable);
+        thread1.start();
+        try {
+            thread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        thread2.start();*//*
+
+
+
+        File myInternalFile = new File(directory, imagePathList.get(0));
+        return myInternalFile;
+    }*/
     //===================================================================
     private void selectImagesFromGallery(){
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"),SELECT_PICTURES);
+        /*startActivityForResult(Intent.createChooser(intent, "Select Picture"),SELECT_PICTURES);*/
+        activityResultLauncher.launch(intent);
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_PICTURES && resultCode == RESULT_OK  && data != null) {
-            if (data.getClipData() != null) {
-                imagePathList = new ArrayList<>();
-                int count = data.getClipData().getItemCount();
-                for (int i=0; i<count; i++) {
-                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    getImageFilePath(imageUri);
+    private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == RESULT_OK){
+                        Intent intent = result.getData();
+                        imagePathList = new ArrayList<>();
+                        if (intent.getClipData() != null) {
+                            int count = intent.getClipData().getItemCount();
+                            for (int i=0; i<count; i++) {
+                                Uri imageUri = intent.getClipData().getItemAt(i).getUri();
+                                String selectedImagePath = getImageFilePath(imageUri);
+                                imagePathList.add(selectedImagePath);
+                                /*getImageFilePath(imageUri);*/
+                            }
+                        }
+                        else if (intent.getData() != null) {
+                            Uri imgUri = intent.getData();
+                            String selectedImagePath = getImageFilePath(imgUri);
+                            imagePathList.add(selectedImagePath);
+                            /*getImageFilePath(imgUri);*/
+                        }
+                    }
                 }
-            }
-            else if (data.getData() != null) {
-                Uri imgUri = data.getData();
-                getImageFilePath(imgUri);
-            }
-        }
-    }
-    public void getImageFilePath(Uri uri) {
+            });
+    private String getImageFilePath(Uri uri) {
 
         File file = new File(uri.getPath());
         String[] filePath = file.getPath().split(":");
         String image_id = filePath[filePath.length - 1];
+        String imagePath = null;
 
         Cursor cursor = context.getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -274,11 +311,12 @@ public class AlbumsFragment extends Fragment {
                 null);
         if (cursor!=null) {
             cursor.moveToFirst();
-            String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-            imagePathList.add(imagePath);
-            cursor.close();
+            imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+
         }
+        return imagePath;
     }
+
     //=============================================================================
     private void onClickGoToNewAlbum(AlbumItem album){
         /*Intent intent = new Intent(context, AlbumPage.class);
