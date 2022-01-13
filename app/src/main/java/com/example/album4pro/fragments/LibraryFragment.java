@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -28,6 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -70,6 +74,8 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -87,6 +93,7 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        listPhoto = mainActivity.minusPrivatePhoto(Configuration.getInstance().getListPhotoDelete(), 0);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_library, container, false);
         sharedPreferences = this.getActivity().getSharedPreferences("save", Context.MODE_PRIVATE);
@@ -160,6 +167,8 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
             loadImages();
             DetailPhoto.pressPrivate = false;
         }
+
+        loadImages();
     }
 
     private void requestPermission(){
@@ -195,7 +204,9 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
 
         recyclerView.setLayoutManager(gridLayoutManager);
         //listPhoto = ImagesGallery.listPhoto(context); // code cũ
-        listPhoto = mainActivity.minusPrivatePhoto(mainActivity.listPhotoPrivate(context)); // Chỉnh sửa để ẩn Private trong Library (Tuong)
+        ArrayList<String> minusList = new ArrayList<>(mainActivity.listPhotoPrivate(context));
+        minusList.addAll(mainActivity.listPhotoDelete(context));
+        listPhoto = mainActivity.minusPrivatePhoto(minusList, 0); // Chỉnh sửa để ẩn Private trong Library (Tuong)
 
         galleryAdapter = new GalleryAdapter(context, listPhoto, new GalleryAdapter.PhotoListener() {
             @Override
@@ -252,5 +263,13 @@ public class LibraryFragment extends Fragment implements View.OnClickListener {
         if (gridLayoutManager == null) return;
 
         gridLayoutManager.scrollToPositionWithOffset(index, 0);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        MenuItem menuItem_image_search = menu.findItem(R.id.action_search_image_firebase);
+        menuItem_image_search.setVisible(false);
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

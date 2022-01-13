@@ -98,7 +98,21 @@
         <entry key="..\:/Users/OS/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/gallery_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/OS/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/OS/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_resource.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/activity_detail_photo.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/activity_detail_photo_delete.xml" value="0.1" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/activity_search_image_using_firebase.xml" value="0.1" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/activity_trash.xml" value="0.1213768115942029" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/activity_video_detail_delete.xml" value="0.1" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/activity_video_view.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/activity_video_view_delete.xml" value="0.1" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/album_item.xml" value="0.1" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/fragment_private.xml" value="0.1213768115942029" />
         <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/fragment_search.xml" value="0.18" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/gallery_item.xml" value="0.1" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/gallery_item_video.xml" value="0.1" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/layout/item_search_view.xml" value="0.1" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_image_more.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/THATPHAM/AndroidStudioProjects/Album4Pro/app/src/main/res/menu/menu_resource.xml" value="0.1" />
       </map>
     </option>
   </component>

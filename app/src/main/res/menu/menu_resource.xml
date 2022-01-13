@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/action_search_image_firebase"
+        android:icon="@drawable/ic_image_search"
+        android:title="Image Search"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_camera"
         android:icon="@drawable/ic_camera"
@@ -28,6 +32,8 @@
                 android:title="@string/menu_photo_title"/>
             <item android:id="@+id/action_sort_video"
                 android:title="Video"/>
+            <item android:id="@+id/action_unfiltered"
+                android:title="@string/menu_unfiltered"/>
         </menu>
     </item>
 
@@ -36,8 +42,13 @@
         app:showAsAction="never"
         />
 
-    <item android:id="@+id/action_selection"
-        android:title="@string/menu_select_multiple_items_title"
+    <item android:id="@+id/action_load_trash"
+        android:title="@string/album_trash"
         app:showAsAction="never"
         />
+
+<!--    <item android:id="@+id/action_selection"-->
+<!--        android:title="@string/menu_select_multiple_items_title"-->
+<!--        app:showAsAction="never"-->
+<!--        />-->
 </menu>

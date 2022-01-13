@@ -50,6 +50,7 @@ import com.example.album4pro.gallery.Configuration;
 import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.DetailPhoto;
 import com.example.album4pro.gallery.GalleryAdapter;
+import com.example.album4pro.searching.SearchImageUsingFirebase;
 import com.example.album4pro.setting.PolicyActivity;
 import com.example.album4pro.setting.SettingActivity;
 import com.example.album4pro.privates.CreatePasswordActivity;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     public MyFragmentAdapter myFragmentAdapter;
 
     private PrivateDatabase privateDatabase;
+    private DeleteDatabase deleteDatabase;
     SharedPreferences sharedPreferences;
 
     private static final int REQUEST_ID_READ_WRITE_PERMISSION = 99;
@@ -127,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
         // Tạo database Private (Tuong)
         privateDatabase = new PrivateDatabase(this, "private.sqlite", null, 1);
         privateDatabase.QueryData("CREATE TABLE IF NOT EXISTS PrivateData(Id INTEGER PRIMARY KEY AUTOINCREMENT, Path VARCHAR(200))");
+
+        deleteDatabase = new DeleteDatabase(this, "delete.sqlite", null, 1);
+        deleteDatabase.QueryData("CREATE TABLE IF NOT EXISTS DeleteData(Id INTEGER PRIMARY KEY AUTOINCREMENT, Path VARCHAR(200))");
 
         menuViewPager2 = (ViewPager2) findViewById(R.id.view_pager_2);
         menuBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -214,12 +219,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SlideShow.class));
                 return true;
 
+            case R.id.action_load_trash:
+                // User chose to slideshow Image
+                Intent intenttrash = new Intent(this, TrashActivity.class);
+                startActivity(intenttrash);
+                return true;
+
             case R.id.action_sort_image:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
 
                 if(Configuration.getInstance().getGalleryAdapter() != null){
-                    List<String> list = ImagesGallery.listPhoto(libraryContext);
+//                    List<String> list = ImagesGallery.listPhoto(libraryContext);
+                    List<String> list = minusPrivatePhoto(listPhotoPrivate(libraryContext), 1);
                     Configuration.getInstance().setVideo(false);
                     Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
                     Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
@@ -231,8 +243,19 @@ public class MainActivity extends AppCompatActivity {
                 // as a favorite...
 
                 if(Configuration.getInstance().getGalleryAdapter() != null){
-                    List<String> list = ImagesGallery.listVideo(libraryContext);
+//                    List<String> list = ImagesGallery.listVideo(libraryContext);
+                    List<String> list = minusPrivatePhoto(listPhotoPrivate(libraryContext), 2);
                     Configuration.getInstance().setVideo(true);
+                    Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
+                    Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
+                }
+                return true;
+
+            case R.id.action_unfiltered:
+                if(Configuration.getInstance().getGalleryAdapter() != null){
+//                    List<String> list = ImagesGallery.listPhoto(libraryContext);
+                    List<String> list = minusPrivatePhoto(listPhotoPrivate(libraryContext), 0);
+                    Configuration.getInstance().setVideo(false);
                     Configuration.getInstance().getGalleryAdapter().setListPhoto(list);
                     Configuration.getInstance().getGalleryAdapter().notifyDataSetChanged();
                 }
@@ -268,10 +291,15 @@ public class MainActivity extends AppCompatActivity {
                         }).show();
                 return true;
 
-            case R.id.action_selection:
-                //captureImage();
-                //Toast.makeText(this, "Show selection", Toast.LENGTH_SHORT).show();
+            case R.id.action_search_image_firebase:
+                Intent intent = new Intent(MainActivity.this, SearchImageUsingFirebase.class);
+                startActivity(intent);
                 return true;
+
+//            case R.id.action_selection:
+//                //captureImage();
+//                //Toast.makeText(this, "Show selection", Toast.LENGTH_SHORT).show();
+//                return true;
 
             default:
                 // If we got here, the user's action was not recognized.
@@ -439,6 +467,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         insertAndRemovePrivate();
+        insertAndRemoveDelete();
     }
 
     // Trả ra listPhotoPrivate đã lưu trong Database (Tuong)
@@ -454,6 +483,20 @@ public class MainActivity extends AppCompatActivity {
             arrListPrivate.add(path_p);
         }
         return arrListPrivate;
+    }
+
+    public ArrayList<String> listPhotoDelete(Context context){
+
+        ArrayList<String> arrListDelete = new ArrayList<>();
+        // select data
+        Cursor dataCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (dataCursor.moveToNext()){
+            String path_p = dataCursor.getString(1); // i là cột
+            //int id = dataCursor.getInt(0);
+
+            arrListDelete.add(path_p);
+        }
+        return arrListDelete;
     }
 
     // Đưa/lấy hình ảnh/video vào/ra thư mục Private (Tuong)
@@ -480,9 +523,40 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void insertAndRemoveDelete(){
+        String pathImage = DetailPhoto.pathDelete;
+
+        Boolean check = false;
+        Cursor checkCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (checkCursor.moveToNext()){
+            String path_p = checkCursor.getString(1); // i là cột
+            if(pathImage.equals(path_p)){
+                check = true;
+                break;
+            }
+        }
+        // Chưa tồn tại trong delete
+        if(check == false && !pathImage.equals("")){
+            // Thêm vào Private
+            deleteDatabase.QueryData("INSERT INTO DeleteData VALUES(null, '"+pathImage+"')");
+
+        } else {
+            // Đã tồn tại trong private --> đưa ra ngoài Library
+            deleteDatabase.QueryData("DELETE FROM DeleteData WHERE Path = '"+ pathImage +"'");
+        }
+    }
+
     // list photo đã trừ đi các photo trong Private (Tuong)
-    public ArrayList<String> minusPrivatePhoto(List<String> plist){
-        List<String> master_list = ImagesGallery.listPhoto(libraryContext);
+    public ArrayList<String> minusPrivatePhoto(List<String> plist, int type){ //type = {1: Image, 2: Video, 0: Image and Video}
+        List<String> master_list = new ArrayList<>();
+        if (type == 0) {
+            master_list = ImagesGallery.listPhotoAndVideo(libraryContext);
+        } else if (type == 1){
+            master_list = ImagesGallery.listPhoto(libraryContext);
+        } else {
+            master_list = ImagesGallery.listVideo(libraryContext);
+        }
+
         ArrayList<String> list_result = new ArrayList<>();
 
         boolean check = false;

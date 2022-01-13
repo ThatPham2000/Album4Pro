@@ -15,6 +15,7 @@
     <!--Side Menu-->
     <string name="menu_slide_show_title">Slideshow</string>
     <string name="menu_filter_title">Filter</string>
+    <string name="menu_unfiltered">Unfiltered</string>
     <string name="menu_load_image_title">Load image from URL</string>
     <string name="menu_select_multiple_items_title">Select multiple items</string>
     <string name="menu_photo_title">Photo</string>
@@ -41,7 +42,9 @@
     <string name="color_favourite">What is your favorite color?</string>
     <string name="option_quenstion">Custom</string>
     <string name="show_image_again">The image has been displayed again in the Library</string>
-    <string name="hide_image">The image has been moved to Private</string>
+    <string name="hide_image">The item has been moved to Private</string>
+    <string name="delete_image">The item has been moved to Trash</string>
+    <string name="recovery_image">The item has been removed from Trash</string>
     <string name="enter_answer">Enter security answer</string>
     <string name="enter_answerhint">Enter your answer</string>
     <string name="confirmbutton">Confirm</string>
@@ -92,4 +95,13 @@
     <string name="policy_text_11">Requests must be submitted by contacting us via e-mail to our developer account on Google Play.</string>
     <string name="policy_text_12">You also have control over which social sites you want to share or upload.</string>
 
+    <!-- Search In firebase -->
+    <string name="search_firebase_snap">SNAP</string>
+    <string name="search_firebase_search_result">Get search results</string>
+    <string name="search_firebase_search_fail_noti">Fail to detect message</string>
+    <string name="search_firebase_search_empty_noti">No results found</string>
+
+    <string name="album_trash">Trash</string>
+
+    <string name="delete_question">Do you want to delete this item?</string>
 </resources>

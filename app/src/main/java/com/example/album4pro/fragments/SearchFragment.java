@@ -6,16 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +59,7 @@ public class SearchFragment extends Fragment {
     private Button btnFilter;
     private TextView tvStartDate;
     private TextView tvEndDate;
+    private ProgressBar progressBar;
     //private Button btnSelectDate;
 
     Calendar calendar = Calendar.getInstance();
@@ -102,6 +108,8 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -125,6 +133,8 @@ public class SearchFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view_search);
 
+        progressBar = (ProgressBar)view.findViewById(R.id.id_pb_loading_search_list);
+
         tvStartDate = view.findViewById(R.id.tv_start_date);
         tvEndDate = view.findViewById(R.id.tv_end_date);
 //        btnSelectDate = view.findViewById(R.id.btn_select_date);
@@ -147,6 +157,7 @@ public class SearchFragment extends Fragment {
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 requestPermission();
             }
         });
@@ -204,7 +215,7 @@ public class SearchFragment extends Fragment {
                 context.startActivity(intent);
             }
         });
-
+        progressBar.setVisibility(View.GONE);
         recyclerView.setAdapter(galleryAdapter);
         Configuration.getInstance().setGalleryAdapter(this.galleryAdapter);
     }
@@ -267,5 +278,25 @@ public class SearchFragment extends Fragment {
                 dateSetListener, lastSelectedYear_End, lastSelectedMonth_End, lastSelectedDayOfMonth_End);
 
         datePickerDialog.show();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        MenuItem menuItem_camera = menu.findItem(R.id.action_camera);
+        menuItem_camera.setVisible(false);
+
+        MenuItem menuItem_slideshow = menu.findItem(R.id.action_slideshow);
+        menuItem_slideshow.setVisible(false);
+
+        MenuItem menuItem_sort = menu.findItem(R.id.action_sort);
+        menuItem_sort.setVisible(false);
+
+        MenuItem menuItem_loadUrl = menu.findItem(R.id.action_load_url);
+        menuItem_loadUrl.setVisible(false);
+
+        MenuItem menuItem_trash = menu.findItem(R.id.action_load_trash);
+        menuItem_trash.setVisible(false);
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

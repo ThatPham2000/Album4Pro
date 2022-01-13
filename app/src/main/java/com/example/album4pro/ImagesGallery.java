@@ -24,16 +24,25 @@ public class ImagesGallery {
         ArrayList<String> listOfAllPhotoAndVideo = new ArrayList<>();
         String pathOfPhotoAndVideo;
 
-        uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+//        uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {
                 MediaStore.MediaColumns.DATA,
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME
         };
+
+        String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "=" +
+                MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE + " OR " +
+                MediaStore.Files.FileColumns.MEDIA_TYPE + "=" +
+                MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
+
+        uri = MediaStore.Files.getContentUri("external");
+
+
         String orderBy = MediaStore.Video.Media.DATE_TAKEN;
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
         String viewAs = sharedPreferences.getInt("view", 0) == 0 ? " DESC" : " ASC";
-        cursor = context.getContentResolver().query(uri, projection, null, null, orderBy + viewAs);
+        cursor = context.getContentResolver().query(uri, projection, selection, null, orderBy + viewAs);
 
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
 
