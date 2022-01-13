@@ -36,6 +36,15 @@
             android:layout_weight="1"
             android:background="?attr/navigationBottomColor"
             android:layout_margin="5dp"/>
+
+        <ImageButton
+            android:id="@+id/btn_delete_videos_hard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            android:layout_weight="1"
+            android:background="?attr/navigationBottomColor"
+            android:layout_margin="5dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
