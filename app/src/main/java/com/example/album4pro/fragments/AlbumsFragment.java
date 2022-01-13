@@ -94,7 +94,7 @@ public class AlbumsFragment extends Fragment {
 
     private String filepath;
 
-    private FloatingActionButton fab;
+//    private FloatingActionButton fab;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -179,13 +179,13 @@ public class AlbumsFragment extends Fragment {
         albumAdapter.setData(loadAlbums());
         rcvAlbum.setAdapter(albumAdapter);
 
-        fab = mView.findViewById(R.id.fab_new_album);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickGoToDialog();
-            }
-        });
+//        fab = mView.findViewById(R.id.fab_new_album);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onClickGoToDialog();
+//            }
+//        });
 
     }
     private void onClickGoToAlbumPage(AlbumItem album){
