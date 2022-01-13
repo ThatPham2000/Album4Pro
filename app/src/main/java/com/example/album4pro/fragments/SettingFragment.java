@@ -440,7 +440,6 @@ public class SettingFragment extends Fragment {
             arrayList.add("Xem");
             arrayList.add("Hiển Thị Hình Ảnh Theo Số Cột");
             arrayList.add("Về Chúng Tôi");
-            arrayList.add("Trợ Giúp");
             arrayList.add("Ngôn Ngữ");
             arrayList.add("Privacy Policy");
         } else {
@@ -448,7 +447,6 @@ public class SettingFragment extends Fragment {
             arrayList.add("View As");
             arrayList.add("Pictures Displayed Columns");
             arrayList.add("About Us");
-            arrayList.add("Help");
             arrayList.add("Language");
             arrayList.add("Privacy Policy");
         }
@@ -486,10 +484,6 @@ public class SettingFragment extends Fragment {
                     case "About Us":
                     case "Về Chúng Tôi":
                         startActivity(new Intent(context, AboutUsActivity.class));
-                        break;
-                    case "Help":
-                    case "Trợ Giúp":
-                        startActivity(new Intent(context, HelpActivity.class));
                         break;
                     case "Language":
                     case "Ngôn Ngữ":
