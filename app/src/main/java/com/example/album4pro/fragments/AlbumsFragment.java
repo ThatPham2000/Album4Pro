@@ -203,8 +203,9 @@ public class AlbumsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 filepath = edtAlbumName.getText().toString().trim();
-                /*File directory = context.getDir(filepath, Context.MODE_PRIVATE);*/
+
                 context.startActivity(new Intent(context, ChooseImageActivity.class).putExtra("choose", filepath));
+
                 /*File f = createFile(filepath);
                 try {
                     copyFile(new File(imagePathList.get(0)), f);
@@ -318,67 +319,22 @@ public class AlbumsFragment extends Fragment {
         /*listAlbum.add(new AlbumItem(R.drawable.icon_album,newAlbum.getName(),newAlbum.getNumber()));*/
         return listAlbum;
     }
-
-//-------------------------------------------------------------------------------------------------------
-    /*private void selectImagesFromGallery(){
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"),SELECT_PICTURES);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_PICTURES && resultCode == RESULT_OK && data != null){
-            imagePathList = new ArrayList<String>();
-            if (data.getClipData() != null){
-                int count = data.getClipData().getItemCount();
-                for (int i = 0; i < count; i++){
-                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    getImageFilePath(imageUri);
-                }
-            }
-            else if (data.getData() != null){
-                Uri imageUri = data.getData();
-                getImageFilePath(imageUri);
-            }
+    private void copyFile(File sourceFile, File destFile) throws IOException {
+        if (!sourceFile.exists()) {
+            return;
+        }
+        FileChannel source = null;
+        FileChannel destination = null;
+        source = new FileInputStream(sourceFile).getChannel();
+        destination = new FileOutputStream(destFile).getChannel();
+        if (destination != null && source != null) {
+            destination.transferFrom(source, 0, source.size());
+        }
+        if (source != null) {
+            source.close();
+        }
+        if (destination != null) {
+            destination.close();
         }
     }
-    public void getImageFilePath(Uri uri){
-        File file = new File(uri.getPath());
-        String[] filePath = file.getPath().split(":");
-        String image_id = filePath[filePath.length - 1];
-
-        Cursor cursor = context.getContentResolver().query(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                null,
-                MediaStore.Images.Media._ID + " = ? ",
-                new String[]{image_id},
-                null);
-        if (cursor != null){
-            cursor.moveToFirst();
-            imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-            imagePathList.add(imagePath);
-            cursor.close();
-        }
-    }*/
-private void copyFile(File sourceFile, File destFile) throws IOException {
-    if (!sourceFile.exists()) {
-        return;
-    }
-    FileChannel source = null;
-    FileChannel destination = null;
-    source = new FileInputStream(sourceFile).getChannel();
-    destination = new FileOutputStream(destFile).getChannel();
-    if (destination != null && source != null) {
-        destination.transferFrom(source, 0, source.size());
-    }
-    if (source != null) {
-        source.close();
-    }
-    if (destination != null) {
-        destination.close();
-    }
-}
 }

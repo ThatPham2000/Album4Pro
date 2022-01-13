@@ -2,9 +2,12 @@ package com.example.album4pro.albums;
 
 import android.Manifest;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,6 +27,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.album4pro.R;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,14 +70,55 @@ public class ChooseImageActivity extends AppCompatActivity {
         selectedImageList = new ArrayList<>();
         imageList = new ArrayList<>();
 
+        Intent intent = this.getIntent();
+        String filePath = intent.getStringExtra("choose");
+
+        File myDirectory = new File(Environment.getExternalStorageDirectory(), filePath);
+        if (!myDirectory.exists()){
+            myDirectory.mkdirs();
+        }
+
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < selectedImageList.size(); i++) {
-                    Toast.makeText(getApplicationContext(), selectedImageList.get(i), Toast.LENGTH_LONG).show();
+                   /* Toast.makeText(getApplicationContext(), selectedImageList.get(i), Toast.LENGTH_LONG).show();*/
+                    Bitmap readImage = readBitmapAndScale(selectedImageList.get(i));
+                    moveImage(readImage, myDirectory);
+                    finish();
                 }
             }
         });
+    }
+    public Bitmap readBitmapAndScale(String path){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true; //Chỉ đọc thông tin ảnh, không đọc dữ liwwuj
+        BitmapFactory.decodeFile(path,options); //Đọc thông tin ảnh
+        options.inSampleSize = 4; //Scale bitmap xuống 4 lần
+        options.inJustDecodeBounds=false; //Cho phép đọc dữ liệu ảnh ảnh
+        return BitmapFactory.decodeFile(path,options);
+    }
+    public void moveImage(Bitmap bitmap, File myDirectory){
+
+        String dateTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "IMG_" + dateTime;
+        File imgFile = new File(myDirectory, imageFileName);
+
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(imgFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG,100,fileOutputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fileOutputStream != null){
+                    fileOutputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void setImageList() {
@@ -186,7 +232,7 @@ public class ChooseImageActivity extends AppCompatActivity {
         String imageFileName = "IMG_" + dateTime + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         try {
-            image = File.createTempFile(imageFileName, ".jpg", storageDir);
+            image = File.createTempFile(imageFileName, ".png", storageDir);
         } catch (IOException e) {
             e.printStackTrace();
         }
