@@ -1,8 +1,10 @@
 package com.example.album4pro.gallery;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -18,6 +20,7 @@ import com.example.album4pro.DeleteDatabase;
 import com.example.album4pro.R;
 import com.example.album4pro.TrashActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class VideoDetailDeleteActivity extends AppCompatActivity {
@@ -27,6 +30,7 @@ public class VideoDetailDeleteActivity extends AppCompatActivity {
 
     private String videoPath = "";
     private DeleteDatabase deleteDatabase;
+    private ImageButton btnDeleteHard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,7 @@ public class VideoDetailDeleteActivity extends AppCompatActivity {
 
         videoView = (VideoView) findViewById(R.id.video_detail);
         btnDeleteBack = (ImageButton) findViewById(R.id.btn_delete_video_delete);
+        btnDeleteHard = (ImageButton)findViewById(R.id.btn_delete_videos_hard);
 
         videoPath = getIntent().getStringExtra("path");
         Uri uri = Uri.parse(videoPath);
@@ -73,6 +78,66 @@ public class VideoDetailDeleteActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnDeleteHard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Khởi tạo AlertDialog từ đối tượng Builder. Tham số là context.
+                AlertDialog.Builder builder = new AlertDialog.Builder(VideoDetailDeleteActivity.this);
+
+                // Set Message để thiết lập câu thông báo
+                builder.setMessage(R.string.delete_question)
+                        // positiveButton
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                // file uri: /storage/emulated/0/...
+                                // content uri: content://media/external/.../111
+                                //=>  convert file uri to content uri
+
+                                Intent i = new Intent(VideoDetailDeleteActivity.this, TrashActivity.class);
+
+                                File file = new File(videoPath);
+                                if (file.exists()){
+                                    file.delete();
+                                }
+
+                                removeHard(videoPath);
+                                Toast.makeText(VideoDetailDeleteActivity.this, R.string.recovery_image, Toast.LENGTH_SHORT).show();
+
+                                startActivity(i);
+                                VideoDetailDeleteActivity.this.overridePendingTransition(R.anim.default_status, R.anim.slide_out_right);
+                                finish();
+                            }
+                        })
+                        // NegativeButton
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+
+                // Tạo dialog và hiển thị
+                builder.create().show();
+            }
+        });
+    }
+
+    private void removeHard(String pathImage){
+
+        Boolean check = false;
+        Cursor checkCursor = deleteDatabase.GetData("SELECT * FROM DeleteData");
+        while (checkCursor.moveToNext()){
+            String path_p = checkCursor.getString(1); // i là cột
+            if(pathImage.equals(path_p)){
+                check = true;
+                break;
+            }
+        }
+        // Chưa tồn tại trong delete
+        if(check){
+            deleteDatabase.QueryData("DELETE FROM DeleteData WHERE Path = '"+ pathImage +"'");
+        }
     }
 
     public ArrayList<String> listPhotoDelete(){

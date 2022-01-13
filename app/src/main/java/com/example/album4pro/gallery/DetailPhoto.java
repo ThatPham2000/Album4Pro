@@ -230,22 +230,7 @@ public class DetailPhoto extends AppCompatActivity {
                                     Log.e("SET_BACKGROUND", e.toString());
                                     break;
                                 }
-                            case R.id.menu_image_rename:
-//                                File file = new File(pathImage);
-//                                Uri uri = Uri.fromFile(file);
-//                                String extension = pathImage.substring(pathImage.lastIndexOf(".") + 1);
-//                                String newPath = file.getParent() + "/YeuEmNhieu." + extension;
-//
-//                                File newFile = new File(newPath);
-//                                Log.e("NEW PATH", uri.toString());
-//                                if (file.renameTo(newFile)) {
-//                                    Toast.makeText(DetailPhoto.this, "Đổi tên thành công!", Toast.LENGTH_SHORT).show();
-//                                } else {
-//                                    Toast.makeText(DetailPhoto.this, "Đổi tên thất bại!", Toast.LENGTH_SHORT).show();
-//                                }
-                                break;
-                            case R.id.menu_image_add_album:
-                                break;
+
                             default:
                                 break;
                         }

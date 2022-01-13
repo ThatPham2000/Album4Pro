@@ -103,4 +103,6 @@
     <string name="search_firebase_search_empty_noti">Không tìm thấy kết quả</string>
 
     <string name="album_trash">Thùng rác</string>
+
+    <string name="delete_question">Bạn có muốn xóa mục này?</string>
 </resources>

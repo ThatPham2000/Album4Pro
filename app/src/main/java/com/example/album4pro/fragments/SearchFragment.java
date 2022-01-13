@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,7 @@ public class SearchFragment extends Fragment {
     private Button btnFilter;
     private TextView tvStartDate;
     private TextView tvEndDate;
+    private ProgressBar progressBar;
     //private Button btnSelectDate;
 
     Calendar calendar = Calendar.getInstance();
@@ -131,6 +133,8 @@ public class SearchFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view_search);
 
+        progressBar = (ProgressBar)view.findViewById(R.id.id_pb_loading_search_list);
+
         tvStartDate = view.findViewById(R.id.tv_start_date);
         tvEndDate = view.findViewById(R.id.tv_end_date);
 //        btnSelectDate = view.findViewById(R.id.btn_select_date);
@@ -153,6 +157,7 @@ public class SearchFragment extends Fragment {
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 requestPermission();
             }
         });
@@ -210,7 +215,7 @@ public class SearchFragment extends Fragment {
                 context.startActivity(intent);
             }
         });
-
+        progressBar.setVisibility(View.GONE);
         recyclerView.setAdapter(galleryAdapter);
         Configuration.getInstance().setGalleryAdapter(this.galleryAdapter);
     }
