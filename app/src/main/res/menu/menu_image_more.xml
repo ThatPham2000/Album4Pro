@@ -6,8 +6,8 @@
         android:title="@string/menu_rotate_title" />
     <item android:id="@+id/menu_image_set_background"
         android:title="@string/menu_set_as_wallpaper_title"/>
-    <item android:id="@+id/menu_image_rename"
-        android:title="@string/menu_rename_title"/>
-    <item android:id="@+id/menu_image_add_album"
-        android:title="@string/menu_add_to_album_title"/>
+<!--    <item android:id="@+id/menu_image_rename"-->
+<!--        android:title="@string/menu_rename_title"/>-->
+<!--    <item android:id="@+id/menu_image_add_album"-->
+<!--        android:title="@string/menu_add_to_album_title"/>-->
 </menu>
